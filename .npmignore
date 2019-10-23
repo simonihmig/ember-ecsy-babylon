@@ -12,6 +12,7 @@
 /.env*
 /.eslintignore
 /.eslintrc.js
+/.git/
 /.gitignore
 /.template-lintrc.js
 /.travis.yml
@@ -29,3 +30,5 @@
 /.node_modules.ember-try/
 /bower.json.ember-try
 /package.json.ember-try
+
+/.idea/
