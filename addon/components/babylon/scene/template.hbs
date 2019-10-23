@@ -1,0 +1,7 @@
+<div local-class="resize-detector" {{did-resize this.onResize debounce=this.resizeDebounce}} ...attributes>
+  <canvas local-class="canvas"></canvas>
+</div>
+
+{{#if this.scene}}
+  {{yield this.scene}}
+{{/if}}

@@ -1,0 +1,1 @@
+export { default } from 'ember-babylon/components/babylon/scene/component';
