@@ -2,6 +2,18 @@
 
 {{outlet}}
 
-<Babylon::Scene style="width: 640px; height: 480px;" as |scene|>
+{{!-- BABYLON demo --}}
+<Babylon::Scene style="width: 640px; height: 480px;">
   <Babylon::Base/>
 </Babylon::Scene>
+
+
+{{!-- ECSY demo --}}
+<Ecsy
+  @components={{array}}
+  @systems={{array}}
+as |World|>
+  <World.Entity as |E|>
+    {{ecsy/component E=E name="Object3D"}}
+  </World.Entity>
+</Ecsy>
