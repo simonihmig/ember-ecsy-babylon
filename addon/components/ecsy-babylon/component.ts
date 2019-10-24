@@ -37,8 +37,8 @@ export default class EcsyBabylon extends Component {
         throw new Error('Engine and/or Scene not found');
       }
 
-      core.scene.render();
       this.world.execute(core.engine.getDeltaTime(), (new Date()).getTime() - startTime);
+      core.scene.render();
     });
   }
 

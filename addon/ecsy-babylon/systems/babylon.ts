@@ -1,6 +1,6 @@
 import { Entity, System } from 'ecsy';
-import BabylonCore from '../components/babylon-core';
-import {ArcRotateCamera, Engine, Mesh, Scene, Vector3} from '@babylonjs/core';
+import { BabylonCore, Mesh } from '../components';
+import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core';
 
 const queries = {
   babylon: {
