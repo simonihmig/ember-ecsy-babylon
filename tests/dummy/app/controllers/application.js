@@ -6,5 +6,6 @@ export default class Application extends Controller {
     super.init(...arguments);
 
     this.components = [Object3D];
+    this.systems = [];
   }
 }

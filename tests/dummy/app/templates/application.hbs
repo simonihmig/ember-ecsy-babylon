@@ -10,8 +10,8 @@
 
 {{!-- ECSY demo --}}
 <Ecsy
-  @components={{array}}
-  @systems={{array}}
+  @components={{this.components}}
+  @systems={{this.systems}}
 as |World|>
   <World.Entity as |E|>
     {{ecsy/component E=E name="Object3D"}}
