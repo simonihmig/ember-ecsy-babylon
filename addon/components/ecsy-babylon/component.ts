@@ -23,7 +23,7 @@ export default class EcsyBabylon extends Component {
       canvas
     });
 
-    this.world.execute(0.1, 0);
+    this.world.execute(0, 0);
 
     const core = this.entity.getComponent(BabylonCore);
     const startTime = (new Date()).getTime();
