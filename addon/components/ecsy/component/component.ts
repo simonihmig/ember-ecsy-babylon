@@ -1,10 +1,10 @@
-import Component from '@ember/component';
 import { ComponentConstructor, Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
 import { Component as _Component } from 'ecsy';
+import { setProperties } from '@ember/object';
+import BaseComponent from 'ember-babylon/BaseComponent';
 
-// TODO: handle updates to args
-export default class EcsyComponent extends Component {
+export default class EcsyComponent extends BaseComponent<any> {
   // protected
   E!: Entity;
   name!: string;
@@ -19,7 +19,7 @@ export default class EcsyComponent extends Component {
       E,
       name,
       ...args
-    } = this;
+    } = this.args;
 
     assert('Entity `E` is not passed. Please do not use this component directly.', !!E);
     assert('`name` is not passed. Please do not use this component directly.', !!name);
@@ -36,6 +36,17 @@ export default class EcsyComponent extends Component {
     }
 
     E.addComponent(this._Component, args);
+  }
+
+  didUpdateAttrs(): void {
+    const {
+      E,
+      name,
+      ...args
+    } = this.args;
+
+    const component = this.E.getMutableComponent(this._Component);
+    setProperties(component, args);
   }
 
   willDestroy(): void {
