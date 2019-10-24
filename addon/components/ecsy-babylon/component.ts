@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 // @ts-ignore: Ignore import of compiled template
 import layout from './template';
-import { BabylonCore } from 'ember-babylon/ecsy/components';
+import { BabylonCore } from 'ember-babylon/ecsy-babylon/components';
 import { Entity, World } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
 

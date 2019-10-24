@@ -1,5 +1,5 @@
 import { Entity, System } from 'ecsy';
-import BabylonCore from 'ember-babylon/ecsy/components/babylon-core';
+import BabylonCore from '../components/babylon-core';
 import {ArcRotateCamera, Engine, Mesh, Scene, Vector3} from '@babylonjs/core';
 
 const queries = {
