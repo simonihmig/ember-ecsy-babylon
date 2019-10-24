@@ -20,8 +20,8 @@ export default class Ecsy extends Component {
     this.world = new World();
     this.createEntity = this.world.createEntity.bind(this.world);
 
-    this.components.map(c => this.world.registerComponent(c));
-    this.systems.map(s => this.world.registerComponent(s));
+    this.components.forEach(c => this.world.registerComponent(c));
+    this.systems.forEach(s => this.world.registerComponent(s));
 
     // TODO: execute this world
   }

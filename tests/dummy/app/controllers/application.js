@@ -1,11 +1,13 @@
 import Controller from '@ember/controller';
-import { Object3D } from 'ember-babylon/ecsy/components/object-3d';
+import components from 'ember-babylon/ecsy/components';
+import systems from 'ember-babylon/ecsy/systems';
 
 export default class Application extends Controller {
   init() {
+    // eslint-disable-next-line prefer-rest-params
     super.init(...arguments);
 
-    this.components = [Object3D];
-    this.systems = [];
+    this.components = components;
+    this.systems = systems;
   }
 }
