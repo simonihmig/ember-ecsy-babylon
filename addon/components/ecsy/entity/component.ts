@@ -5,6 +5,7 @@ import { Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
 
 export default class EcsyEntity extends Component {
+  tagName = '';
   layout = layout;
 
   entity!: Entity;

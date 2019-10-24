@@ -5,6 +5,8 @@ import { setProperties } from '@ember/object';
 import BaseComponent from 'ember-babylon/BaseComponent';
 
 export default class EcsyComponent extends BaseComponent<any> {
+  tagName = '';
+
   // protected
   E!: Entity;
   name!: string;

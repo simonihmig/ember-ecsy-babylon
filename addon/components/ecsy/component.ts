@@ -4,6 +4,7 @@ import layout from './template';
 import {World, ComponentConstructor, Component as EcsyComponent, SystemConstructor, System as EcsySystem } from 'ecsy';
 
 export default class Ecsy extends Component {
+  tagName = '';
   layout = layout;
 
   // public
@@ -21,8 +22,6 @@ export default class Ecsy extends Component {
     this.createEntity = this.world.createEntity.bind(this.world);
 
     this.components.forEach(c => this.world.registerComponent(c));
-    this.systems.forEach(s => this.world.registerComponent(s));
-
-    // TODO: execute this world
+    this.systems.forEach(s => this.world.registerSystem(s));
   }
 }
