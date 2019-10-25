@@ -9,17 +9,17 @@
 
 
 {{!-- ECSY demo --}}
-<Ecsy
+<EcsyBabylon
   @components={{this.components}}
   @systems={{this.systems}}
-as |World|>
-  <EcsyBabylon @world={{World.world}}>
-    {{#if this.showEntity}}
-      <World.Entity as |E|>
-        {{ecsy/component E=E name="Box" size=2 width=3}}
-      </World.Entity>
-    {{/if}}
-  </EcsyBabylon>
-</Ecsy>
+as |World E|>
+  {{! we could apply an ecsy/component here to the EcsyBabylon entity to provide e.g. Input or a Camera}}
+
+  {{#if this.showEntity}}
+    <World.Entity as |E|>
+      {{ecsy/component E=E name="Box" size=2 width=3}}
+    </World.Entity>
+  {{/if}}
+</EcsyBabylon>
 
 <button {{on "click" this.toggleEntity}}>Toggle Box</button>
