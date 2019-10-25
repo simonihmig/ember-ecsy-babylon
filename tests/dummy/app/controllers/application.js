@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import components from 'ember-babylon/ecsy-babylon/components';
 import systems from 'ember-babylon/ecsy-babylon/systems';
+import { action } from '@ember/object';
 
 export default class Application extends Controller {
   init() {
@@ -9,5 +10,10 @@ export default class Application extends Controller {
 
     this.components = components;
     this.systems = systems;
+  }
+
+  @action
+  toggleEntity() {
+    this.set('showEntity', !this.showEntity);
   }
 }

@@ -1,9 +1,10 @@
-import { Mesh as _Mesh } from '@babylonjs/core';
+import {Component, createComponentClass} from 'ecsy';
+import { Mesh } from '@babylonjs/core';
 
-export default class Mesh {
-  value?: _Mesh | null;
-
-  reset() {
-    this.value = null;
-  }
+interface MeshComponent extends Component {
+  value: Mesh | null;
 }
+
+export default createComponentClass<MeshComponent>({
+  value: { default: null }
+}, 'Mesh');

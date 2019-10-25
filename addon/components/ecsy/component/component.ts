@@ -14,8 +14,8 @@ export default class EcsyComponent extends BaseComponent<any> {
   // private
   _Component!: ComponentConstructor<_Component>;
 
-  init() {
-    super.init();
+  didInsertElement() {
+    super.didInsertElement();
 
     const {
       E,

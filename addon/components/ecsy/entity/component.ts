@@ -13,16 +13,16 @@ export default class EcsyEntity extends Component {
   // protected
   createEntity!: World['createEntity'];
 
-  init() {
-    super.init();
+  didInsertElement() {
+    super.didInsertElement();
 
     assert('A `createEntity` function must be passed to `<Ecsy::Entity/>`', !!this.createEntity);
 
-    this.entity = this.createEntity();
+    this.set('entity', this.createEntity());
   }
 
   willDestroy(): void {
-    this.entity.remove();
     // TODO: do we also remove all components from the entity?
+    this.entity.remove();
   }
 }

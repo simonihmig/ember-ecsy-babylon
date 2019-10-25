@@ -15,11 +15,11 @@ export default class Ecsy extends Component {
   world!: World;
   createEntity!: World['createEntity'];
 
-  init() {
-    super.init();
+  didInsertElement() {
+    super.didInsertElement();
 
-    this.world = new World();
-    this.createEntity = this.world.createEntity.bind(this.world);
+    this.set('world', new World());
+    this.set('createEntity', this.world.createEntity.bind(this.world));
 
     this.components.forEach(c => this.world.registerComponent(c));
     this.systems.forEach(s => this.world.registerSystem(s));

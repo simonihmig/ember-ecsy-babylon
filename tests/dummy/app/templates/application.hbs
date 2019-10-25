@@ -15,7 +15,11 @@
 as |World|>
   <EcsyBabylon @world={{World.world}}>
     <World.Entity as |E|>
-      {{ecsy/component E=E name="Object3D"}}
+      {{#if this.showEntity}}
+        {{ecsy/component E=E name="Box" size=2 width=3}}
+      {{/if}}
     </World.Entity>
   </EcsyBabylon>
 </Ecsy>
+
+<button {{on "click" this.toggleEntity}}>Toggle Box</button>
