@@ -1,9 +1,10 @@
 import { Entity, System } from 'ecsy';
 import { BabylonCore, Mesh } from '../components';
 import { Scene } from '@babylonjs/core';
+import { BabylonCoreComponent } from '../components/babylon-core';
 
 export default class MeshSystem extends System {
-  core?: BabylonCore;
+  core?: BabylonCoreComponent;
 
   execute() {
     // TODO: abstract this core querying in a BaseSystem class
@@ -15,25 +16,33 @@ export default class MeshSystem extends System {
       this.core = undefined;
     });
 
-    if (this.core && this.core.scene) {
-      const scene = this.core.scene;
-
-      this.queries.meshes.added.forEach((e: Entity) => this.setup(e, scene));
-      this.queries.meshes.removed.forEach((e: Entity) => this.remove(e, scene));
+    if(!this.core || !this.core.scene) {
+      throw new Error('No BabylonCore Component found. Have you instantiated the right Root Ecsy component?');
     }
+
+    const scene = this.core.scene;
+    this.queries.meshes.added.forEach((e: Entity) => this.setup(e, scene));
+    this.queries.meshes.removed.forEach((e: Entity) => this.remove(e));
   }
 
   setup(entity: Entity, scene: Scene) {
-    console.log('adding mesh');
     const meshComponent = entity.getComponent(Mesh);
+
+    if(!meshComponent.value){
+      throw new Error('Failed to add Mesh Component. No valid Mesh found.');
+    }
+
     scene.addMesh(meshComponent.value);
   }
 
-  remove(entity: Entity, scene: Scene) {
-    console.log('removing mesh', entity);
-    const meshComponent = entity.getComponent(Mesh);
-    console.log(entity, meshComponent, entity.hasRemovedComponent(Mesh), entity.getRemovedComponent(Mesh));
-    scene.removeMesh(meshComponent.value);
+  remove(entity: Entity) {
+    const meshComponent = entity.getRemovedComponent(Mesh);
+
+    if (!meshComponent || !meshComponent.value) {
+      throw new Error('No removed Mesh Component found. Make sure this system is registered at the correct time.');
+    }
+
+    meshComponent.value.dispose();
   }
 }
 

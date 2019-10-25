@@ -8,6 +8,6 @@ export { default as Box } from './box';
 
 export default [
   Babylon,
-  Mesh,
-  Box
+  Box,
+  Mesh
 ];

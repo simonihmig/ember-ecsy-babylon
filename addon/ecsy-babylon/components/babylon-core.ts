@@ -1,7 +1,7 @@
 import { Camera, Engine, Scene } from '@babylonjs/core';
 import { createComponentClass, Component } from 'ecsy';
 
-interface BabylonCoreComponent extends Component {
+export interface BabylonCoreComponent extends Component {
   canvas: HTMLCanvasElement;
   defaultCamera: Camera;
   engine: Engine;
