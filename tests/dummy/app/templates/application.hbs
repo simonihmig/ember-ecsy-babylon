@@ -14,11 +14,11 @@
   @systems={{this.systems}}
 as |World|>
   <EcsyBabylon @world={{World.world}}>
-    <World.Entity as |E|>
-      {{#if this.showEntity}}
+    {{#if this.showEntity}}
+      <World.Entity as |E|>
         {{ecsy/component E=E name="Box" size=2 width=3}}
-      {{/if}}
-    </World.Entity>
+      </World.Entity>
+    {{/if}}
   </EcsyBabylon>
 </Ecsy>
 
