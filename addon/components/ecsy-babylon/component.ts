@@ -1,17 +1,16 @@
-import Component from '@ember/component';
+import Ecsy from '../ecsy/component';
 // @ts-ignore: Ignore import of compiled template
 import layout from './template';
 import { BabylonCore } from 'ember-babylon/ecsy-babylon/components';
-import { Entity, World } from 'ecsy';
+import { Entity } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
 
-export default class EcsyBabylon extends Component {
+export default class EcsyBabylon extends Ecsy {
   tagName = '';
   layout = layout;
   guid = guidFor(this);
 
   entity!: Entity;
-  world!: World;
 
   didInsertElement() {
     super.didInsertElement();
