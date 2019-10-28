@@ -13,17 +13,15 @@
   @components={{this.components}}
   @systems={{this.systems}}
 as |World E|>
-  <EcsyBabylon @world={{World.world}}>
-    {{#if this.showEntity}}
-      <World.Entity as |E|>
-        {{ecsy/component E=E name="Box" size=2 width=3}}
-      </World.Entity>
-    {{/if}}
-
+  {{#if this.showEntity}}
     <World.Entity as |E|>
-      {{ecsy/component E=E name="Sphere" diameter=3}}
+      {{ecsy/component E=E name="Box" size=2 width=3}}
     </World.Entity>
-  </EcsyBabylon>
-</Ecsy>
+  {{/if}}
+
+  <World.Entity as |E|>
+    {{ecsy/component E=E name="Sphere" diameter=3}}
+  </World.Entity>
+</EcsyBabylon>
 
 <button {{on "click" this.toggleEntity}}>Toggle Box</button>
