@@ -13,7 +13,7 @@ export default class BabylonSystem extends System {
   setup(entity: Entity) {
     const core = entity.getMutableComponent(BabylonCore);
 
-    core.engine = new Engine(core.canvas, true);
+    core.engine = new Engine(core.canvas, true, {}, false);
     core.scene = new Scene(core.engine);
 
     core.defaultCamera = new ArcRotateCamera('defaultCamera', 0, 0, 10, new Vector3(0, 0, 0), core.scene);

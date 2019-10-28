@@ -14,14 +14,18 @@
   @systems={{this.systems}}
 as |World|>
   <EcsyBabylon @world={{World.world}}>
+    <World.Entity as |E|>
+      {{ecsy/component E=E name="HemisphericLight" direction=(vector 1 1 0) intensity=0.7}}
+      {{ecsy/component E=E name="PointLight" direction=(vector 0 1 -1) intensity=0.3}}
+    </World.Entity>
     {{#if this.showEntity}}
       <World.Entity as |E|>
-        {{ecsy/component E=E name="Box" size=2 width=3}}
+        {{ecsy/component E=E name="Box" size=0.5 width=0.75}}
       </World.Entity>
     {{/if}}
 
     <World.Entity as |E|>
-      {{ecsy/component E=E name="Sphere" diameter=3}}
+      {{ecsy/component E=E name="Sphere" diameter=0.75}}
     </World.Entity>
   </EcsyBabylon>
 </Ecsy>
