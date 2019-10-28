@@ -13,13 +13,17 @@
   @components={{this.components}}
   @systems={{this.systems}}
 as |World E|>
-  {{! we could apply an ecsy/component here to the EcsyBabylon entity to provide e.g. Input or a Camera}}
+  <EcsyBabylon @world={{World.world}}>
+    {{#if this.showEntity}}
+      <World.Entity as |E|>
+        {{ecsy/component E=E name="Box" size=2 width=3}}
+      </World.Entity>
+    {{/if}}
 
-  {{#if this.showEntity}}
     <World.Entity as |E|>
-      {{ecsy/component E=E name="Box" size=2 width=3}}
+      {{ecsy/component E=E name="Sphere" diameter=3}}
     </World.Entity>
-  {{/if}}
-</EcsyBabylon>
+  </EcsyBabylon>
+</Ecsy>
 
 <button {{on "click" this.toggleEntity}}>Toggle Box</button>
