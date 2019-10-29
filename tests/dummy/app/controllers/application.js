@@ -15,8 +15,8 @@ export default class Application extends Controller {
   rotateValue = 45;
 
   @action
-  rotate() {
-    this.set('rotateValue', this.rotateValue + 1);
+  rotate(direction, degrees) {
+    this.set('rotateValue', direction === 'left' ? this.rotateValue - degrees : this.rotateValue + degrees);
   }
 
   @action

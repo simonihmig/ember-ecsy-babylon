@@ -27,5 +27,6 @@ as |World E|>
 
 <div local-class="buttons">
   <button {{on "click" this.toggleEntity}}>Toggle Box</button>
-  <button {{on "click" this.rotate}}>Rotate</button>
+  <button {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
+  <button {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>
 </div>
