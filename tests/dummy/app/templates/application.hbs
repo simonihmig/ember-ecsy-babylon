@@ -14,13 +14,18 @@ as |World E|>
 
   {{#if this.showEntity}}
     <World.Entity as |E|>
-      {{ecsy/component E=E name="Box" size=0.5 width=0.75}}
+      {{ecsy/component E=E name="Box" size=0.5}}
+      {{ecsy/component E=E name="Rotation" value=(vector 0 this.rotateValue 0)}}
     </World.Entity>
   {{/if}}
 
   <World.Entity as |E|>
     {{ecsy/component E=E name="Sphere" diameter=0.75}}
+    {{ecsy/component E=E name="Position" value=(vector 1 2 1)}}
   </World.Entity>
 </EcsyBabylon>
 
-<button {{on "click" this.toggleEntity}}>Toggle Box</button>
+<div local-class="buttons">
+  <button {{on "click" this.toggleEntity}}>Toggle Box</button>
+  <button {{on "click" this.rotate}}>Rotate</button>
+</div>

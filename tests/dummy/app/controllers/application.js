@@ -12,6 +12,13 @@ export default class Application extends Controller {
     this.systems = systems;
   }
 
+  rotateValue = 45;
+
+  @action
+  rotate() {
+    this.set('rotateValue', this.rotateValue + 1);
+  }
+
   @action
   toggleEntity() {
     this.set('showEntity', !this.showEntity);
