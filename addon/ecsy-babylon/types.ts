@@ -11,6 +11,19 @@ function copy<T extends Component, K extends keyof T>(src: T, dst: T, key: K): v
 }
 
 export default {
+  OptionalNumber: createType({
+    baseType: Number,
+    isSimpleType: true,
+    create: (defaultValue: number | undefined): number | undefined => {
+      return defaultValue;
+    },
+    reset: <T extends Component, K extends keyof T>(src: T, key: K, defaultValue: number | undefined) => {
+      src[key] = defaultValue;
+    },
+    clear: <T extends Component, K extends keyof T>(src: T, key: K) => {
+      src[key] = undefined;
+    }
+  }),
   Vector2: createType({
     baseType: Vector2,
     create: (defaultValue: Vector2): Vector2 => {

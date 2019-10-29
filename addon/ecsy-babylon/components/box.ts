@@ -1,5 +1,6 @@
 import { Component, createComponentClass } from 'ecsy';
-import { Mesh } from "@babylonjs/core";
+import { Mesh } from '@babylonjs/core';
+import Types from '../types';
 
 interface BoxComponent extends Component {
   size: number;
@@ -15,9 +16,9 @@ interface BoxComponent extends Component {
 
 export default createComponentClass<BoxComponent>({
   size: { default: 1 },
-  width: { default: undefined },
-  height: { default: undefined },
-  depth: { default: undefined},
+  width: { default: undefined , type: Types.OptionalNumber },
+  height: { default: undefined, type: Types.OptionalNumber },
+  depth: { default: undefined, type: Types.OptionalNumber },
   updatable: { default: false },
   sideOrientation: { default: Mesh.DEFAULTSIDE }
 }, 'Box');

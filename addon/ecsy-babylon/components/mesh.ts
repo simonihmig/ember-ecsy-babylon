@@ -1,4 +1,4 @@
-import {Component, createComponentClass} from 'ecsy';
+import { Component, createComponentClass } from 'ecsy';
 import { Mesh } from '@babylonjs/core';
 
 interface MeshComponent extends Component {
