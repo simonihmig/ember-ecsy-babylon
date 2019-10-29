@@ -4,6 +4,12 @@ import { Vector2, Vector3, Vector4, Color3, Color4 } from '@babylonjs/core';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Component = { [key: string]: any };
 
+// TODO: copy seems to be necessary for Vector/Color to work properly, but it is only used
+// when initially adding the component, not on subsequent updates. Requires more research.
+function copy<T extends Component, K extends keyof T>(src: T, dst: T, key: K): void {
+  src[key].copyFrom(dst[key]);
+}
+
 export default {
   Vector2: createType({
     baseType: Vector2,
@@ -23,7 +29,8 @@ export default {
     },
     clear: <T extends Component, K extends keyof T>(src: T, key: K): void => {
       src[key].set(0, 0);
-    }
+    },
+    copy
   }),
   Vector3: createType({
     baseType: Vector3,
@@ -43,7 +50,8 @@ export default {
     },
     clear: <T extends Component, K extends keyof T>(src: T, key: K): void => {
       src[key].set(0, 0, 0);
-    }
+    },
+    copy
   }),
   Vector4: createType({
     baseType: Vector4,
@@ -63,7 +71,8 @@ export default {
     },
     clear: <T extends Component, K extends keyof T>(src: T, key: K): void => {
       src[key].set(0, 0, 0, 0);
-    }
+    },
+    copy
   }),
   Color3: createType({
     baseType: Color3,
@@ -83,7 +92,8 @@ export default {
     },
     clear: <T extends Component, K extends keyof T>(src: T, key: K): void => {
       src[key].set(0, 0, 0);
-    }
+    },
+    copy
   }),
   Color4: createType({
     baseType: Color4,
@@ -103,6 +113,7 @@ export default {
     },
     clear: <T extends Component, K extends keyof T>(src: T, key: K): void => {
       src[key].set(0, 0, 0, 0);
-    }
+    },
+    copy
   })
 }

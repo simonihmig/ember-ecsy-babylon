@@ -10,7 +10,5 @@ interface HemisphericLightComponent extends LightComponent {
 
 export default createComponentClass<HemisphericLightComponent>({
   ...schema,
-  direction: { default: new Vector3(0, 1, 0), type: Types.Vector3 },
-  intensity: { default: 1 },
-  light: { default: undefined },
+  direction: { default: new Vector3(0, 1, 0), type: Types.Vector3 }
 }, 'HemisphericLight');
