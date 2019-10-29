@@ -1,7 +1,6 @@
 import { ComponentConstructor, Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
 import { Component as _Component } from 'ecsy';
-import { setProperties } from '@ember/object';
 import BaseComponent from 'ember-babylon/BaseComponent';
 
 export default class EcsyComponent extends BaseComponent<any> {
@@ -41,6 +40,8 @@ export default class EcsyComponent extends BaseComponent<any> {
   }
 
   didUpdateAttrs(): void {
+    super.didUpdateAttrs();
+
     const {
       E,
       name,
@@ -48,7 +49,7 @@ export default class EcsyComponent extends BaseComponent<any> {
     } = this.args;
 
     const component = this.E.getMutableComponent(this._Component);
-    setProperties(component, args);
+    Object.assign(component, args);
   }
 
   willDestroy(): void {

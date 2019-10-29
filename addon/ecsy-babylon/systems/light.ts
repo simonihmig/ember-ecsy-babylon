@@ -1,7 +1,6 @@
 import { ComponentConstructor, Entity, System} from 'ecsy';
 import { HemisphericLight, PointLight } from '../components';
 import { HemisphericLight as _HemisphericLight, PointLight as _PointLight, Light } from '@babylonjs/core';
-import { setProperties } from '@ember/object';
 
 export interface LightConstructor<T extends Light> {
   new (...args: any): T;
@@ -24,7 +23,7 @@ export default class LightSystem extends System {
     } = component;
 
     component.light = new _Light(component.name);
-    setProperties(component.light, options);
+    Object.assign(component.light, options);
   }
 
   remove(entity: Entity, Component: ComponentConstructor<any>) {
