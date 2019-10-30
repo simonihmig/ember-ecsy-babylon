@@ -1,5 +1,5 @@
 import { Entity, System } from 'ecsy';
-import { BabylonCore, Mesh, Transformable } from '../components';
+import { BabylonCore, Mesh, TransformNode } from '../components';
 import { Scene } from '@babylonjs/core';
 import { BabylonCoreComponent } from '../components/babylon-core';
 
@@ -32,8 +32,10 @@ export default class MeshSystem extends System {
       throw new Error('Failed to add Mesh Component. No valid Mesh found.');
     }
 
+    const transformNodeComponent = entity.getComponent(TransformNode);
+    meshComponent.value.parent = transformNodeComponent.value;
+
     scene.addMesh(meshComponent.value);
-    entity.addComponent(Transformable);
   }
 
   remove(entity: Entity) {
@@ -43,7 +45,6 @@ export default class MeshSystem extends System {
       throw new Error('No removed Mesh Component found. Make sure this system is registered at the correct time.');
     }
 
-    entity.removeComponent(Transformable);
     meshComponent.value.dispose();
   }
 }

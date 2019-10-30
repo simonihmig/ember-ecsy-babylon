@@ -3,8 +3,22 @@ import Component from '@ember/component';
 import layout from './template';
 import { Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
+import EntityComponent from 'ember-babylon/ecsy/components/entity';
+
+function findParentEntity(component: Component) {
+  // @ts-ignore: ignore private API usage
+  let pointer = component.parentView;
+  while (pointer) {
+    if (pointer.__ECSY_ENTITY__) {
+      return pointer;
+    }
+    pointer = pointer.parentView;
+  }
+}
 
 export default class EcsyEntity extends Component {
+  __ECSY_ENTITY__ = true;
+
   tagName = '';
   layout = layout;
 
@@ -18,11 +32,18 @@ export default class EcsyEntity extends Component {
 
     assert('A `createEntity` function must be passed to `<Ecsy::Entity/>`', !!this.createEntity);
 
-    this.set('entity', this.createEntity());
+    const parentEntityComponent = findParentEntity(this);
+    const parentEntity = parentEntityComponent ? parentEntityComponent.entity : null;
+
+    assert('Parent <Entity/> does not have a valid ECSY Entity component.', (!parentEntityComponent || !!parentEntity));
+
+    const entity = this.createEntity();
+    entity.addComponent(EntityComponent, { parent: parentEntity });
+
+    this.set('entity', entity);
   }
 
   willDestroy(): void {
-    // TODO: do we also remove all components from the entity?
     this.entity.remove();
   }
 }

@@ -1,7 +1,8 @@
 import Component from '@ember/component';
 // @ts-ignore: Ignore import of compiled template
 import layout from './template';
-import {World, ComponentConstructor, Component as EcsyComponent, SystemConstructor, System as EcsySystem } from 'ecsy';
+import { World, ComponentConstructor, Component as EcsyComponent, SystemConstructor, System as EcsySystem } from 'ecsy';
+import EntityComponent from 'ember-babylon/ecsy/components/entity';
 
 export default class Ecsy extends Component {
   tagName = '';
@@ -20,6 +21,8 @@ export default class Ecsy extends Component {
 
     this.set('world', new World());
     this.set('createEntity', this.world.createEntity.bind(this.world));
+
+    this.world.registerComponent(EntityComponent);
 
     this.components.forEach(c => this.world.registerComponent(c));
     this.systems.forEach(s => this.world.registerSystem(s));
