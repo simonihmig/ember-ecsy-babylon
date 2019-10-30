@@ -23,9 +23,7 @@
     "postpublish": "ember ts:clean"
   },
   "dependencies": {
-    "@babylonjs/core": "^4.0.3",
-    "@babylonjs/inspector": "^4.0.3",
-    "@babylonjs/loaders": "^4.0.3",
+    "@babylonjs/core": "^4.1.0-alpha.27",
     "ecsy": "^0.1.4",
     "ember-auto-import": "^1.5.3",
     "ember-cli-babel": "^7.11.1",

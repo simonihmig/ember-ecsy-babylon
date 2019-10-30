@@ -7,7 +7,7 @@ import Sphere from './sphere';
 import HemisphericLight from './hemispheric-light';
 import PointLight from './point-light';
 
-import Transformable from './transformable';
+import TransformNode from './transform-node';
 import Position from './position';
 import Rotation from './rotation';
 
@@ -20,18 +20,18 @@ export { default as Sphere } from './sphere';
 export { default as HemisphericLight } from './hemispheric-light';
 export { default as PointLight } from './point-light';
 
-export { default as Transformable } from './transformable';
+export { default as TransformNode } from './transform-node';
 export { default as Position } from './position';
 export { default as Rotation } from './rotation';
 
 export default [
   BabylonCore,
+  TransformNode,
   Mesh,
   Box,
   Sphere,
   HemisphericLight,
   PointLight,
-  Transformable,
   Position,
   Rotation,
 ];
