@@ -36,9 +36,10 @@ export default class TransformSystem extends System {
   }
 
   remove (entity: Entity) {
-    const transformNodeComponent = entity.getComponent(TransformNode);
+    // the TransformNode component might already be removed if the Entity was removed
+    const transformNodeComponent = entity.getComponent(TransformNode) || entity.getRemovedComponent(TransformNode);
 
-    if (!transformNodeComponent.value) {
+    if (!transformNodeComponent || !transformNodeComponent.value) {
       throw new Error('TransformNode Component does not have a valid TransformNode instance.');
     }
 

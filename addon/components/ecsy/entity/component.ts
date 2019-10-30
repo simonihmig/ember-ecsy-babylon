@@ -49,7 +49,6 @@ export default class EcsyEntity extends Component {
   }
 
   willDestroy(): void {
-    // TODO: do we also remove all components from the entity?
     this.entity.remove();
   }
 }
