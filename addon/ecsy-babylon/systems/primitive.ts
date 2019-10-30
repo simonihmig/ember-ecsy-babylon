@@ -21,7 +21,7 @@ export default class PrimitiveSystem extends System {
       scene.removeMesh(mesh);
     }
 
-    entity.addComponent(Mesh, { value: mesh });
+    entity.addComponent(Mesh, { value: mesh, dispose: true });
   }
 
   remove(entity: Entity) {

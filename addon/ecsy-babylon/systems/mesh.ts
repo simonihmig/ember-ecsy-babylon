@@ -22,7 +22,7 @@ export default class MeshSystem extends System {
 
     const scene = this.core.scene;
     this.queries.meshes.added.forEach((e: Entity) => this.setup(e, scene));
-    this.queries.meshes.removed.forEach((e: Entity) => this.remove(e));
+    this.queries.meshes.removed.forEach((e: Entity) => this.remove(e, scene));
   }
 
   setup(entity: Entity, scene: Scene) {
@@ -38,14 +38,19 @@ export default class MeshSystem extends System {
     scene.addMesh(meshComponent.value);
   }
 
-  remove(entity: Entity) {
+  remove(entity: Entity, scene: Scene) {
     const meshComponent = entity.getRemovedComponent(Mesh);
 
     if (!meshComponent || !meshComponent.value) {
       throw new Error('No removed Mesh Component found. Make sure this system is registered at the correct time.');
     }
 
-    meshComponent.value.dispose();
+    if (meshComponent.dispose) {
+      meshComponent.value.dispose();
+    } else {
+      meshComponent.value.parent = null;
+      scene.removeMesh(meshComponent.value);
+    }
   }
 }
 

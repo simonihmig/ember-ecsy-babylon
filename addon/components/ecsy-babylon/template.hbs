@@ -4,5 +4,6 @@
   {{yield (hash
     world=this.world
     Entity=(component "ecsy/entity" createEntity=this.createEntity)
+    LoadGltf=(component "ecsy-babylon/load-gltf" E=this.entity)
   ) this.entity}}
 {{/if}}
