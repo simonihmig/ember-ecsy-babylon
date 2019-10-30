@@ -6,6 +6,7 @@ import { Entity } from 'ecsy';
 import { BabylonCore } from 'ember-babylon/ecsy-babylon/components';
 import { AssetContainer, SceneLoader } from '@babylonjs/core';
 import { restartableTask, task } from 'ember-concurrency-decorators';
+import { assert } from '@ember/debug';
 
 interface EcsyBabylonLoadGltfArgs {
   rootUrl: string;
@@ -26,7 +27,9 @@ export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGl
   didInsertElement(): void {
     super.didInsertElement();
 
+    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!this.E);
     const core = this.E.getComponent(BabylonCore);
+    assert('BabylonCore could not be found', !!core);
     this.set('core', core);
 
     this.loadModel.perform(this.args.rootUrl, this.args.fileName);
