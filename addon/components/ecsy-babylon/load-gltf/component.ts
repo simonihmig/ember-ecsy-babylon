@@ -1,18 +1,20 @@
-import Component from '@ember/component';
+import BaseComponent from 'ember-babylon/BaseComponent';
 // @ts-ignore: Ignore import of compiled template
 import layout from './template';
 import '@babylonjs/loaders/glTF';
 import { Entity } from 'ecsy';
 import { BabylonCore } from 'ember-babylon/ecsy-babylon/components';
 import { AssetContainer, SceneLoader } from '@babylonjs/core';
+import { restartableTask, task } from 'ember-concurrency-decorators';
 
-export default class EcsyBabylonLoadGltf extends Component {
+interface EcsyBabylonLoadGltfArgs {
+  rootUrl: string;
+  fileName: string;
+}
+
+export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGltfArgs> {
   tagName = '';
   layout = layout;
-
-  // public
-  rootUrl = '/';
-  fileName = '';
 
   // protected
   assetContainer?: AssetContainer;
@@ -27,10 +29,17 @@ export default class EcsyBabylonLoadGltf extends Component {
     const core = this.E.getComponent(BabylonCore);
     this.set('core', core);
 
-    this.loadModel(this.rootUrl, this.fileName);
+    this.loadModel.perform(this.args.rootUrl, this.args.fileName);
   }
 
-  async loadModel(rootUrl: string, fileName: string): Promise<void> {
+  didUpdateAttrs(): void {
+    super.didUpdateAttrs();
+
+    this.loadModel.perform(this.args.rootUrl, this.args.fileName);
+  }
+
+  @restartableTask
+  loadModel = task(function* (this: EcsyBabylonLoadGltf, rootUrl: string, fileName: string) {
     const {
       scene
     } = this.core;
@@ -40,12 +49,12 @@ export default class EcsyBabylonLoadGltf extends Component {
     }
 
     try {
-      const container = await SceneLoader.LoadAssetContainerAsync(rootUrl, fileName, scene);
+      const container = yield SceneLoader.LoadAssetContainerAsync(rootUrl, fileName, scene);
       this.set('assetContainer', container);
     } catch(e) {
       throw e;
     }
-  }
+  });
 
   willDestroy(): void {
     const ac = this.assetContainer;
