@@ -815,11 +815,20 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@^4.1.0-alpha.27":
+"@babylonjs/core@4.1.0-alpha.27", "@babylonjs/core@^4.1.0-alpha.27":
   version "4.1.0-alpha.27"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.1.0-alpha.27.tgz#a187f119c0255b620e71d1a5477cb915f87c5aba"
   integrity sha512-kjIdv3kXaLUBmCmZuxgExcJM6Z14BSGbADbfOqhSFPJfiX2qZShZRkmGlx9N1AlwlM4FA++DiftJel8FoHp0Pw==
   dependencies:
+    tslib "^1.9.3"
+
+"@babylonjs/loaders@^4.1.0-alpha.27":
+  version "4.1.0-alpha.27"
+  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-4.1.0-alpha.27.tgz#ecb47bf271dfd04a6d1b259322616f03cf829272"
+  integrity sha512-VXSB4GbN7u7tibqRLJhxwHp2DwT2S2QSm3MZBD8YBEV5wJ3rBMkb8Ql2vf8z8FozRjwnmfFaaRlmcZ0rmdFe7w==
+  dependencies:
+    "@babylonjs/core" "4.1.0-alpha.27"
+    babylonjs-gltf2interface "4.1.0-alpha.27"
     tslib "^1.9.3"
 
 "@cnakazawa/watch@^1.0.3":
@@ -2383,6 +2392,11 @@ babylon@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
   integrity sha512-q/UEjfGJ2Cm3oKV71DJz9d25TPnq5rhBVL2Q4fA5wcC3jcrdn7+SssEybFIxwAvvP+YCsCYNKughoF33GxgycQ==
+
+babylonjs-gltf2interface@4.1.0-alpha.27:
+  version "4.1.0-alpha.27"
+  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-4.1.0-alpha.27.tgz#7113f10599895cef5540cd22b28ad9bd062f688a"
+  integrity sha512-/yhtNisnj7gXJ4kTPKWnD/tIVGHNv/OIelLrnub6H4SQxOEIuDxL2QVzhNlIuGnrvzGZu0et4Ccap55MUZUAVg==
 
 backbone@^1.1.2:
   version "1.4.0"

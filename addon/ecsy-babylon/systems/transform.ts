@@ -43,7 +43,8 @@ export default class TransformSystem extends System {
       throw new Error('TransformNode Component does not have a valid TransformNode instance.');
     }
 
-    transformNodeComponent.value.dispose();
+    // we do not recursively dispose of all children of this transform node, they will clean up themselves
+    transformNodeComponent.value.dispose(true);
     entity.removeComponent(TransformNode);
   }
 
