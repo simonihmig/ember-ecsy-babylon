@@ -3,6 +3,7 @@ import EntityComponent from 'ember-babylon/ecsy/components/entity';
 import { Position, Rotation, TransformNode } from '../components';
 import { TransformNode as BabylonTransformNode } from '@babylonjs/core';
 import { guidFor } from '@ember/object/internals';
+import { assert } from '@ember/debug';
 
 export default class TransformSystem extends System {
   execute() {
@@ -23,13 +24,11 @@ export default class TransformSystem extends System {
     const transformNode = new BabylonTransformNode(`${guidFor(entity)}__TransformNode`);
 
     if (parentEntity) {
-      const parentTransformNode = parentEntity.getComponent(TransformNode);
+      const parentTransformNodeComponent = parentEntity.getComponent(TransformNode);
 
-      if (!parentTransformNode.value) {
-        throw new Error('Parent Entity does not have a valid TransformNode');
-      }
+      assert('The parent <Entity/> does not have a valid TransformNode ECSY component', !!(parentTransformNodeComponent && parentTransformNodeComponent.value));
 
-      transformNode.parent = parentTransformNode.value;
+      transformNode.parent = parentTransformNodeComponent.value;
     }
 
     entity.addComponent(TransformNode, { value: transformNode });
@@ -47,13 +46,12 @@ export default class TransformSystem extends System {
     entity.removeComponent(TransformNode);
   }
 
-  getTransformNode (entity: Entity) {
+  getTransformNode (entity: Entity): BabylonTransformNode {
     const transformNodeComponent = entity.getComponent(TransformNode);
 
-    if(!transformNodeComponent.value){
-      throw new Error('No valid Mesh found on this entity.');
-    }
+    assert('No valid ECSY TransformNode component found on this Entity.', !!(transformNodeComponent && transformNodeComponent.value));
 
+    // @ts-ignore
     return transformNodeComponent.value;
   }
 
