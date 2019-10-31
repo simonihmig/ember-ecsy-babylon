@@ -4,7 +4,7 @@ import layout from './template';
 import '@babylonjs/loaders/glTF';
 import { Entity } from 'ecsy';
 import { BabylonCore } from 'ember-babylon/ecsy-babylon/components';
-import { AssetContainer, SceneLoader } from '@babylonjs/core';
+import { AssetContainer, Mesh, SceneLoader } from '@babylonjs/core';
 import { restartableTask, task } from 'ember-concurrency-decorators';
 import { assert } from '@ember/debug';
 
@@ -14,15 +14,17 @@ interface EcsyBabylonLoadGltfArgs {
 }
 
 export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGltfArgs> {
-  tagName = '';
   layout = layout;
 
   // protected
-  assetContainer?: AssetContainer;
+  assets?: {
+    meshes: Mesh[];
+  };
 
   // private
   E!: Entity; // core entity instance
   core?: BabylonCore;
+  assetContainer?: AssetContainer;
 
   didInsertElement(): void {
     super.didInsertElement();
@@ -47,25 +49,34 @@ export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGl
       scene
     } = this.core;
 
-    if(this.assetContainer){
-      throw new Error(`The assetContainer was already loaded!`);
-    }
+    this.cleanup();
 
-    try {
-      const container = yield SceneLoader.LoadAssetContainerAsync(rootUrl, fileName, scene);
-      this.set('assetContainer', container);
-    } catch(e) {
-      throw e;
-    }
+    const assetContainer = yield SceneLoader.LoadAssetContainerAsync(rootUrl, fileName, scene);
+    this.setup(assetContainer);
   });
 
-  willDestroy(): void {
+  setup (ac: AssetContainer) {
+    this.set('assetContainer', ac);
+    this.set('assets', {
+      meshes: ac.meshes,
+      materials: ac.materials
+    });
+  }
+
+  cleanup () {
+    this.set('assets', null);
     const ac = this.assetContainer;
 
     if (ac) {
-      // make sure yielded contents are destroyed before disposing
       this.set('assetContainer', null);
       ac.dispose();
     }
+  }
+
+  willDestroy(): void {
+    this.loadModel.cancelAll();
+    this.cleanup();
+
+    super.willDestroy();
   }
 }

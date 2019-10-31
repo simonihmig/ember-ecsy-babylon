@@ -3,14 +3,13 @@ import { assert } from '@ember/debug';
 import { Component as _Component } from 'ecsy';
 import BaseComponent from 'ember-babylon/BaseComponent';
 
-export default class EcsyComponent extends BaseComponent<any> {
-  tagName = '';
-
-  // protected
-  E!: Entity;
-  name!: string;
-
+interface EcsyComponentArgs {
   // private
+  E: Entity;
+  name: string;
+}
+
+export default class EcsyComponent extends BaseComponent<EcsyComponentArgs> {
   _Component!: ComponentConstructor<_Component>;
 
   didInsertElement() {
@@ -30,10 +29,10 @@ export default class EcsyComponent extends BaseComponent<any> {
 
     // @ts-ignore: private API
     const components = world.componentsManager.Components;
-    this._Component = components[this.name];
+    this._Component = components[name];
 
     if (!this._Component) {
-      throw new Error(`Component "${this.name}" not found.`);
+      throw new Error(`Component "${name}" not found.`);
     }
 
     E.addComponent(this._Component, args);
@@ -48,13 +47,15 @@ export default class EcsyComponent extends BaseComponent<any> {
       ...args
     } = this.args;
 
-    const component = this.E.getMutableComponent(this._Component);
+    const component = E.getMutableComponent(this._Component);
     Object.assign(component, args);
   }
 
   willDestroy(): void {
     if (this._Component) {
-      this.E.removeComponent(this._Component);
+      this.args.E.removeComponent(this._Component);
     }
+
+    super.willDestroy();
   }
 }

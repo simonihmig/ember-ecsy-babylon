@@ -29,18 +29,11 @@ export default class BabylonSystem extends System {
   remove(entity: Entity) {
     window.removeEventListener('resize', this.listener);
 
-    const core = entity.getMutableComponent(BabylonCore);
+    const core = entity.getRemovedComponent(BabylonCore);
 
-    if (core.scene) {
-      core.scene.dispose();
-    }
-
-    if (core.engine) {
-      core.engine.dispose();
-    }
-
-    entity.removeComponent(BabylonCore);
-    // TODO: entity.remove(); ?
+    core.engine.stopRenderLoop();
+    core.scene.dispose();
+    core.engine.dispose();
   }
 }
 
