@@ -29,13 +29,13 @@ export default class EcsyBabylon extends Ecsy {
       throw new Error('Engine not found');
     }
 
-    const startTime = (new Date()).getTime();
+    const startTime = performance.now();
     core.engine.runRenderLoop((): void => {
       if (!core.engine || !core.scene) {
         throw new Error('Engine and/or Scene not found');
       }
 
-      this.world.execute(core.engine.getDeltaTime(), (new Date()).getTime() - startTime);
+      this.world.execute(core.engine.getDeltaTime(), performance.now() - startTime);
       core.scene.render();
     });
   }
