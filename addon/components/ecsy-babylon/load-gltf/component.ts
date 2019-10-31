@@ -14,7 +14,6 @@ interface EcsyBabylonLoadGltfArgs {
 }
 
 export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGltfArgs> {
-  tagName = '';
   layout = layout;
 
   // protected
@@ -48,7 +47,7 @@ export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGl
     } = this.core;
 
     if(this.assetContainer){
-      throw new Error(`The assetContainer was already loaded!`);
+      this.assetContainer.dispose();
     }
 
     try {
@@ -59,6 +58,9 @@ export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGl
     }
   });
 
+  // TODO: this does not work properly yet, template context is tracking
+  // assetContainer.meshes and dispose sets it without `set`. Might be solved
+  // by upgrading to glimmer components and marking assetContainer as tracked.
   willDestroy(): void {
     const ac = this.assetContainer;
 
@@ -67,5 +69,7 @@ export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGl
       this.set('assetContainer', null);
       ac.dispose();
     }
+
+    super.willDestroy();
   }
 }

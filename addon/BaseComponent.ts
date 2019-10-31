@@ -1,6 +1,9 @@
 import Component from '@ember/component';
 
 export default class BaseComponent<T> extends Component {
+  // no wrapper by default
+  tagName = '';
+
   // args polyfill
   args!: T;
 

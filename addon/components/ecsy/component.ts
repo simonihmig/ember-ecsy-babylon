@@ -1,16 +1,17 @@
-import Component from '@ember/component';
+import BaseComponent from 'ember-babylon/BaseComponent';
 // @ts-ignore: Ignore import of compiled template
 import layout from './template';
 import { World, ComponentConstructor, Component as EcsyComponent, SystemConstructor, System as EcsySystem } from 'ecsy';
 import EntityComponent from 'ember-babylon/ecsy/components/entity';
+import { assert } from '@ember/debug';
 
-export default class Ecsy extends Component {
-  tagName = '';
+interface EcsyArgs {
+  components: ComponentConstructor<EcsyComponent>[];
+  systems: SystemConstructor<EcsySystem>[];
+}
+
+export default class Ecsy extends BaseComponent<EcsyArgs> {
   layout = layout;
-
-  // public
-  components: ComponentConstructor<EcsyComponent>[] = [];
-  systems: SystemConstructor<EcsySystem>[] = [];
 
   // private
   world!: World;
@@ -24,7 +25,10 @@ export default class Ecsy extends Component {
 
     this.world.registerComponent(EntityComponent);
 
-    this.components.forEach(c => this.world.registerComponent(c));
-    this.systems.forEach(s => this.world.registerSystem(s));
+    assert('A components argument of type Array must be passed.', Array.isArray(this.args.components));
+    assert('A systems argument of type Array must be passed.', Array.isArray(this.args.systems));
+
+    this.args.components.forEach(c => this.world.registerComponent(c));
+    this.args.systems.forEach(s => this.world.registerSystem(s));
   }
 }

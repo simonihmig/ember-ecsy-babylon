@@ -6,7 +6,6 @@ import { Entity } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
 
 export default class EcsyBabylon extends Ecsy {
-  tagName = '';
   layout = layout;
   guid = guidFor(this);
 
@@ -25,12 +24,12 @@ export default class EcsyBabylon extends Ecsy {
     this.world.execute(0, 0);
 
     const core = this.entity.getComponent(BabylonCore);
-    const startTime = (new Date()).getTime();
 
     if (!core.engine) {
       throw new Error('Engine not found');
     }
 
+    const startTime = (new Date()).getTime();
     core.engine.runRenderLoop((): void => {
       if (!core.engine || !core.scene) {
         throw new Error('Engine and/or Scene not found');
@@ -43,7 +42,8 @@ export default class EcsyBabylon extends Ecsy {
 
   willDestroy(): void {
     this.world.stop();
-    // this.entity.removeAllComponents(); // TODO: is this necessary?
     this.entity.remove();
+
+    super.willDestroy();
   }
 }
