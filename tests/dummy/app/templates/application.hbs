@@ -1,3 +1,33 @@
 <h2 id="title">Welcome to Ember</h2>
 
 {{outlet}}
+
+{{!-- ECSY demo --}}
+<EcsyBabylon
+  @components={{this.components}}
+  @systems={{this.systems}}
+as |World|>
+  <World.Entity
+    {{hemispheric-light direction=(vector 1 1 0) intensity=0.7}}
+    {{point-light direction=(vector 0 1 -1) intensity=0.3}}
+  />
+
+  <World.Entity {{rotation (vector 0 this.rotateValue 0)}}>
+    {{#if this.showEntity}}
+      <World.Entity
+        {{box size=2 width=3}}
+      />
+    {{/if}}
+
+    <World.Entity
+      {{sphere diameter=3}}
+      {{position (vector 1 2 1)}}
+    />
+  </World.Entity>
+</EcsyBabylon>
+
+<div local-class="buttons">
+  <button {{on "click" this.toggleEntity}}>Toggle Box</button>
+  <button {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
+  <button {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>
+</div>

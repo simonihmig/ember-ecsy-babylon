@@ -1,0 +1,6 @@
+{{#if this.world}}
+  {{yield (hash
+    world=this.world
+    Entity=(component "ecsy/entity" createEntity=this.createEntity)
+  )}}
+{{/if}}
