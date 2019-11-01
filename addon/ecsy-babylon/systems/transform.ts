@@ -1,7 +1,7 @@
 import { Entity, System } from 'ecsy';
 import EntityComponent from 'ember-babylon/ecsy/components/entity';
-import { Position, Rotation, TransformNode } from '../components';
-import { TransformNode as BabylonTransformNode } from '@babylonjs/core';
+import { Position, Rotation, Scale, TransformNode } from '../components';
+import { TransformNode as BabylonTransformNode, Vector3 } from '@babylonjs/core';
 import { guidFor } from '@ember/object/internals';
 import { assert } from '@ember/debug';
 
@@ -11,9 +11,13 @@ export default class TransformSystem extends System {
 
     this.queries.position.added.forEach((e: Entity) => this.position(e));
     this.queries.position.changed.forEach((e: Entity) => this.position(e));
+    //this.queries.position.removed.forEach((e: Entity) => this.removePosition(e));
     this.queries.rotation.added.forEach((e: Entity) => this.rotation(e));
     this.queries.rotation.changed.forEach((e: Entity) => this.rotation(e));
-    // TODO: implement removed for the above
+    //this.queries.rotation.removed.forEach((e: Entity) => this.removeRotation(e));
+    this.queries.scale.added.forEach((e: Entity) => this.scale(e));
+    this.queries.scale.changed.forEach((e: Entity) => this.scale(e));
+    //this.queries.scale.removed.forEach((e: Entity) => this.removeScale(e));
 
     this.queries.entity.removed.forEach((e: Entity) => this.remove(e));
   }
@@ -62,6 +66,12 @@ export default class TransformSystem extends System {
     tn.position = positionComponent.value;
   }
 
+  removePosition (entity: Entity) {
+    // TODO: TN is removed before removePosition is set causing assertion
+    const tn = this.getTransformNode(entity);
+    tn.position = new Vector3(0, 0, 0);
+  }
+
   rotation (entity: Entity) {
     const tn = this.getTransformNode(entity);
     const rotationComponent = entity.getComponent(Rotation);
@@ -77,6 +87,22 @@ export default class TransformSystem extends System {
     z = z * Math.PI / 180;
 
     Object.assign(tn.rotation, { x, y, z});
+  }
+
+  removeRotation (entity: Entity) {
+    const tn = this.getTransformNode(entity);
+    Object.assign(tn.rotation, { x: 0, y: 0, z: 0 });
+  }
+
+  scale (entity: Entity) {
+    const tn = this.getTransformNode(entity);
+    const scaleComponent = entity.getComponent(Scale);
+    tn.scaling = scaleComponent.value;
+  }
+
+  removeScale (entity: Entity) {
+    const tn = this.getTransformNode(entity);
+    Object.assign(tn.scaling, { x: 1, y: 1, z: 1 });
   }
 }
 
@@ -102,6 +128,14 @@ TransformSystem.queries = {
       added: true,
       changed: true,
       removed: true
+    }
+  },
+  scale: {
+    components: [TransformNode, Scale],
+      listen: {
+        added: true,
+        changed: true,
+        removed: true
     }
   }
 };

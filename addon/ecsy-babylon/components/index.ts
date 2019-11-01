@@ -10,6 +10,7 @@ import PointLight from './point-light';
 import TransformNode from './transform-node';
 import Position from './position';
 import Rotation from './rotation';
+import Scale from './scale';
 
 export { default as BabylonCore } from './babylon-core';
 
@@ -23,6 +24,7 @@ export { default as PointLight } from './point-light';
 export { default as TransformNode } from './transform-node';
 export { default as Position } from './position';
 export { default as Rotation } from './rotation';
+export { default as Scale } from './scale';
 
 export default [
   BabylonCore,
@@ -34,4 +36,5 @@ export default [
   PointLight,
   Position,
   Rotation,
+  Scale,
 ];
