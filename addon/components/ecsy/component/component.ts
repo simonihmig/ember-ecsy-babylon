@@ -1,7 +1,7 @@
 import { ComponentConstructor, Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
 import { Component as _Component } from 'ecsy';
-import BaseComponent from 'ember-babylon/BaseComponent';
+import DomlessGlimmerComponent from "ember-babylon/components/domless-glimmer/component";
 
 interface EcsyComponentArgs {
   // private
@@ -9,23 +9,23 @@ interface EcsyComponentArgs {
   name: string;
 }
 
-export default class EcsyComponent extends BaseComponent<EcsyComponentArgs> {
+export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponentArgs> {
   _Component!: ComponentConstructor<_Component>;
 
-  didInsertElement() {
-    super.didInsertElement();
+  constructor(owner: unknown, args: EcsyComponentArgs) {
+    super(owner, args);
 
     const {
       E,
       name,
-      ...args
-    } = this.args;
+      ...restArgs
+    } = args;
 
     assert('Entity `E` is not passed. Please do not use this component directly.', !!E);
     assert('`name` is not passed. Please do not use this component directly.', !!name);
 
     // @ts-ignore: private API
-    const world = this.E._world as World;
+    const world = E._world as World;
 
     // @ts-ignore: private API
     const components = world.componentsManager.Components;
@@ -35,11 +35,11 @@ export default class EcsyComponent extends BaseComponent<EcsyComponentArgs> {
       throw new Error(`Component "${name}" not found.`);
     }
 
-    E.addComponent(this._Component, args);
+    E.addComponent(this._Component, restArgs);
   }
 
-  didUpdateAttrs(): void {
-    super.didUpdateAttrs();
+  didUpdate(): void {
+    super.didUpdate();
 
     const {
       E,
