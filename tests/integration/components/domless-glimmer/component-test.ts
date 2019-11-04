@@ -12,12 +12,14 @@ module('Integration | Component | domless-glimmer', function(hooks) {
 
   let receivedCreateArgs: any;
   let receivedUpdateArgs: any;
+  let instance: DummyComponent;
 
   class DummyComponent extends DomlessGlimmerComponent {
     constructor(owner: any, args: any) {
       super(owner, args);
       // Using Object.assign to "bake" the Proxy which args is, which does not work well with assertions
       receivedCreateArgs = Object.assign({}, args);
+      instance = this;
     }
 
     didUpdate(args: any) {
@@ -75,7 +77,22 @@ module('Integration | Component | domless-glimmer', function(hooks) {
     await settled();
 
     assert.deepEqual(receivedUpdateArgs, { y: 1 });
+
+    this.set('x', 1);
+    await settled();
+
+    assert.deepEqual(receivedUpdateArgs, { x: 1 });
   });
 
+  test('it has correct args', async function(assert) {
+    this.set('foo', 'xxx');
+    await render(hbs`<DomlessGlimmer @foo={{this.foo}} />`);
+
+    assert.deepEqual({...instance.args}, { foo: 'xxx' });
+    this.set('foo', 'bar');
+    await settled();
+
+    assert.deepEqual({...instance.args}, { foo: 'bar' });
+  });
 
 });

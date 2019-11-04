@@ -103,13 +103,14 @@ export default class GlimmerComponentManager {
       throw new Error('Updated DomlessGlimmerComponent arguments are undefined. This should never happen'); // please TS
     }
 
-    bucket.instance.args = args.named;
-
     const argsDiff = Object.keys(newArgs)
       .filter((key) => newArgs[key] !== args[key])
       .reduce((result, key) => ({...result, [key]: newArgs[key]}), {});
 
+    component.args = newArgs;
     component.didUpdate(argsDiff);
+
+    bucket.args = newArgs;
   }
 
   getContext(bucket: DomlessGlimmerStateBucket) {
