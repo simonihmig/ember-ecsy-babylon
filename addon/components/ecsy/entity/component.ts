@@ -1,17 +1,17 @@
-import Component from '@ember/component';
 import { Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
 import EntityComponent from 'ember-babylon/ecsy/components/entity';
 import DomlessGlimmerComponent from 'ember-babylon/components/domless-glimmer/component';
 
-function findParentEntity(component: Component | DomlessGlimmerComponent) {
+// TODO: we use parent for our own ref
+function findParentEntity(component: DomlessGlimmerComponent) {
   // @ts-ignore: ignore private API usage
-  let pointer = component.parentView;
+  let pointer = component.args.parent;
   while (pointer) {
     if (pointer.__ECSY_ENTITY__) {
       return pointer;
     }
-    pointer = pointer.parentView;
+    pointer = pointer.args.parent;
   }
 }
 
