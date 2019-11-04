@@ -10,8 +10,8 @@ module.exports = {
   ],
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
+    // 'plugin:@typescript-eslint/eslint-recommended',
+    // 'plugin:@typescript-eslint/recommended',
     'plugin:ember/recommended'
   ],
   env: {
@@ -32,7 +32,8 @@ module.exports = {
         'testem.js',
         'blueprints/*/index.js',
         'config/**/*.js',
-        'tests/dummy/config/**/*.js'
+        'tests/dummy/config/**/*.js',
+        'lib/*.js'
       ],
       excludedFiles: [
         'addon/**',
