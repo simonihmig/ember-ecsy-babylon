@@ -1,3 +1,4 @@
+// @ts-ignore
 import { setComponentManager } from '@ember/component';
 import ApplicationInstance from '@ember/application/instance';
 import DomlessGlimmerComponentManager from 'ember-babylon/component-managers/domless-glimmer';

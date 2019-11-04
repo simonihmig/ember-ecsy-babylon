@@ -1,12 +1,10 @@
 import Component from '@ember/component';
-// @ts-ignore: Ignore import of compiled template
-import layout from './template';
 import { Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
 import EntityComponent from 'ember-babylon/ecsy/components/entity';
-import BaseComponent from 'ember-babylon/BaseComponent';
+import DomlessGlimmerComponent from 'ember-babylon/components/domless-glimmer/component';
 
-function findParentEntity(component: Component) {
+function findParentEntity(component: Component | DomlessGlimmerComponent) {
   // @ts-ignore: ignore private API usage
   let pointer = component.parentView;
   while (pointer) {
@@ -21,14 +19,13 @@ interface EcsyEntityArgs {
   createEntity: World['createEntity'];
 }
 
-export default class EcsyEntity extends BaseComponent<EcsyEntityArgs> {
-  layout = layout;
+export default class EcsyEntity extends DomlessGlimmerComponent<EcsyEntityArgs> {
   __ECSY_ENTITY__ = true;
 
   entity!: Entity;
 
-  didInsertElement() {
-    super.didInsertElement();
+  constructor(owner: unknown, args: EcsyEntityArgs) {
+    super(owner, args);
 
     assert('A `createEntity` function must be passed to `<Ecsy::Entity/>`', !!this.args.createEntity);
 
@@ -40,7 +37,7 @@ export default class EcsyEntity extends BaseComponent<EcsyEntityArgs> {
     const entity = this.args.createEntity();
     entity.addComponent(EntityComponent, { parent: parentEntity });
 
-    this.set('entity', entity);
+    this.entity = entity;
   }
 
   willDestroy(): void {

@@ -1,5 +1,6 @@
 import { getOwner, setOwner } from '@ember/application';
 import ApplicationInstance from '@ember/application/instance';
+// @ts-ignore
 import { capabilities } from '@ember/component';
 import DomlessGlimmerComponent, { DESTROYING, DESTROYED, ARGS_SET } from 'ember-babylon/components/domless-glimmer/component';
 import Ember from 'ember';

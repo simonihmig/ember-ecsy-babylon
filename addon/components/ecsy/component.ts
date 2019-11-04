@@ -1,6 +1,4 @@
-import BaseComponent from 'ember-babylon/BaseComponent';
-// @ts-ignore: Ignore import of compiled template
-import layout from './template';
+import DomlessGlimmerComponent from 'ember-babylon/components/domless-glimmer/component';
 import { World, ComponentConstructor, Component as EcsyComponent, SystemConstructor, System as EcsySystem } from 'ecsy';
 import EntityComponent from 'ember-babylon/ecsy/components/entity';
 import { assert } from '@ember/debug';
@@ -10,18 +8,16 @@ interface EcsyArgs {
   systems: SystemConstructor<EcsySystem>[];
 }
 
-export default class Ecsy extends BaseComponent<EcsyArgs> {
-  layout = layout;
-
+export default class Ecsy extends DomlessGlimmerComponent<EcsyArgs> {
   // private
   world!: World;
   createEntity!: World['createEntity'];
 
-  didInsertElement() {
-    super.didInsertElement();
+  constructor(owner: unknown, args: EcsyArgs) {
+    super(owner, args);
 
-    this.set('world', new World());
-    this.set('createEntity', this.world.createEntity.bind(this.world));
+    this.world = new World();
+    this.createEntity = this.world.createEntity.bind(this.world);
 
     this.world.registerComponent(EntityComponent);
 

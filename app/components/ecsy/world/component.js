@@ -1,1 +1,0 @@
-export { default } from 'ember-babylon/components/ecsy/world/component';
