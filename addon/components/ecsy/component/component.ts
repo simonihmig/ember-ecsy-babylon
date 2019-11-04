@@ -2,10 +2,12 @@ import { ComponentConstructor, Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
 import { Component as _Component } from 'ecsy';
 import DomlessGlimmerComponent from "ember-babylon/components/domless-glimmer/component";
+import EcsyEntity from "ember-babylon/components/ecsy/entity/component";
 
 interface EcsyComponentArgs {
   // private
   E: Entity;
+  parent: EcsyEntity;
   name: string;
 }
 
@@ -17,11 +19,14 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
 
     const {
       E,
+      parent,
       name,
       ...restArgs
     } = args;
 
     assert('Entity `E` is not passed. Please do not use this component directly.', !!E);
+    assert('Component reference `parent` is not passed. Please do not use this component directly.', !!parent);
+    assert('Component reference `parent` is not an <Ecsy::Entity/>. Please do not use this component directly.', parent instanceof EcsyEntity);
     assert('`name` is not passed. Please do not use this component directly.', !!name);
 
     // @ts-ignore: private API
@@ -43,6 +48,7 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
 
     const {
       E,
+      parent,
       name,
       ...args
     } = this.args;
