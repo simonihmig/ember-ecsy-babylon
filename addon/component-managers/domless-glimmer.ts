@@ -6,8 +6,12 @@ import Ember from 'ember';
 import { schedule } from '@ember/runloop';
 import { DEBUG } from '@glimmer/env';
 
+
+
 export interface ComponentManagerArgs {
-  named: object;
+  named: {
+    [index:string]: any
+  };
   positional: any[];
 }
 
@@ -20,10 +24,20 @@ interface EmberMeta {
   setSourceDestroyed(): void;
 }
 
+interface DomlessGlimmerStateBucket {
+  instance: DomlessGlimmerComponent;
+  args: ComponentManagerArgs['named'];
+  newArgs?:  ComponentManagerArgs['named'];
+}
+
 const CAPABILITIES = capabilities('3.4', {
   destructor: true,
   asyncLifecycleCallbacks: true,
 });
+
+function snapshot(object: object): object {
+  return Object.freeze({...object});
+}
 
 export default class GlimmerComponentManager {
   static create(attrs: any) {
@@ -39,19 +53,23 @@ export default class GlimmerComponentManager {
   createComponent(
     ComponentClass: Constructor<DomlessGlimmerComponent>,
     args: ComponentManagerArgs
-  ): DomlessGlimmerComponent {
+  ): DomlessGlimmerStateBucket {
     if (DEBUG) {
       ARGS_SET.add(args.named);
     }
 
-    return new ComponentClass(getOwner(this), args.named);
+    return {
+      args: snapshot(args.named),
+      instance: new ComponentClass(getOwner(this), args.named),
+    };
   }
 
-  updateComponent(component: DomlessGlimmerComponent, args: ComponentManagerArgs) {
-    component.args = args.named;
+  updateComponent(bucket: DomlessGlimmerStateBucket, args: ComponentManagerArgs) {
+    bucket.newArgs = snapshot(args.named);
   }
 
-  destroyComponent(component: DomlessGlimmerComponent) {
+  destroyComponent(bucket: DomlessGlimmerStateBucket) {
+    const { instance: component } = bucket;
     if (component.isDestroying) {
       return;
     }
@@ -78,11 +96,50 @@ export default class GlimmerComponentManager {
 
   didCreateComponent() {}
 
-  didUpdateComponent(component: DomlessGlimmerComponent) {
-    component.didUpdate();
+  didUpdateComponent(bucket: DomlessGlimmerStateBucket) {
+    const { instance: component, args, newArgs } = bucket;
+
+    if (newArgs === undefined) {
+      throw new Error('Updated DomlessGlimmerComponent arguments are undefined. This should never happen'); // please TS
+    }
+
+    const argsDiff = Object.keys(newArgs)
+      .filter((key) => newArgs[key] !== args[key])
+      .reduce((result, key) => ({...result, [key]: newArgs[key]}), {});
+
+    component.args = newArgs;
+    component.didUpdate(argsDiff);
+
+    bucket.args = newArgs;
   }
 
-  getContext(component: DomlessGlimmerComponent) {
-    return component;
+  getContext(bucket: DomlessGlimmerStateBucket) {
+    return bucket.instance;
   }
+}
+
+interface EmberMeta {
+  setSourceDestroying(): void;
+  setSourceDestroyed(): void;
+}
+
+declare module 'ember' {
+
+  export namespace Ember {
+    function destroy(obj: {}): void;
+    function meta(obj: {}): EmberMeta;
+  }
+}
+
+interface CustomComponentCapabilities {
+  asyncLifecycleCallbacks: boolean;
+  destructor: boolean;
+  updateHook: boolean;
+}
+
+declare module '@ember/component' {
+  export function capabilities(
+    version: '3.13' | '3.4',
+    capabilities: Partial<CustomComponentCapabilities>
+  ): CustomComponentCapabilities;
 }
