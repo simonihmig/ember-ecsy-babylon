@@ -47,6 +47,7 @@
             {{sphere diameter=3}}
             {{pbr-material ambientColor=(color 1 0 0) albedoColor=(color 1 0 0) metallic=0.5 roughness=0.5}}
             {{position (vector 1 2 1)}}
+            {{action pick=this.toggleEntity pointerOver=(fn this.rotate "left" 5) pointerOut=(fn this.rotate "right" 5)}}
           />
         </World.Entity>
       {{/if}}
