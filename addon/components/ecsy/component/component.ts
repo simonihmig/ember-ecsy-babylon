@@ -58,10 +58,10 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
   }
 
   willDestroy(): void {
+    super.willDestroy();
+
     if (this._Component) {
       this.args.E.removeComponent(this._Component);
     }
-
-    super.willDestroy();
   }
 }
