@@ -43,8 +43,8 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
     E.addComponent(this._Component, restArgs);
   }
 
-  didUpdate(): void {
-    super.didUpdate();
+  didUpdate(changedArgs: object): void {
+    super.didUpdate(changedArgs);
 
     const {
       E,

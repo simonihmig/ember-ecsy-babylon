@@ -54,7 +54,7 @@ export default class DomlessGlimmerComponent<T = object> {
   /**
    * Called whenever arguments are updated
    */
-  didUpdate() {}
+  didUpdate(_changedArgs: Partial<T>) {}
 
   /**
    * Called before the component has been removed from the DOM.
