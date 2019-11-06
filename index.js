@@ -6,7 +6,7 @@ module.exports = {
   name: require('./package').name,
 
   setupPreprocessorRegistry(type, registry) {
-    let plugin = this._buildPlugin();
+    const plugin = this._buildPlugin();
     plugin.parallelBabel = {
       requireFile: __filename,
       buildUsing: '_buildPlugin',
