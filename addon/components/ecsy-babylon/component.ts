@@ -1,22 +1,20 @@
 import Ecsy from '../ecsy/component';
-// @ts-ignore: Ignore import of compiled template
-import layout from './template';
 import { BabylonCore } from 'ember-babylon/ecsy-babylon/components';
 import { Entity } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class EcsyBabylon extends Ecsy {
-  layout = layout;
   guid = guidFor(this);
 
-  entity!: Entity;
+  @tracked entity!: Entity;
 
-  didInsertElement() {
-    super.didInsertElement();
-
+  @action
+  onCanvasReady() {
     const canvas = document.getElementById(`${this.guid}__canvas`);
 
-    this.set('entity', this.world.createEntity());
+    this.entity = this.world.createEntity();
     this.entity.addComponent(BabylonCore, {
       canvas
     });

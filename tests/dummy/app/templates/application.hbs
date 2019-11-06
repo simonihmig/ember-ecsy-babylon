@@ -9,7 +9,7 @@
 as |World|>
   <World.Entity
     {{hemispheric-light direction=(vector 1 1 0) intensity=0.7}}
-    {{point-light direction=(vector 0 1 -1) intensity=0.3}}
+    {{point-light direction=(vector 0 4 -4) intensity=0.3}}
   />
 
   <World.Entity {{rotation (vector 0 this.rotateValue 0)}}>
@@ -31,3 +31,20 @@ as |World|>
   <button {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
   <button {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>
 </div>
+
+{{!--
+<!-- FROM -->
+<EcsyBabylon as |World|>
+  <World.Entity {{rotation (vector 0 45 0)}}>
+    <World.Entity/>
+  </World.Entity>
+</EcsyBabylon>
+
+<!-- TO -->
+<EcsyBabylon as |World|>
+  <World.Entity P={{World.PRIVATE.ComponentInstance}} as |World|>
+    <Ecsy::Component P={{World.PRIVATE.ComponentInstance}} @name="Rotation" @value={{vector 0 45 0}}/>
+    <World.Entity P={{World.PRIVATE.ComponentInstance}}/>
+  </World.Entity>
+</EcsyBabylon>
+--}}

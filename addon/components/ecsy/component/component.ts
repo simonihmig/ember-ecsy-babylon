@@ -1,31 +1,36 @@
 import { ComponentConstructor, Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
 import { Component as _Component } from 'ecsy';
-import BaseComponent from 'ember-babylon/BaseComponent';
+import DomlessGlimmerComponent from "ember-babylon/components/domless-glimmer/component";
+import EcsyEntity from "ember-babylon/components/ecsy/entity/component";
 
 interface EcsyComponentArgs {
   // private
   E: Entity;
+  parent: EcsyEntity;
   name: string;
 }
 
-export default class EcsyComponent extends BaseComponent<EcsyComponentArgs> {
+export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponentArgs> {
   _Component!: ComponentConstructor<_Component>;
 
-  didInsertElement() {
-    super.didInsertElement();
+  constructor(owner: unknown, args: EcsyComponentArgs) {
+    super(owner, args);
 
     const {
       E,
+      parent,
       name,
-      ...args
-    } = this.args;
+      ...restArgs
+    } = args;
 
     assert('Entity `E` is not passed. Please do not use this component directly.', !!E);
+    assert('Component reference `parent` is not passed. Please do not use this component directly.', !!parent);
+    assert('Component reference `parent` is not an <Ecsy::Entity/>. Please do not use this component directly.', parent instanceof EcsyEntity);
     assert('`name` is not passed. Please do not use this component directly.', !!name);
 
     // @ts-ignore: private API
-    const world = this.E._world as World;
+    const world = E._world as World;
 
     // @ts-ignore: private API
     const components = world.componentsManager.Components;
@@ -35,14 +40,15 @@ export default class EcsyComponent extends BaseComponent<EcsyComponentArgs> {
       throw new Error(`Component "${name}" not found.`);
     }
 
-    E.addComponent(this._Component, args);
+    E.addComponent(this._Component, restArgs);
   }
 
-  didUpdateAttrs(): void {
-    super.didUpdateAttrs();
+  didUpdate(changedArgs: object): void {
+    super.didUpdate(changedArgs);
 
     const {
       E,
+      parent,
       name,
       ...args
     } = this.args;
