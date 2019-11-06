@@ -11,13 +11,13 @@ export default class TransformSystem extends System {
 
     this.queries.position.added.forEach((e: Entity) => this.position(e));
     this.queries.position.changed.forEach((e: Entity) => this.position(e));
-    //this.queries.position.removed.forEach((e: Entity) => this.removePosition(e));
+    this.queries.position.removed.forEach((e: Entity) => this.removePosition(e));
     this.queries.rotation.added.forEach((e: Entity) => this.rotation(e));
     this.queries.rotation.changed.forEach((e: Entity) => this.rotation(e));
-    //this.queries.rotation.removed.forEach((e: Entity) => this.removeRotation(e));
+    this.queries.rotation.removed.forEach((e: Entity) => this.removeRotation(e));
     this.queries.scale.added.forEach((e: Entity) => this.scale(e));
     this.queries.scale.changed.forEach((e: Entity) => this.scale(e));
-    //this.queries.scale.removed.forEach((e: Entity) => this.removeScale(e));
+    this.queries.scale.removed.forEach((e: Entity) => this.removeScale(e));
 
     this.queries.entity.removed.forEach((e: Entity) => this.remove(e));
   }
@@ -51,8 +51,12 @@ export default class TransformSystem extends System {
     entity.removeComponent(TransformNode);
   }
 
-  getTransformNode (entity: Entity): BabylonTransformNode {
-    const transformNodeComponent = entity.getComponent(TransformNode);
+  getTransformNode (entity: Entity, removed = false): BabylonTransformNode {
+    // Pptionally allow getting the TransformNode as a removed component.
+    // Useful in the case where the entire Entity is being removed.
+    const transformNodeComponent = removed
+      ? entity.getComponent(TransformNode) || entity.getRemovedComponent(TransformNode)
+      : entity.getComponent(TransformNode);
 
     assert('No valid ECSY TransformNode component found on this Entity.', !!(transformNodeComponent && transformNodeComponent.value));
 
@@ -67,8 +71,7 @@ export default class TransformSystem extends System {
   }
 
   removePosition (entity: Entity) {
-    // TODO: TN is removed before removePosition is set causing assertion
-    const tn = this.getTransformNode(entity);
+    const tn = this.getTransformNode(entity, true);
     tn.position = new Vector3(0, 0, 0);
   }
 
@@ -90,7 +93,7 @@ export default class TransformSystem extends System {
   }
 
   removeRotation (entity: Entity) {
-    const tn = this.getTransformNode(entity);
+    const tn = this.getTransformNode(entity, true);
     Object.assign(tn.rotation, { x: 0, y: 0, z: 0 });
   }
 
@@ -101,7 +104,7 @@ export default class TransformSystem extends System {
   }
 
   removeScale (entity: Entity) {
-    const tn = this.getTransformNode(entity);
+    const tn = this.getTransformNode(entity, true);
     Object.assign(tn.scaling, { x: 1, y: 1, z: 1 });
   }
 }
