@@ -45,6 +45,8 @@ export default class MaterialSystem extends System {
   setup (entity: Entity, scene: Scene) {
     const mesh = this.getMesh(entity);
     const materialComponent = entity.getComponent(PBRMaterial);
+
+    // clone the material if it is passed so we can safely dispose it
     const material = materialComponent.value
       ? materialComponent.value.clone(`${guidFor(entity)}__PBRMaterial`)
       : new BabylonPBRMaterial(`${guidFor(entity)}__PBRMaterial`, scene);
@@ -63,12 +65,12 @@ export default class MaterialSystem extends System {
 
   remove (entity: Entity) {
     const mesh = this.getMesh(entity, true);
-    const material = mesh.material;
 
-    if (material) {
-      material.dispose();
-      mesh.material = null;
+    if (mesh.material) {
+      mesh.material.dispose();
     }
+
+    mesh.material = null;
   }
 }
 
