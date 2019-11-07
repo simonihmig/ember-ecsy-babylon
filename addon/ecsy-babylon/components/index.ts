@@ -4,6 +4,8 @@ import Mesh from './mesh';
 import Box from './box';
 import Sphere from './sphere';
 
+import PBRMaterial from './pbr-material';
+
 import HemisphericLight from './hemispheric-light';
 import PointLight from './point-light';
 
@@ -17,6 +19,8 @@ export { default as BabylonCore } from './babylon-core';
 export { default as Mesh } from './mesh';
 export { default as Box } from './box';
 export { default as Sphere } from './sphere';
+
+export { default as PBRMaterial } from './pbr-material';
 
 export { default as HemisphericLight } from './hemispheric-light';
 export { default as PointLight } from './point-light';
@@ -32,6 +36,7 @@ export default [
   Mesh,
   Box,
   Sphere,
+  PBRMaterial,
   HemisphericLight,
   PointLight,
   Position,
