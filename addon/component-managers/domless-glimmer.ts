@@ -10,7 +10,7 @@ import { DEBUG } from '@glimmer/env';
 
 export interface ComponentManagerArgs {
   named: {
-    [index:string]: any
+    [index: string]: any;
   };
   positional: any[];
 }
@@ -125,6 +125,7 @@ interface EmberMeta {
 
 declare module 'ember' {
 
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   export namespace Ember {
     function destroy(obj: {}): void;
     function meta(obj: {}): EmberMeta;
