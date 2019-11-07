@@ -1,4 +1,4 @@
-ember-babylon
+ember-ecsy-babylon
 ==============================================================================
 
 [Short description of the addon.]
@@ -16,7 +16,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install ember-babylon
+ember install @kaliber5/ember-ecsy-babylon
 ```
 
 

@@ -1,7 +1,7 @@
 import { Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
-import EntityComponent from 'ember-babylon/ecsy/components/entity';
-import DomlessGlimmerComponent from 'ember-babylon/components/domless-glimmer/component';
+import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
+import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer/component';
 
 function findParentEntity(component: DomlessGlimmerComponent) {
   let pointer = component.args.parent;

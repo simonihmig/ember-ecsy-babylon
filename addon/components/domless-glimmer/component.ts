@@ -1,7 +1,7 @@
 // @ts-ignore
 import { setComponentManager } from '@ember/component';
 import ApplicationInstance from '@ember/application/instance';
-import DomlessGlimmerComponentManager from 'ember-babylon/component-managers/domless-glimmer';
+import DomlessGlimmerComponentManager from '@kaliber5/ember-ecsy-babylon/component-managers/domless-glimmer';
 import { setOwner } from '@ember/application';
 import { DEBUG } from '@glimmer/env';
 
