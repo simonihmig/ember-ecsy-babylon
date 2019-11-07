@@ -1,46 +1,51 @@
-import BaseComponent from 'ember-babylon/BaseComponent';
-// @ts-ignore: Ignore import of compiled template
-import layout from './template';
+import DomlessGlimmerComponent from 'ember-babylon/components/domless-glimmer/component';
 import '@babylonjs/loaders/glTF';
 import { Entity } from 'ecsy';
-import { BabylonCore } from 'ember-babylon/ecsy-babylon/components';
-import { AssetContainer, Mesh, SceneLoader } from '@babylonjs/core';
+import BabylonCore, { BabylonCoreComponent } from 'ember-babylon/ecsy-babylon/components/babylon-core';
+import { AssetContainer, AbstractMesh, SceneLoader } from '@babylonjs/core';
 import { restartableTask, task } from 'ember-concurrency-decorators';
 import { assert } from '@ember/debug';
+import { tracked } from '@glimmer/tracking';
 
 interface EcsyBabylonLoadGltfArgs {
+  E: Entity; // core entity instance
   rootUrl: string;
   fileName: string;
 }
 
-export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGltfArgs> {
-  layout = layout;
-
+export default class EcsyBabylonLoadGltf extends DomlessGlimmerComponent<EcsyBabylonLoadGltfArgs> {
   // protected
-  assets?: {
-    meshes: Mesh[];
+  @tracked assets?: {
+    meshes: AbstractMesh[];
   };
 
   // private
-  E!: Entity; // core entity instance
-  core?: BabylonCore;
+  core: BabylonCoreComponent;
   assetContainer?: AssetContainer;
 
-  didInsertElement(): void {
-    super.didInsertElement();
+  constructor(owner: unknown, args: EcsyBabylonLoadGltfArgs) {
+    super(owner, args);
 
-    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!this.E);
-    const core = this.E.getComponent(BabylonCore);
+    const {
+      E,
+      rootUrl,
+      fileName
+    } = args;
+
+    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!E);
+    const core = E.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
-    this.set('core', core);
+    this.core = core;
 
-    this.loadModel.perform(this.args.rootUrl, this.args.fileName);
+    this.loadModel.perform(rootUrl, fileName);
   }
 
-  didUpdateAttrs(): void {
-    super.didUpdateAttrs();
+  didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfArgs>): void {
+    super.didUpdate(changedArgs);
 
-    this.loadModel.perform(this.args.rootUrl, this.args.fileName);
+    if (changedArgs.rootUrl || changedArgs.fileName) {
+      this.loadModel.perform(this.args.rootUrl, this.args.fileName);
+    }
   }
 
   @restartableTask
@@ -51,24 +56,24 @@ export default class EcsyBabylonLoadGltf extends BaseComponent<EcsyBabylonLoadGl
 
     this.cleanup();
 
-    const assetContainer = yield SceneLoader.LoadAssetContainerAsync(rootUrl, fileName, scene);
+    const assetContainer = yield SceneLoader.LoadAssetContainerAsync(rootUrl || '/', fileName, scene);
     this.setup(assetContainer);
   });
 
   setup (ac: AssetContainer) {
-    this.set('assetContainer', ac);
-    this.set('assets', {
+    this.assetContainer = ac;
+    this.assets = {
       meshes: ac.meshes,
-      materials: ac.materials
-    });
+      //materials: ac.materials
+    };
   }
 
   cleanup () {
-    this.set('assets', null);
+    this.assets = undefined;
     const ac = this.assetContainer;
 
     if (ac) {
-      this.set('assetContainer', null);
+      this.assetContainer = undefined;
       ac.dispose();
     }
   }
