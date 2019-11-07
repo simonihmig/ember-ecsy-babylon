@@ -5,6 +5,7 @@ import DomlessGlimmerComponentManager from 'ember-babylon/component-managers/dom
 import { setOwner } from '@ember/application';
 import { DEBUG } from '@glimmer/env';
 
+const WILL_DESTROY = Symbol('will_destroy');
 const DESTROYING = Symbol('destroying');
 const DESTROYED = Symbol('destroyed');
 
@@ -27,11 +28,18 @@ export default class DomlessGlimmerComponent<T = object> {
     }
 
     this.args = args;
+    this.children = new Set();
     setOwner(this, owner as any);
+
+    if (this.args.parent) {
+      this.args.parent.registerChild(this);
+    }
   }
 
   args: Readonly<T>;
+  children: Set<DomlessGlimmerComponent>;
 
+  [WILL_DESTROY] = false;
   [DESTROYING] = false;
   [DESTROYED] = false;
 
@@ -51,7 +59,37 @@ export default class DomlessGlimmerComponent<T = object> {
   /**
    * Called before the component has been removed from the DOM.
    */
-  willDestroy() {}
+  willDestroy() {
+    Array.from(this.children).reverse().forEach(c => {
+      if (!c[WILL_DESTROY]) {
+        c[WILL_DESTROY] = true;
+        c.willDestroy();
+      }
+    });
+  }
+
+  /**
+   * Called by the component manager when the component will be destroyed.
+   * @private
+   */
+  _willDestroy() {
+    if (this.args.parent) {
+      this.args.parent.unregisterChild(this);
+    }
+
+    if (!this[WILL_DESTROY]) {
+      this[WILL_DESTROY] = true;
+      this.willDestroy();
+    }
+  }
+
+  registerChild(child: DomlessGlimmerComponent) {
+    this.children.add(child);
+  }
+
+  unregisterChild(child: DomlessGlimmerComponent) {
+    this.children.delete(child);
+  }
 }
 
 setComponentManager((owner: ApplicationInstance) => {

@@ -12,18 +12,34 @@ as |World|>
     {{point-light direction=(vector 0 4 -4) intensity=0.3}}
   />
 
-  <World.Entity {{rotation (vector 0 this.rotateValue 0)}}>
-    {{#if this.showEntity}}
+  {{!-- GLTF mesh example --}}
+  {{!--
+  {{#if this.showEntity}}
+    <World.LoadGltf @fileName="test.gltf" as |ac|>
+      <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0)}}>
+        {{#each ac.meshes as |_mesh|}}
+          <World.Entity {{mesh _mesh}} {{scale (vector 0.05 0.05 0.05)}}/>
+        {{/each}}
+      </World.Entity>
+    </World.LoadGltf>
+  {{/if}}
+  --}}
+
+  {{#if this.showEntity}}
+    <World.Entity @name="node" {{rotation (vector 0 this.rotateValue 0)}}>
+
       <World.Entity
+        @name="leaf 1"
         {{box size=2 width=3}}
       />
-    {{/if}}
 
-    <World.Entity
-      {{sphere diameter=3}}
-      {{position (vector 1 2 1)}}
-    />
-  </World.Entity>
+      <World.Entity
+        @name="leaf 2"
+        {{sphere diameter=3}}
+        {{position (vector 1 2 1)}}
+      />
+    </World.Entity>
+  {{/if}}
 </EcsyBabylon>
 
 <div local-class="buttons">
@@ -31,20 +47,3 @@ as |World|>
   <button {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
   <button {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>
 </div>
-
-{{!--
-<!-- FROM -->
-<EcsyBabylon as |World|>
-  <World.Entity {{rotation (vector 0 45 0)}}>
-    <World.Entity/>
-  </World.Entity>
-</EcsyBabylon>
-
-<!-- TO -->
-<EcsyBabylon as |World|>
-  <World.Entity P={{World.PRIVATE.ComponentInstance}} as |World|>
-    <Ecsy::Component P={{World.PRIVATE.ComponentInstance}} @name="Rotation" @value={{vector 0 45 0}}/>
-    <World.Entity P={{World.PRIVATE.ComponentInstance}}/>
-  </World.Entity>
-</EcsyBabylon>
---}}

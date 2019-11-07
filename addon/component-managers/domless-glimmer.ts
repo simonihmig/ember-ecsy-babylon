@@ -79,7 +79,7 @@ export default class GlimmerComponentManager {
     meta.setSourceDestroying();
     component[DESTROYING] = true;
 
-    schedule('actions', component, component.willDestroy);
+    schedule('actions', component, component._willDestroy);
     schedule('destroy', this, this.scheduledDestroyComponent, component, meta);
   }
 
