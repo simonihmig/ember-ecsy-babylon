@@ -3,20 +3,21 @@ import components from 'ember-babylon/ecsy-babylon/components';
 import systems from 'ember-babylon/ecsy-babylon/systems';
 import { action } from '@ember/object';
 
+function foo() {
+  return 1;
+}
+
 export default class Application extends Controller {
-  init() {
-    // eslint-disable-next-line prefer-rest-params
-    super.init(...arguments);
-
-    this.components = components;
-    this.systems = systems;
-  }
-
+  components = components;
+  systems = systems;
   rotateValue = 45;
+  showEntity = false;
+  foo_bar = true;
 
   @action
-  rotate(direction, degrees) {
+  rotate(direction: 'right' | 'left', degrees: number) {
     this.set('rotateValue', direction === 'left' ? this.rotateValue - degrees : this.rotateValue + degrees);
+    return foo();
   }
 
   @action
