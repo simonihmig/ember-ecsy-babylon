@@ -5,7 +5,7 @@ import DomlessGlimmerComponentManager from 'ember-babylon/component-managers/dom
 import { setOwner } from '@ember/application';
 import { DEBUG } from '@glimmer/env';
 
-const ECSY_DESTROYING = Symbol('ecsy_destroying');
+const WILL_DESTROY = Symbol('will_destroy');
 const DESTROYING = Symbol('destroying');
 const DESTROYED = Symbol('destroyed');
 
@@ -39,7 +39,7 @@ export default class DomlessGlimmerComponent<T = object> {
   args: Readonly<T>;
   children: Set<DomlessGlimmerComponent>;
 
-  [ECSY_DESTROYING] = false;
+  [WILL_DESTROY] = false;
   [DESTROYING] = false;
   [DESTROYED] = false;
 
@@ -61,8 +61,8 @@ export default class DomlessGlimmerComponent<T = object> {
    */
   willDestroy() {
     Array.from(this.children).reverse().forEach(c => {
-      if (!c[ECSY_DESTROYING]) {
-        c[ECSY_DESTROYING] = true;
+      if (!c[WILL_DESTROY]) {
+        c[WILL_DESTROY] = true;
         c.willDestroy();
       }
     });
@@ -77,8 +77,8 @@ export default class DomlessGlimmerComponent<T = object> {
       this.args.parent.unregisterChild(this);
     }
 
-    if (!this[ECSY_DESTROYING]) {
-      this[ECSY_DESTROYING] = true;
+    if (!this[WILL_DESTROY]) {
+      this[WILL_DESTROY] = true;
       this.willDestroy();
     }
   }
