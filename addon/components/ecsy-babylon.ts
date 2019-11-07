@@ -1,4 +1,4 @@
-import Ecsy from '../ecsy/component';
+import Ecsy from '@kaliber5/ember-ecsy-babylon/components/ecsy';
 import { BabylonCore } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components';
 import { Entity } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
