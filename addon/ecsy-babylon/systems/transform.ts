@@ -52,7 +52,7 @@ export default class TransformSystem extends System {
   }
 
   getTransformNode (entity: Entity, removed = false): BabylonTransformNode {
-    // Pptionally allow getting the TransformNode as a removed component.
+    // Optionally allow getting the TransformNode as a removed component.
     // Useful in the case where the entire Entity is being removed.
     const transformNodeComponent = removed
       ? entity.getComponent(TransformNode) || entity.getRemovedComponent(TransformNode)

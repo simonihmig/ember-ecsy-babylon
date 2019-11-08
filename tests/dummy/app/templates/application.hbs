@@ -22,6 +22,7 @@ as |World|>
   {{!--
   {{#if this.showEntity}}
     <World.LoadGltf @fileName="test.gltf" as |ac|>
+
       <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0)}}>
         {{#each ac.meshes as |_mesh|}}
           <World.Entity {{mesh _mesh}} {{scale (vector 0.05 0.05 0.05)}}/>
@@ -37,11 +38,13 @@ as |World|>
       <World.Entity
         @name="leaf 1"
         {{box size=2 width=3}}
+        {{pbr-material ambientColor=(color 0 1 0) albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
       />
 
       <World.Entity
         @name="leaf 2"
         {{sphere diameter=3}}
+        {{pbr-material ambientColor=(color 1 0 0) albedoColor=(color 1 0 0) metallic=0.5 roughness=0.5}}
         {{position (vector 1 2 1)}}
       />
     </World.Entity>
