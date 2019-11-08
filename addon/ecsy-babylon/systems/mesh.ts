@@ -1,6 +1,6 @@
 import { Entity } from 'ecsy';
 import { Mesh, TransformNode } from '../components';
-import SystemWithCore, { queries } from "@kaliber5/ember-ecsy-babylon/ecsy-babylon/SystemWithCore";
+import SystemWithCore, { queries } from '../SystemWithCore';
 
 export default class MeshSystem extends SystemWithCore {
   execute() {

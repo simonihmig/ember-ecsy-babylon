@@ -1,30 +1,16 @@
-import { Entity, System } from 'ecsy';
+import { Entity } from 'ecsy';
 import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
-import { BabylonCore, Mesh, PBRMaterial } from '../components';
-import { Mesh as BabylonMesh, PBRMaterial as BabylonPBRMaterial, Scene } from '@babylonjs/core';
+import { Mesh, PBRMaterial } from '../components';
+import { Mesh as BabylonMesh, PBRMaterial as BabylonPBRMaterial } from '@babylonjs/core';
 import { assert } from '@ember/debug';
 import { guidFor } from '@ember/object/internals';
-import { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
+import SystemWithCore, { queries } from '../SystemWithCore';
 
-export default class MaterialSystem extends System {
-  core?: BabylonCoreComponent;
-
+export default class MaterialSystem extends SystemWithCore {
   execute() {
-    // TODO: abstract this core querying in a BaseSystem class
-    // TODO: this should really exist only once, add check if multiple cores are found
-    this.queries.core.added.forEach((e: Entity) => {
-      this.core = e.getComponent(BabylonCore);
-    });
-    this.queries.core.removed.forEach(() => {
-      this.core = undefined;
-    });
+    super.execute();
 
-    if(!this.core || !this.core.scene) {
-      throw new Error('No BabylonCore Component found. Have you instantiated the right Root Ecsy component?');
-    }
-
-    const scene = this.core.scene;
-    this.queries.PBRMaterial.added.forEach((e: Entity) => this.setup(e, scene));
+    this.queries.PBRMaterial.added.forEach((e: Entity) => this.setup(e));
     this.queries.PBRMaterial.changed.forEach((e: Entity) => this.update(e));
     this.queries.PBRMaterial.removed.forEach((e: Entity) => this.remove(e));
   }
@@ -42,14 +28,14 @@ export default class MaterialSystem extends System {
     return meshComponent.value;
   }
 
-  setup (entity: Entity, scene: Scene) {
+  setup (entity: Entity) {
     const mesh = this.getMesh(entity);
     const materialComponent = entity.getComponent(PBRMaterial);
 
     // clone the material if it is passed so we can safely dispose it
     const material = materialComponent.value
       ? materialComponent.value.clone(`${guidFor(entity)}__PBRMaterial`)
-      : new BabylonPBRMaterial(`${guidFor(entity)}__PBRMaterial`, scene);
+      : new BabylonPBRMaterial(`${guidFor(entity)}__PBRMaterial`, this.core!.scene);
 
     Object.assign(material, materialComponent);
 
@@ -75,13 +61,7 @@ export default class MaterialSystem extends System {
 }
 
 MaterialSystem.queries = {
-  core: {
-    components: [BabylonCore],
-    listen: {
-      added: true,
-      removed: true
-    }
-  },
+  ...queries,
   entity: {
     components: [EntityComponent],
     listen: {
