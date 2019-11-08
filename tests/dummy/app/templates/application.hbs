@@ -7,6 +7,12 @@
   @components={{this.components}}
   @systems={{this.systems}}
 as |World|>
+  {{#if this.arcRotateCamera}}
+    <World.Entity
+      {{arc-rotate-camera lowerRadiusLimit=5 upperRadiusLimit=20 radius=10}}
+    />
+  {{/if}}
+
   <World.Entity
     {{hemispheric-light direction=(vector 1 1 0) intensity=0.7}}
     {{point-light direction=(vector 0 4 -4) intensity=0.3}}
@@ -46,6 +52,7 @@ as |World|>
 </EcsyBabylon>
 
 <div local-class="buttons">
+  <button {{on "click" this.toggleCamera}}>Toggle Camera</button>
   <button {{on "click" this.toggleEntity}}>Toggle Box</button>
   <button {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
   <button {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>

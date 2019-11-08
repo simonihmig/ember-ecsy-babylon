@@ -6,12 +6,19 @@ import { action } from '@ember/object';
 export default class Application extends Controller {
   components = components;
   systems = systems;
+
   rotateValue = 45;
   showEntity = false;
+  arcRotateCamera = true;
 
   @action
   rotate(direction: 'right' | 'left', degrees: number) {
     this.set('rotateValue', direction === 'left' ? this.rotateValue - degrees : this.rotateValue + degrees);
+  }
+
+  @action
+  toggleCamera() {
+    this.set('arcRotateCamera', !this.arcRotateCamera);
   }
 
   @action

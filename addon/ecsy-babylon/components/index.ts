@@ -1,5 +1,7 @@
 import BabylonCore from './babylon-core';
 
+import ArcRotateCamera from './arc-rotate-camera';
+
 import Mesh from './mesh';
 import Box from './box';
 import Sphere from './sphere';
@@ -15,6 +17,8 @@ import Rotation from './rotation';
 import Scale from './scale';
 
 export { default as BabylonCore } from './babylon-core';
+
+export { default as ArcRotateCamera } from './arc-rotate-camera';
 
 export { default as Mesh } from './mesh';
 export { default as Box } from './box';
@@ -32,13 +36,14 @@ export { default as Scale } from './scale';
 
 export default [
   BabylonCore,
-  TransformNode,
+  ArcRotateCamera,
   Mesh,
   Box,
   Sphere,
   PBRMaterial,
   HemisphericLight,
   PointLight,
+  TransformNode,
   Position,
   Rotation,
   Scale,

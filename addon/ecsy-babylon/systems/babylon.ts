@@ -1,6 +1,6 @@
 import { Entity, System } from 'ecsy';
 import { BabylonCore } from '../components';
-import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core';
+import { Engine, FreeCamera, Scene, Vector3} from '@babylonjs/core';
 
 export default class BabylonSystem extends System {
   listener?: any;
@@ -16,7 +16,7 @@ export default class BabylonSystem extends System {
     core.engine = new Engine(core.canvas, true, {}, false);
     core.scene = new Scene(core.engine);
 
-    core.defaultCamera = new ArcRotateCamera('defaultCamera', 0, 0, 10, new Vector3(0, 0, 0), core.scene);
+    core.defaultCamera = new FreeCamera('defaultCamera', new Vector3(0, 0, -10), core.scene);
     core.defaultCamera.attachControl(core.canvas, false);
 
     this.listener = function(this: { engine: Engine }): void {
