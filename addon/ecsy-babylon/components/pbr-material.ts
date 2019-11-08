@@ -3,7 +3,7 @@ import { PBRMaterial, Color3 } from '@babylonjs/core';
 import Types from '../types';
 
 interface PBRMaterialComponent extends Component {
-  value: PBRMaterial | null,
+  value: PBRMaterial | null;
   ambientColor: Color3 | null;
   albedoColor: Color3 | null;
   emissiveColor: Color3 | null;
