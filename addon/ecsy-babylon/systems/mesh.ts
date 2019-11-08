@@ -1,26 +1,13 @@
-import { Entity, System } from 'ecsy';
-import { BabylonCore, Mesh, TransformNode } from '../components';
+import { Entity } from 'ecsy';
+import { Mesh, TransformNode } from '../components';
 import { Scene } from '@babylonjs/core';
-import { BabylonCoreComponent } from '../components/babylon-core';
+import SystemWithCore, { queries } from "@kaliber5/ember-ecsy-babylon/ecsy-babylon/SystemWithCore";
 
-export default class MeshSystem extends System {
-  core?: BabylonCoreComponent;
-
+export default class MeshSystem extends SystemWithCore {
   execute() {
-    // TODO: abstract this core querying in a BaseSystem class
-    // TODO: this should really exist only once, add check if multiple cores are found
-    this.queries.core.added.forEach((e: Entity) => {
-      this.core = e.getComponent(BabylonCore);
-    });
-    this.queries.core.removed.forEach(() => {
-      this.core = undefined;
-    });
+    super.execute();
 
-    if(!this.core || !this.core.scene) {
-      throw new Error('No BabylonCore Component found. Have you instantiated the right Root Ecsy component?');
-    }
-
-    const scene = this.core.scene;
+    const scene = this.core!.scene;
     this.queries.meshes.added.forEach((e: Entity) => this.setup(e, scene));
     this.queries.meshes.removed.forEach((e: Entity) => this.remove(e, scene));
   }
@@ -55,13 +42,7 @@ export default class MeshSystem extends System {
 }
 
 MeshSystem.queries = {
-  core: {
-    components: [BabylonCore],
-    listen: {
-      added: true,
-      removed: true
-    }
-  },
+  ...queries,
   meshes: {
     components: [Mesh],
     listen: {
