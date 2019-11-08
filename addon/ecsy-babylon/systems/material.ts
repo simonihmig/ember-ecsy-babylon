@@ -1,10 +1,10 @@
 import { Entity, System } from 'ecsy';
-import EntityComponent from 'ember-babylon/ecsy/components/entity';
+import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
 import { BabylonCore, Mesh, PBRMaterial } from '../components';
 import { Mesh as BabylonMesh, PBRMaterial as BabylonPBRMaterial, Scene } from '@babylonjs/core';
 import { assert } from '@ember/debug';
 import { guidFor } from '@ember/object/internals';
-import { BabylonCoreComponent } from 'ember-babylon/ecsy-babylon/components/babylon-core';
+import { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 
 export default class MaterialSystem extends System {
   core?: BabylonCoreComponent;
