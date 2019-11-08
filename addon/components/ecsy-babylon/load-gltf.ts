@@ -1,7 +1,7 @@
-import DomlessGlimmerComponent from 'ember-babylon/components/domless-glimmer/component';
+import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import '@babylonjs/loaders/glTF';
 import { Entity } from 'ecsy';
-import BabylonCore, { BabylonCoreComponent } from 'ember-babylon/ecsy-babylon/components/babylon-core';
+import BabylonCore, { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 import { AssetContainer, AbstractMesh, SceneLoader } from '@babylonjs/core';
 import { restartableTask, task } from 'ember-concurrency-decorators';
 import { assert } from '@ember/debug';

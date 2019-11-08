@@ -1,5 +1,5 @@
 import { Entity, System } from 'ecsy';
-import EntityComponent from 'ember-babylon/ecsy/components/entity';
+import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
 import { Position, Rotation, Scale, TransformNode } from '../components';
 import { TransformNode as BabylonTransformNode, Vector3 } from '@babylonjs/core';
 import { guidFor } from '@ember/object/internals';
