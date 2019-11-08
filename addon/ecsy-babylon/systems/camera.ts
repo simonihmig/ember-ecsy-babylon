@@ -1,35 +1,24 @@
-import { ComponentConstructor, Entity, System } from 'ecsy';
-import { ArcRotateCamera, BabylonCore } from '../components';
-import {ArcRotateCamera as BabylonArcRotateCamera, Camera, Scene} from '@babylonjs/core';
+import { ComponentConstructor, Entity } from 'ecsy';
+import { ArcRotateCamera } from '../components';
+import {ArcRotateCamera as BabylonArcRotateCamera } from '@babylonjs/core';
 import { guidFor } from '@ember/object/internals';
+import SystemWithCore, { queries } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/SystemWithCore';
 
-export default class PrimitiveSystem extends System {
+export default class PrimitiveSystem extends SystemWithCore {
   execute() {
-    // TODO: abstract this core querying in a BaseSystem class
-    // TODO: this should really exist only once, add check if multiple cores are found
-    this.queries.core.added.forEach((e: Entity) => {
-      this.core = e.getComponent(BabylonCore);
-    });
-    this.queries.core.removed.forEach(() => {
-      this.core = undefined;
-    });
+    super.execute();
 
-    if(!this.core || !this.core.scene || !this.core.canvas) {
-      throw new Error('No BabylonCore Component found. Have you instantiated the right Root Ecsy component?');
-    }
-
-    const {
-      scene,
-      canvas,
-      defaultCamera
-    } = this.core;
-
-    this.queries.arcRotateCamera.added.forEach((e: Entity) => this.setupArcRotateCamera(e, scene, canvas));
+    this.queries.arcRotateCamera.added.forEach((e: Entity) => this.setupArcRotateCamera(e));
     this.queries.arcRotateCamera.changed.forEach((e: Entity) => this.update(e, ArcRotateCamera));
-    this.queries.arcRotateCamera.removed.forEach((e: Entity) => this.remove(e, ArcRotateCamera, scene, canvas, defaultCamera));
+    this.queries.arcRotateCamera.removed.forEach((e: Entity) => this.remove(e, ArcRotateCamera));
   }
 
-  setupArcRotateCamera(entity: Entity, scene: Scene, canvas: HTMLCanvasElement) {
+  setupArcRotateCamera(entity: Entity) {
+    const {
+      scene,
+      canvas
+    } = this.core;
+
     const cameraComponent = entity.getComponent(ArcRotateCamera);
 
     const {
@@ -66,7 +55,13 @@ export default class PrimitiveSystem extends System {
     Object.assign(value, args);
   }
 
-  remove(entity: Entity, component: ComponentConstructor<any>, scene: Scene, canvas: HTMLCanvasElement, defaultCamera: Camera) {
+  remove(entity: Entity, component: ComponentConstructor<any>) {
+    const {
+      scene,
+      canvas,
+      defaultCamera
+    } = this.core;
+
     const cameraComponent = entity.getRemovedComponent(component);
 
     // TODO: We might need something smarter here in the future, what if there's multiple camera entities?
@@ -85,13 +80,7 @@ export default class PrimitiveSystem extends System {
 }
 
 PrimitiveSystem.queries = {
-  core: {
-    components: [BabylonCore],
-    listen: {
-      added: true,
-      removed: true
-    }
-  },
+  ...queries,
   arcRotateCamera: {
     components: [ArcRotateCamera],
     listen: {
