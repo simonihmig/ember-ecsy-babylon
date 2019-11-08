@@ -3,7 +3,7 @@ import BabylonCore, { BabylonCoreComponent } from './components/babylon-core';
 import { assert } from '@ember/debug';
 
 export default class SystemWithCore extends System {
-  core?: BabylonCoreComponent;
+  core!: BabylonCoreComponent;
 
   execute() {
     if (this.queries.core.added.length) {
@@ -13,11 +13,8 @@ export default class SystemWithCore extends System {
     }
 
     if (this.queries.core.removed.length) {
-      this.core = undefined;
-    }
-
-    if(!this.core) {
-      throw new Error('No BabylonCore Component found. Have you instantiated the right Root Ecsy component?');
+      // @ts-ignore
+      this.core = null;
     }
   }
 }
