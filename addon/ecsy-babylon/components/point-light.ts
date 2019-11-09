@@ -3,7 +3,7 @@ import { createComponentClass } from 'ecsy';
 import { PointLight, Vector3 } from '@babylonjs/core';
 import Types from '../types';
 
-interface PointLightComponent extends LightComponent {
+export interface PointLightComponent extends LightComponent {
   position: Vector3;
   light?: PointLight;
 }

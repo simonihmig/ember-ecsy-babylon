@@ -3,7 +3,7 @@ import { createComponentClass } from 'ecsy';
 import { HemisphericLight, Vector3} from '@babylonjs/core';
 import Types from '../types';
 
-interface HemisphericLightComponent extends LightComponent {
+export interface HemisphericLightComponent extends LightComponent {
   direction: Vector3;
   light?: HemisphericLight;
 }
