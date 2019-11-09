@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent, { DomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import { TestContext } from 'ember-test-helpers';
 
 module('Integration | Component | domless-glimmer', function() {
@@ -99,7 +99,10 @@ module('Integration | Component | domless-glimmer', function() {
   module('willDestroy', function(hooks) {
     setupRenderingTest(hooks);
 
-    class DummyComponent extends DomlessGlimmerComponent<{ onDestroy?: Function }> {
+    interface DummyArgs extends DomlessGlimmerArgs {
+      onDestroy?: Function;
+    }
+    class DummyComponent extends DomlessGlimmerComponent<DummyArgs> {
       willDestroy() {
         super.willDestroy();
         if (this.args.onDestroy) {

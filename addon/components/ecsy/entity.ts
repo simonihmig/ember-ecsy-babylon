@@ -1,25 +1,26 @@
 import { Entity, World } from 'ecsy';
 import { assert } from '@ember/debug';
 import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
-import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent, { DomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 
-function findParentEntity(component: DomlessGlimmerComponent) {
+function findParentEntity(component: EcsyEntity): EcsyEntity | null {
   let pointer = component.args.parent;
   while (pointer) {
-    if (pointer.__ECSY_ENTITY__) {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    if (pointer instanceof EcsyEntity) {
       return pointer;
     }
     pointer = pointer.args.parent;
   }
+
+  return null;
 }
 
-interface EcsyEntityArgs {
+interface EcsyEntityArgs extends DomlessGlimmerArgs {
   createEntity: World['createEntity'];
 }
 
 export default class EcsyEntity extends DomlessGlimmerComponent<EcsyEntityArgs> {
-  __ECSY_ENTITY__ = true;
-
   entity!: Entity;
 
   constructor(owner: unknown, args: EcsyEntityArgs) {
