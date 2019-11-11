@@ -2,7 +2,7 @@ import { Component, createComponentClass } from 'ecsy';
 import { PBRMaterial, Color3 } from '@babylonjs/core';
 import Types from '../types';
 
-interface PBRMaterialComponent extends Component {
+export interface PBRMaterialComponent extends Component {
   value: PBRMaterial | null;
   ambientColor: Color3 | null;
   albedoColor: Color3 | null;

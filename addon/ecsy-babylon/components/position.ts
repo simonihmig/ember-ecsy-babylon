@@ -2,7 +2,7 @@ import {Component, createComponentClass} from 'ecsy';
 import { Vector3 } from '@babylonjs/core';
 import Types from '../types';
 
-interface PositionComponent extends Component {
+export interface PositionComponent extends Component {
   value: Vector3;
 }
 

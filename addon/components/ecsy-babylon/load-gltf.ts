@@ -1,4 +1,4 @@
-import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent, { DomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import '@babylonjs/loaders/glTF';
 import { Entity } from 'ecsy';
 import BabylonCore, { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
@@ -7,7 +7,7 @@ import { restartableTask, task } from 'ember-concurrency-decorators';
 import { assert } from '@ember/debug';
 import { tracked } from '@glimmer/tracking';
 
-interface EcsyBabylonLoadGltfArgs {
+interface EcsyBabylonLoadGltfArgs extends DomlessGlimmerArgs {
   E: Entity; // core entity instance
   rootUrl: string;
   fileName: string;

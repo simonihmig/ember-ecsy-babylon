@@ -17,7 +17,11 @@ if (DEBUG) {
 
 export { DESTROYING, DESTROYED, ARGS_SET };
 
-export default class DomlessGlimmerComponent<T = object> {
+export interface DomlessGlimmerArgs {
+  parent?: DomlessGlimmerComponent<DomlessGlimmerArgs>;
+}
+
+export default class DomlessGlimmerComponent<T extends DomlessGlimmerArgs = object> {
   constructor(owner: unknown, args: T) {
     if (DEBUG && !(owner !== null && typeof owner === 'object' && ARGS_SET.has(args))) {
       throw new Error(
