@@ -18,9 +18,11 @@ export default {
       return defaultValue;
     },
     reset: <T extends Component, K extends keyof T>(src: T, key: K, defaultValue: number | undefined) => {
+      // @ts-ignore
       src[key] = defaultValue;
     },
     clear: <T extends Component, K extends keyof T>(src: T, key: K) => {
+      // @ts-ignore
       src[key] = undefined;
     }
   }),

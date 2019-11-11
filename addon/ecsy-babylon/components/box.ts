@@ -2,7 +2,7 @@ import { Component, createComponentClass } from 'ecsy';
 import { Mesh } from '@babylonjs/core';
 import Types from '../types';
 
-interface BoxComponent extends Component {
+export interface BoxComponent extends Component {
   size: number;
   width?: number;
   height?: number;

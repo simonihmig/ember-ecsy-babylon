@@ -2,7 +2,7 @@ import { Component, createComponentClass } from 'ecsy';
 import { Mesh } from '@babylonjs/core';
 import Types from '../types';
 
-interface SphereComponent extends Component {
+export interface SphereComponent extends Component {
   segments: number;
   diameter: number;
   diameterX?: number;

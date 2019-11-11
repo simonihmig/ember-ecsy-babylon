@@ -2,7 +2,7 @@ import { Component, createComponentClass } from 'ecsy';
 import { Vector3 } from '@babylonjs/core';
 import Types from '../types';
 
-interface ScaleComponent extends Component {
+export interface ScaleComponent extends Component {
   value: Vector3;
 }
 

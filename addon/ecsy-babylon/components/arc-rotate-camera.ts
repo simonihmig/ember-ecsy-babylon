@@ -2,7 +2,7 @@ import { Component, createComponentClass } from 'ecsy';
 import { ArcRotateCamera, Vector3 } from '@babylonjs/core';
 import Types from '../types';
 
-interface MeshComponent extends Component {
+export interface ArcRotateComponent extends Component {
   value: ArcRotateCamera | null;
   alpha: number;
   beta: number;
@@ -18,7 +18,7 @@ interface MeshComponent extends Component {
   upperRadiusLimit: number | null;
 }
 
-export default createComponentClass<MeshComponent>({
+export default createComponentClass<ArcRotateComponent>({
   value: { default: null },
   alpha: { default: 0 },
   beta: { default: 0 },
