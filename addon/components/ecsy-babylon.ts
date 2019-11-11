@@ -34,7 +34,11 @@ export default class EcsyBabylon extends Ecsy {
       }
 
       this.world.execute(core.engine.getDeltaTime(), performance.now() - startTime);
-      core.scene.render();
+
+      // only render if there is an active camera
+      if (core.scene.activeCamera) {
+        core.scene.render();
+      }
     });
   }
 

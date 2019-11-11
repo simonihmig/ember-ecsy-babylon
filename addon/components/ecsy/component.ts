@@ -6,7 +6,7 @@ import EcsyEntity from "@kaliber5/ember-ecsy-babylon/components/ecsy/entity";
 
 interface EcsyComponentArgs {
   // private
-  E: Entity;
+  e: Entity;
   parent: EcsyEntity;
   name: string;
 }
@@ -18,19 +18,19 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
     super(owner, args);
 
     const {
-      E,
+      e,
       parent,
       name,
       ...restArgs
     } = args;
 
-    assert('Entity `E` is not passed. Please do not use this component directly.', !!E);
+    assert('Entity `e` is not passed. Please do not use this component directly.', !!e);
     assert('Component reference `parent` is not passed. Please do not use this component directly.', !!parent);
     assert('Component reference `parent` is not an <Ecsy::Entity/>. Please do not use this component directly.', parent instanceof EcsyEntity);
     assert('`name` is not passed. Please do not use this component directly.', !!name);
 
     // @ts-ignore: private API
-    const world = E._world as World;
+    const world = e._world as World;
 
     // @ts-ignore: private API
     const components = world.componentsManager.Components;
@@ -40,20 +40,20 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
       throw new Error(`Component "${name}" not found.`);
     }
 
-    E.addComponent(this._Component, restArgs);
+    e.addComponent(this._Component, restArgs);
   }
 
   didUpdate(changedArgs: object): void {
     super.didUpdate(changedArgs);
 
     const {
-      E,
+      e,
       parent,
       name,
       ...args
     } = this.args;
 
-    const component = E.getMutableComponent(this._Component);
+    const component = e.getMutableComponent(this._Component);
     Object.assign(component, args);
   }
 
@@ -61,7 +61,7 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
     super.willDestroy();
 
     if (this._Component) {
-      this.args.E.removeComponent(this._Component);
+      this.args.e.removeComponent(this._Component);
     }
   }
 }

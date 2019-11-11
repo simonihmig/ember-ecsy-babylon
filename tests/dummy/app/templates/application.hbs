@@ -6,49 +6,51 @@
 <EcsyBabylon
   @components={{this.components}}
   @systems={{this.systems}}
-as |World|>
-  {{#if this.arcRotateCamera}}
+as |Scene|>
+  <Scene @clearColor={{color 0.9 0.9 0.9}} @ambientColor={{color 0.9 0.9 0.9}} as |World|>
+    {{#if this.arcRotateCamera}}
+      <World.Entity
+        {{arc-rotate-camera lowerRadiusLimit=5 upperRadiusLimit=20 radius=10}}
+      />
+    {{/if}}
+
     <World.Entity
-      {{arc-rotate-camera lowerRadiusLimit=5 upperRadiusLimit=20 radius=10}}
+      {{hemispheric-light direction=(vector 1 1 0) intensity=0.7}}
+      {{point-light direction=(vector 0 4 -4) intensity=0.3}}
     />
-  {{/if}}
 
-  <World.Entity
-    {{hemispheric-light direction=(vector 1 1 0) intensity=0.7}}
-    {{point-light direction=(vector 0 4 -4) intensity=0.3}}
-  />
+    {{!-- GLTF mesh example --}}
+    {{!--
+    {{#if this.showEntity}}
+      <World.LoadGltf @fileName="test.gltf" as |ac|>
 
-  {{!-- GLTF mesh example --}}
-  {{!--
-  {{#if this.showEntity}}
-    <World.LoadGltf @fileName="test.gltf" as |ac|>
+        <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0)}}>
+          {{#each ac.meshes as |_mesh|}}
+            <World.Entity {{mesh _mesh}} {{scale (vector 0.05 0.05 0.05)}}/>
+          {{/each}}
+        </World.Entity>
+      </World.LoadGltf>
+    {{/if}}
+    --}}
 
-      <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0)}}>
-        {{#each ac.meshes as |_mesh|}}
-          <World.Entity {{mesh _mesh}} {{scale (vector 0.05 0.05 0.05)}}/>
-        {{/each}}
+    {{#if this.showEntity}}
+      <World.Entity @name="node" {{rotation (vector 0 this.rotateValue 0)}}>
+
+        <World.Entity
+          @name="leaf 1"
+          {{box size=2 width=3}}
+          {{pbr-material ambientColor=(color 0 1 0) albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
+        />
+
+        <World.Entity
+          @name="leaf 2"
+          {{sphere diameter=3}}
+          {{pbr-material ambientColor=(color 1 0 0) albedoColor=(color 1 0 0) metallic=0.5 roughness=0.5}}
+          {{position (vector 1 2 1)}}
+        />
       </World.Entity>
-    </World.LoadGltf>
-  {{/if}}
-  --}}
-
-  {{#if this.showEntity}}
-    <World.Entity @name="node" {{rotation (vector 0 this.rotateValue 0)}}>
-
-      <World.Entity
-        @name="leaf 1"
-        {{box size=2 width=3}}
-        {{pbr-material ambientColor=(color 0 1 0) albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
-      />
-
-      <World.Entity
-        @name="leaf 2"
-        {{sphere diameter=3}}
-        {{pbr-material ambientColor=(color 1 0 0) albedoColor=(color 1 0 0) metallic=0.5 roughness=0.5}}
-        {{position (vector 1 2 1)}}
-      />
-    </World.Entity>
-  {{/if}}
+    {{/if}}
+  </Scene>
 </EcsyBabylon>
 
 <div local-class="buttons">

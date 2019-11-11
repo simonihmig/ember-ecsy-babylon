@@ -8,7 +8,7 @@ import { assert } from '@ember/debug';
 import { tracked } from '@glimmer/tracking';
 
 interface EcsyBabylonLoadGltfArgs extends DomlessGlimmerArgs {
-  E: Entity; // core entity instance
+  e: Entity; // core entity instance
   rootUrl: string;
   fileName: string;
 }
@@ -27,13 +27,13 @@ export default class EcsyBabylonLoadGltf extends DomlessGlimmerComponent<EcsyBab
     super(owner, args);
 
     const {
-      E,
+      e,
       rootUrl,
       fileName
     } = args;
 
-    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!E);
-    const core = E.getComponent(BabylonCore);
+    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!e);
+    const core = e.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
     this.core = core;
 
