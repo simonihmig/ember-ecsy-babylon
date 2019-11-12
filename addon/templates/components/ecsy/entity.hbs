@@ -2,7 +2,7 @@
   {{yield (hash
     world=@w.world
     Entity=(component "ecsy/entity" createEntity=@createEntity parent=this)
-    LoadGltf=@world.LoadGltf
+    LoadGltf=@w.LoadGltf
     private=(hash
       componentReference=this
       entity=this.entity
