@@ -51,8 +51,6 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
       } = changedArgs;
 
       this.loadModels.perform(_changedArgs);
-
-      //TODO: remove stuff that is no longer present
     }
   }
 
@@ -75,8 +73,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
     let rootUrl; // TODO: try to split from fileName if undefined
 
-    const assetContainer = yield SceneLoader.LoadAssetContainerAsync(rootUrl || '/', fileName, scene);
-    return assetContainer;
+    return yield SceneLoader.LoadAssetContainerAsync(rootUrl || '/', fileName, scene);
   });
 
   @restartableTask

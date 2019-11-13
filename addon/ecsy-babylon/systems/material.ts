@@ -1,6 +1,6 @@
 import { Entity } from 'ecsy';
 import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
-import { Mesh, PBRMaterial } from '../components';
+import { Mesh, PBRMaterial, Material } from '../components';
 import { Mesh as BabylonMesh, PBRMaterial as BabylonPBRMaterial } from '@babylonjs/core';
 import { assert } from '@ember/debug';
 import { guidFor } from '@ember/object/internals';
@@ -10,9 +10,12 @@ export default class MaterialSystem extends SystemWithCore {
   execute() {
     super.execute();
 
-    this.queries.PBRMaterial.added.forEach((e: Entity) => this.setup(e));
-    this.queries.PBRMaterial.changed.forEach((e: Entity) => this.update(e));
-    this.queries.PBRMaterial.removed.forEach((e: Entity) => this.remove(e));
+    this.queries.Material.added.forEach((e: Entity) => this.setup(e));
+    this.queries.Material.removed.forEach((e: Entity) => this.remove(e));
+
+    this.queries.PBRMaterial.added.forEach((e: Entity) => this.setupPBRMaterial(e));
+    this.queries.PBRMaterial.changed.forEach((e: Entity) => this.updatePBRMaterial(e));
+    this.queries.PBRMaterial.removed.forEach((e: Entity) => this.removePBRMaterial(e));
   }
 
   getMesh (entity: Entity, removed = false): BabylonMesh {
@@ -30,24 +33,11 @@ export default class MaterialSystem extends SystemWithCore {
 
   setup (entity: Entity) {
     const mesh = this.getMesh(entity);
-    const materialComponent = entity.getComponent(PBRMaterial);
+    const materialComponent = entity.getComponent(Material);
 
-    // clone the material if it is passed so we can safely dispose it
-    const material = materialComponent.value
-      ? materialComponent.value.clone(`${guidFor(entity)}__PBRMaterial`)
-      : new BabylonPBRMaterial(`${guidFor(entity)}__PBRMaterial`, this.core!.scene);
+    assert('No valid Material instance set on the Material component', !!materialComponent.value);
 
-    // TODO: figure out a way to _not_ apply default values when a material instance was passed
-    Object.assign(material, materialComponent);
-
-    mesh.material = material;
-  }
-
-  update (entity: Entity) {
-    const mesh = this.getMesh(entity);
-    const materialComponent = entity.getComponent(PBRMaterial);
-
-    Object.assign(mesh.material, materialComponent);
+    mesh.material = materialComponent.value;
   }
 
   remove (entity: Entity) {
@@ -59,12 +49,39 @@ export default class MaterialSystem extends SystemWithCore {
 
     mesh.material = null;
   }
+
+  updatePBRMaterial (entity: Entity) {
+    const mesh = this.getMesh(entity);
+    const materialComponent = entity.getComponent(PBRMaterial);
+
+    Object.assign(mesh.material, materialComponent);
+  }
+
+  setupPBRMaterial (entity: Entity) {
+    const materialComponent = entity.getComponent(PBRMaterial);
+
+    const material = new BabylonPBRMaterial(`${guidFor(entity)}__PBRMaterial`, this.core!.scene);
+    Object.assign(material, materialComponent);
+
+    entity.addComponent(Material, { value: material });
+  }
+
+  removePBRMaterial (entity: Entity) {
+    entity.removeComponent(Material);
+  }
 }
 
 MaterialSystem.queries = {
   ...queries,
   entity: {
     components: [EntityComponent],
+    listen: {
+      added: true,
+      removed: true
+    }
+  },
+  Material: {
+    components: [Mesh, Material],
     listen: {
       added: true,
       removed: true
