@@ -10,12 +10,12 @@ export default class MaterialSystem extends SystemWithCore {
   execute() {
     super.execute();
 
-    this.queries.Material.added.forEach((e: Entity) => this.setup(e));
-    this.queries.Material.removed.forEach((e: Entity) => this.remove(e));
-
     this.queries.PBRMaterial.added.forEach((e: Entity) => this.setupPBRMaterial(e));
     this.queries.PBRMaterial.changed.forEach((e: Entity) => this.updatePBRMaterial(e));
     this.queries.PBRMaterial.removed.forEach((e: Entity) => this.removePBRMaterial(e));
+
+    this.queries.Material.added.forEach((e: Entity) => this.setup(e));
+    this.queries.Material.removed.forEach((e: Entity) => this.remove(e));
   }
 
   getMesh (entity: Entity, removed = false): BabylonMesh {
@@ -50,20 +50,20 @@ export default class MaterialSystem extends SystemWithCore {
     mesh.material = null;
   }
 
+  setupPBRMaterial (entity: Entity) {
+    const materialComponent = entity.getComponent(PBRMaterial);
+
+    const material = new BabylonPBRMaterial(`${guidFor(entity)}__PBRMaterial`, this.core.scene);
+    Object.assign(material, materialComponent);
+
+    entity.addComponent(Material, { value: material });
+  }
+
   updatePBRMaterial (entity: Entity) {
     const mesh = this.getMesh(entity);
     const materialComponent = entity.getComponent(PBRMaterial);
 
     Object.assign(mesh.material, materialComponent);
-  }
-
-  setupPBRMaterial (entity: Entity) {
-    const materialComponent = entity.getComponent(PBRMaterial);
-
-    const material = new BabylonPBRMaterial(`${guidFor(entity)}__PBRMaterial`, this.core!.scene);
-    Object.assign(material, materialComponent);
-
-    entity.addComponent(Material, { value: material });
   }
 
   removePBRMaterial (entity: Entity) {
