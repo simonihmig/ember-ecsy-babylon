@@ -7,6 +7,9 @@ import { restartableTask, task } from 'ember-concurrency-decorators';
 import { AssetContainer, SceneLoader } from '@babylonjs/core';
 import { tracked } from '@glimmer/tracking';
 
+/**
+ * Any other arguments will be parsed as a fileUrl and added to the resulting assets hash
+ */
 interface EcsyBabylonLoadGltfsArgs extends DomlessGlimmerArgs {
   e: Entity; // core entity instance
 }
