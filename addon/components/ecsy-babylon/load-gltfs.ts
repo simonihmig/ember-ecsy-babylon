@@ -19,7 +19,6 @@ type AssetContainerHash = {
   [index: string]: AssetContainer;
 }
 
-
 export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBabylonLoadGltfsArgs> {
 
   @tracked assets?: object;
@@ -68,19 +67,17 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   }
 
   @task
-  loadModel = task(function* (this: EcsyBabylonLoadGltfs, fileName: string) {
+  loadModel = task(function* (this: EcsyBabylonLoadGltfs, fileUrl: string) {
     const {
       scene
     } = this.core;
 
-    let rootUrl; // TODO: try to split from fileName if undefined
-
-    return yield SceneLoader.LoadAssetContainerAsync(rootUrl || '/', fileName, scene);
+    return yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene);
   });
 
   @restartableTask
   loadModels = task(function* (this: EcsyBabylonLoadGltfs, fileHash: FileHash) {
-    const models = Object.values(fileHash).map((fileName => this.loadModel.perform(fileName)));
+    const models = Object.values(fileHash).map((fileUrl => this.loadModel.perform(fileUrl)));
     const files = yield all(models);
 
     if (!files) {
@@ -97,8 +94,6 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   });
 
   setup(ach: AssetContainerHash) {
-    console.log('setting up', ach);
-
     // cleanup old AssetContainers
     const disposable: AssetContainer[] = [];
     Object.entries(this.assetContainerHash || {})

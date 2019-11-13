@@ -9,8 +9,7 @@ import { tracked } from '@glimmer/tracking';
 
 interface EcsyBabylonLoadGltfArgs extends DomlessGlimmerArgs {
   e: Entity; // core entity instance
-  rootUrl: string;
-  fileName: string;
+  fileUrl: string;
 }
 
 export default class EcsyBabylonLoadGltf extends DomlessGlimmerComponent<EcsyBabylonLoadGltfArgs> {
@@ -29,8 +28,7 @@ export default class EcsyBabylonLoadGltf extends DomlessGlimmerComponent<EcsyBab
 
     const {
       e,
-      rootUrl,
-      fileName
+      fileUrl
     } = args;
 
     assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!e);
@@ -38,26 +36,26 @@ export default class EcsyBabylonLoadGltf extends DomlessGlimmerComponent<EcsyBab
     assert('BabylonCore could not be found', !!core);
     this.core = core;
 
-    this.loadModel.perform(rootUrl, fileName);
+    this.loadModel.perform(fileUrl);
   }
 
   didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfArgs>): void {
     super.didUpdate(changedArgs);
 
-    if (changedArgs.rootUrl || changedArgs.fileName) {
-      this.loadModel.perform(this.args.rootUrl, this.args.fileName);
+    if (changedArgs.fileUrl) {
+      this.loadModel.perform(this.args.fileUrl);
     }
   }
 
   @restartableTask
-  loadModel = task(function* (this: EcsyBabylonLoadGltf, rootUrl: string, fileName: string) {
+  loadModel = task(function* (this: EcsyBabylonLoadGltf, fileUrl: string) {
     const {
       scene
     } = this.core;
 
     this.cleanup();
 
-    const assetContainer: unknown = yield SceneLoader.LoadAssetContainerAsync(rootUrl || '/', fileName, scene);
+    const assetContainer: unknown = yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene);
     this.setup(assetContainer as AssetContainer);
   });
 
