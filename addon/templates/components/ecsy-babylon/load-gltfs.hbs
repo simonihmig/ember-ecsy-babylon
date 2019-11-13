@@ -1,5 +1,3 @@
-{{log 'hello'}}
-{{#if this.assetContainerHash}}
-  {{log 'yielding' this.assetContainerHash}}
-  {{yield this.assetContainerHash}}
+{{#if this.assets}}
+  {{yield this.assets}}
 {{/if}}

@@ -37,6 +37,7 @@ export default class MaterialSystem extends SystemWithCore {
       ? materialComponent.value.clone(`${guidFor(entity)}__PBRMaterial`)
       : new BabylonPBRMaterial(`${guidFor(entity)}__PBRMaterial`, this.core!.scene);
 
+    // TODO: figure out a way to _not_ apply default values when a material instance was passed
     Object.assign(material, materialComponent);
 
     mesh.material = material;

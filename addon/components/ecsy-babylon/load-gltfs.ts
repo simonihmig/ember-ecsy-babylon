@@ -22,9 +22,10 @@ type AssetContainerHash = {
 
 export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBabylonLoadGltfsArgs> {
 
-  @tracked assetContainerHash?: AssetContainerHash;
+  @tracked assets?: object;
 
   private core: BabylonCoreComponent;
+  private assetContainerHash?: AssetContainerHash;
 
   constructor(owner: unknown, args: EcsyBabylonLoadGltfsArgs) {
     super(owner, args);
@@ -40,6 +41,30 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     this.core = core;
 
     this.loadModels.perform(_args);
+  }
+
+  didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfsArgs>) {
+    if (Object.keys(changedArgs).length) {
+      const {
+        e,
+        ..._changedArgs
+      } = changedArgs;
+
+      this.loadModels.perform(_changedArgs);
+
+      //TODO: remove stuff that is no longer present
+    }
+  }
+
+  willDestroy() {
+    this.loadModels.cancelAll();
+
+    const disposable = Object.values(this.assetContainerHash || {});
+    this.assets = undefined;
+    this.assetContainerHash = undefined;
+    this.cleanup(disposable);
+
+    super.willDestroy();
   }
 
   @task
@@ -69,16 +94,36 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
   setup(ach: AssetContainerHash) {
     console.log('setting up', ach);
-    const oldAch = this.assetContainerHash;
-    console.log('setting hash');
-    this.assetContainerHash = ach;
 
-    if (oldAch) {
-      this.cleanup(oldAch);
-    }
+    // cleanup old AssetContainers
+    const disposable: AssetContainer[] = [];
+    Object.entries(this.assetContainerHash || {})
+      .forEach(([name, ac]) => {
+        if (ach.hasOwnProperty(name)) {
+          disposable.push(ac);
+        }
+      });
+
+    this.assetContainerHash = {
+      ...this.assetContainerHash,
+      ...ach
+    };
+
+    this.assets = Object.entries(this.assetContainerHash)
+      .reduce((result, [name, ac]) => ({
+        ...result,
+        [name]: {
+          // we only yield meshes and materials for now
+          meshes: ac.meshes,
+          materials: ac.materials
+        }
+      }), {});
+
+    // do the cleanup last to prevent flashing
+    this.cleanup(disposable);
   }
 
-  cleanup(ach: AssetContainerHash) {
-    Object.values(ach).forEach(ac => ac.dispose());
+  cleanup(assetContainers: AssetContainer[]) {
+    assetContainers.forEach(ac => ac.dispose());
   }
 }
