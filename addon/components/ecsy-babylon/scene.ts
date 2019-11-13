@@ -23,7 +23,7 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
       e,
       w,
       createEntity,
-      ..._args
+      ...restArgs
     } = args;
 
     assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!e);
@@ -33,7 +33,7 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
     assert('BabylonCore does not contain a scene', !!core.scene);
 
     this.scene = core.scene;
-    Object.assign(this.scene, _args);
+    Object.assign(this.scene, restArgs);
   }
 
   didUpdate (changedArgs: Partial<EcsyBabylonSceneArgs>) {

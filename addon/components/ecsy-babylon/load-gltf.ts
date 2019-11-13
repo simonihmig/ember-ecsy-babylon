@@ -2,7 +2,7 @@ import DomlessGlimmerComponent, { DomlessGlimmerArgs } from '@kaliber5/ember-ecs
 import '@babylonjs/loaders/glTF';
 import { Entity } from 'ecsy';
 import BabylonCore, { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
-import { AssetContainer, AbstractMesh, SceneLoader } from '@babylonjs/core';
+import { AssetContainer, AbstractMesh, SceneLoader, Material } from '@babylonjs/core';
 import { restartableTask, task } from 'ember-concurrency-decorators';
 import { assert } from '@ember/debug';
 import { tracked } from '@glimmer/tracking';
@@ -17,6 +17,7 @@ export default class EcsyBabylonLoadGltf extends DomlessGlimmerComponent<EcsyBab
   // protected
   @tracked assets?: {
     meshes: AbstractMesh[];
+    materials: Material[];
   };
 
   // private
@@ -56,15 +57,15 @@ export default class EcsyBabylonLoadGltf extends DomlessGlimmerComponent<EcsyBab
 
     this.cleanup();
 
-    const assetContainer = yield SceneLoader.LoadAssetContainerAsync(rootUrl || '/', fileName, scene);
-    this.setup(assetContainer);
+    const assetContainer: unknown = yield SceneLoader.LoadAssetContainerAsync(rootUrl || '/', fileName, scene);
+    this.setup(assetContainer as AssetContainer);
   });
 
   setup (ac: AssetContainer) {
     this.assetContainer = ac;
     this.assets = {
       meshes: ac.meshes,
-      //materials: ac.materials
+      materials: ac.materials
     };
   }
 

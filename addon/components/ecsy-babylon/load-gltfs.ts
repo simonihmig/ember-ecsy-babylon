@@ -32,7 +32,8 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
     const {
       e,
-      ..._args
+      parent,
+      ...restArgs
     } = args;
 
     assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!e);
@@ -40,17 +41,18 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     assert('BabylonCore could not be found', !!core);
     this.core = core;
 
-    this.loadModels.perform(_args);
+    this.loadModels.perform(restArgs as FileHash);
   }
 
   didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfsArgs>) {
     if (Object.keys(changedArgs).length) {
       const {
         e,
-        ..._changedArgs
+        parent,
+        ...restArgs
       } = changedArgs;
 
-      this.loadModels.perform(_changedArgs);
+      this.loadModels.perform(restArgs as FileHash);
     }
   }
 
@@ -80,10 +82,15 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   loadModels = task(function* (this: EcsyBabylonLoadGltfs, fileHash: FileHash) {
     const models = Object.values(fileHash).map((fileName => this.loadModel.perform(fileName)));
     const files = yield all(models);
+
+    if (!files) {
+      throw new Error('Failed to load files');
+    }
+
     const result = Object.keys(fileHash)
       .reduce((result, name, index) => ({
         ...result,
-        [name]: files[index]
+        [name]: files![index]
       }), {});
 
     this.setup(result);
@@ -96,7 +103,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     const disposable: AssetContainer[] = [];
     Object.entries(this.assetContainerHash || {})
       .forEach(([name, ac]) => {
-        if (ach.hasOwnProperty(name)) {
+        if (Object.prototype.hasOwnProperty.call(ach, name)) {
           disposable.push(ac);
         }
       });
