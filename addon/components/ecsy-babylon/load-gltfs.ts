@@ -75,12 +75,12 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
       scene
     } = this.core;
 
-    return yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene);
+    return fileUrl ? yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene) : null;
   });
 
   @restartableTask
   loadModels = task(function* (this: EcsyBabylonLoadGltfs, fileHash: FileHash) {
-    const models = Object.values(fileHash).map((fileUrl => this.loadModel.perform(fileUrl)));
+    const models = Object.values(fileHash).filter(Boolean).map((fileUrl => this.loadModel.perform(fileUrl)));
     const files = yield all(models);
 
     if (!files) {
@@ -101,7 +101,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     const disposable: AssetContainer[] = [];
     Object.entries(this.assetContainerHash || {})
       .forEach(([name, ac]) => {
-        if (Object.prototype.hasOwnProperty.call(ach, name)) {
+        if (Object.prototype.hasOwnProperty.call(ach, name) && ac) {
           disposable.push(ac);
         }
       });
@@ -112,14 +112,20 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     };
 
     this.assets = Object.entries(this.assetContainerHash)
-      .reduce((result, [name, ac]) => ({
-        ...result,
-        [name]: {
-          // we only yield meshes and materials for now
-          meshes: ac.meshes,
-          materials: ac.materials
-        }
-      }), {});
+      .reduce((result, [name, ac]) => {
+        const assets = ac
+          ? {
+            // we only yield meshes and materials for now
+            meshes: ac.meshes,
+            materials: ac.materials
+          }
+          : null;
+
+        return {
+          ...result,
+          [name]: assets
+        };
+      }, {});
 
     // do the cleanup last to prevent flashing
     this.cleanup(disposable);

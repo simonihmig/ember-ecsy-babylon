@@ -36,9 +36,11 @@ export default class MaterialSystem extends SystemWithCore {
     const mesh = this.getMesh(entity);
     const materialComponent = entity.getComponent(Material);
 
-    assert('No valid Material instance set on the Material component', !!materialComponent.value);
-
-    mesh.material = materialComponent.value;
+    if (materialComponent.value) {
+      mesh.material = materialComponent.value;
+    } else {
+      console.warn(`No material was applied to mesh "${mesh.name}".`);
+    }
   }
 
   remove (entity: Entity) {
