@@ -3,6 +3,7 @@ import ArcRotateCamera from './arc-rotate-camera';
 import Mesh from './mesh';
 import Box from './box';
 import Sphere from './sphere';
+import Material from './material';
 import PBRMaterial from './pbr-material';
 import HemisphericLight from './hemispheric-light';
 import PointLight from './point-light';
@@ -17,6 +18,7 @@ export {
   Mesh,
   Box,
   Sphere,
+  Material,
   PBRMaterial,
   HemisphericLight,
   PointLight,
@@ -32,6 +34,7 @@ export default [
   Mesh,
   Box,
   Sphere,
+  Material,
   PBRMaterial,
   HemisphericLight,
   PointLight,

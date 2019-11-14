@@ -1,3 +1,3 @@
-{{#if this.assets}}
-  {{yield this.assets}}
-{{/if}}
+<EcsyBabylon::LoadGltfs @e={{@e}} @parent={{@parent}} @file={{@fileUrl}} as |ach|>
+  {{yield (get ach "file")}}
+</EcsyBabylon::LoadGltfs>
