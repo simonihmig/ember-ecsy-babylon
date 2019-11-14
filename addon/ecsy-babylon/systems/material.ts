@@ -15,6 +15,7 @@ export default class MaterialSystem extends SystemWithCore {
     this.queries.PBRMaterial.removed.forEach((e: Entity) => this.removePBRMaterial(e));
 
     this.queries.Material.added.forEach((e: Entity) => this.setup(e));
+    this.queries.Material.changed.forEach((e: Entity) => this.setup(e));
     this.queries.Material.removed.forEach((e: Entity) => this.remove(e));
   }
 
@@ -84,6 +85,7 @@ MaterialSystem.queries = {
     components: [Mesh, Material],
     listen: {
       added: true,
+      changed: true,
       removed: true
     }
   },
