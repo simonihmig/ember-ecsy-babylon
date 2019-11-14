@@ -2,7 +2,7 @@ import DomlessGlimmerComponent, { DomlessGlimmerArgs } from '@kaliber5/ember-ecs
 import '@babylonjs/loaders/glTF';
 import { Entity } from 'ecsy';
 
-interface EcsyBabylonLoadGltfArgs extends DomlessGlimmerArgs {
+export interface EcsyBabylonLoadGltfArgs extends DomlessGlimmerArgs {
   e: Entity; // core entity instance
   fileUrl: string;
 }
