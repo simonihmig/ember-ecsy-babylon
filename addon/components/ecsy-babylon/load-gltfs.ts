@@ -140,11 +140,10 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   }
 
   cleanup(assetContainers: AssetContainer[]) {
-    // TODO: hotfix to prevent this from running before ECSY has run its system's cleanup
-    setTimeout(() => {
-      assetContainers.forEach(ac => {
-        ac.dispose();
-      });
-    }, 0);
+    assetContainers.forEach(ac => {
+      // TODO: hotfix to prevent this component from disposing materials that are not part of the AC
+      ac.meshes.forEach(m => m.material = null);
+      ac.dispose();
+    });
   }
 }
