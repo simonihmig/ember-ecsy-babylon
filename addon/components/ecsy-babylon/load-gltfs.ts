@@ -75,7 +75,15 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
       scene
     } = this.core;
 
-    return fileUrl ? yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene) : null;
+    if (fileUrl) {
+      try {
+        return yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene);
+      } catch (e) {
+        console.error(`Failed to load "${fileUrl}"`);
+      }
+    }
+
+    return null;
   });
 
   @restartableTask
@@ -132,6 +140,10 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   }
 
   cleanup(assetContainers: AssetContainer[]) {
-    assetContainers.forEach(ac => ac.dispose());
+    assetContainers.forEach(ac => {
+      // TODO: hotfix to prevent this component from disposing materials that are not part of the AC
+      ac.meshes.forEach(m => m.material = null);
+      ac.dispose();
+    });
   }
 }
