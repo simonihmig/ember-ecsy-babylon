@@ -8,8 +8,10 @@ export default class Application extends Controller {
   systems = systems;
 
   rotateValue = 45;
-  showEntity = false;
+  showEntity = true;
   arcRotateCamera = true;
+
+  showViewer = true;
 
   @action
   rotate(direction: 'right' | 'left', degrees: number) {
@@ -24,5 +26,10 @@ export default class Application extends Controller {
   @action
   toggleEntity() {
     this.set('showEntity', !this.showEntity);
+  }
+
+  @action
+  toggleViewer() {
+    this.set('showViewer', !this.showViewer)
   }
 }

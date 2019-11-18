@@ -43,8 +43,9 @@ export default class EcsyBabylon extends Ecsy {
   }
 
   willDestroy(): void {
-    this.world.stop();
     this.entity.remove();
+    this.world.execute(0, 0);
+    this.world.stop();
 
     super.willDestroy();
   }
