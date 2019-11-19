@@ -1,9 +1,13 @@
 // @ts-ignore
 import { setComponentManager } from '@ember/component';
 import ApplicationInstance from '@ember/application/instance';
-import DomlessGlimmerComponentManager from '@kaliber5/ember-ecsy-babylon/component-managers/domless-glimmer';
+import DomlessGlimmerComponentManager, { Constructor } from '@kaliber5/ember-ecsy-babylon/component-managers/domless-glimmer';
 import { setOwner } from '@ember/application';
 import { DEBUG } from '@glimmer/env';
+import { Entity, World } from 'ecsy';
+import EcsyEntity from '@kaliber5/ember-ecsy-babylon/components/ecsy/entity';
+import EcsyBabylonLoadGltfs from '@kaliber5/ember-ecsy-babylon/components/ecsy-babylon/load-gltfs';
+import EcsyBabylonLoadGltf from '@kaliber5/ember-ecsy-babylon/components/ecsy-babylon/load-gltf';
 
 const WILL_DESTROY = Symbol('will_destroy');
 const DESTROYING = Symbol('destroying');
@@ -17,7 +21,21 @@ if (DEBUG) {
 
 export { DESTROYING, DESTROYED, ARGS_SET };
 
+export interface WDefinition {
+  world: World;
+  Entity: Constructor<EcsyEntity>;
+  LoadGltfs: Constructor<EcsyBabylonLoadGltfs>;
+  LoadGltf: Constructor<EcsyBabylonLoadGltf>;
+  private: {
+    rootEntity: Entity; // root ECSY Entity, contains the BabylonCore component
+    componentReference: DomlessGlimmerComponent;
+    createEntity?: World['createEntity']; // bound function to create a new ECSY Entity
+    entity?: Entity; // closest ECSY Entity
+  };
+}
+
 export interface DomlessGlimmerArgs {
+  w?: WDefinition;
   parent?: DomlessGlimmerComponent<DomlessGlimmerArgs>;
 }
 
@@ -36,6 +54,7 @@ export default class DomlessGlimmerComponent<T extends DomlessGlimmerArgs = obje
     setOwner(this, owner as any);
 
     if (this.args.parent) {
+      console.log('registering', this.constructor.name, 'as child of', this.args.parent.constructor.name);
       this.args.parent.registerChild(this);
     }
   }

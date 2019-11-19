@@ -1,3 +1,12 @@
-<EcsyBabylon::LoadGltfs @e={{@e}} @parent={{@parent}} @file={{@fileUrl}} as |ach|>
-  {{yield (get ach "file")}}
+<EcsyBabylon::LoadGltfs @w={{@w}} parent={{this}} @file={{@fileUrl}} as |ach|>
+  {{yield (get ach "file") (hash
+    world=@w.world
+    Entity=@w.Entity
+    LoadGltf=@w.LoadGltf
+    LoadGltfs=@w.LoadGltfs
+    private=(hash
+      componentReference=this
+      createEntity=@w.private.createEntity
+    )
+  )}}
 </EcsyBabylon::LoadGltfs>

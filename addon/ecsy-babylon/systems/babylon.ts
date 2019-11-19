@@ -24,9 +24,25 @@ export default class BabylonSystem extends System {
     }.bind({ engine: core.engine });
 
     window.addEventListener('resize', this.listener);
+
+    console.log('setup core');
+    const startTime = performance.now();
+    core.engine.runRenderLoop((): void => {
+      if (!core.engine || !core.scene) {
+        throw new Error('Engine and/or Scene not found');
+      }
+
+      core.world.execute(core.engine.getDeltaTime(), performance.now() - startTime);
+
+      // only render if there is an active camera
+      if (core.scene.activeCamera) {
+        core.scene.render();
+      }
+    });
   }
 
   remove(entity: Entity) {
+    console.log('remove core');
     window.removeEventListener('resize', this.listener);
 
     const core = entity.getRemovedComponent(BabylonCore);
@@ -34,6 +50,7 @@ export default class BabylonSystem extends System {
     core.engine.stopRenderLoop();
     core.scene.dispose();
     core.engine.dispose();
+    console.log('disposed scene');
   }
 }
 

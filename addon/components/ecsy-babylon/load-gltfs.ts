@@ -1,5 +1,4 @@
 import DomlessGlimmerComponent, { DomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
-import { Entity } from 'ecsy';
 import {assert} from '@ember/debug';
 import BabylonCore, { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 import { all } from 'ember-concurrency';
@@ -7,11 +6,13 @@ import { restartableTask, task } from 'ember-concurrency-decorators';
 import { AssetContainer, SceneLoader } from '@babylonjs/core';
 import { tracked } from '@glimmer/tracking';
 
+import '@babylonjs/loaders/glTF';
+
 /**
  * Any other arguments will be parsed as a fileUrl and added to the resulting assets hash
  */
 export interface EcsyBabylonLoadGltfsArgs extends DomlessGlimmerArgs {
-  e: Entity; // core entity instance
+  [key: string]: any;
 }
 
 type FileHash = {
@@ -33,40 +34,47 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     super(owner, args);
 
     const {
-      e,
+      w,
       parent,
       ...restArgs
     } = args;
 
-    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!e);
-    const core = e.getComponent(BabylonCore);
+    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!w.private.rootEntity);
+    const core = w.private.rootEntity.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
     this.core = core;
+
+    console.log(restArgs);
 
     this.loadModels.perform(restArgs as FileHash);
   }
 
   didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfsArgs>) {
     if (Object.keys(changedArgs).length) {
+      console.log('CHANGED ARGS', changedArgs);
       const {
-        e,
+        w,
         parent,
         ...restArgs
       } = changedArgs;
 
-      this.loadModels.perform(restArgs as FileHash);
+      console.log('restargs', restArgs);
+
+      if (Object.keys(restArgs).length) {
+        this.loadModels.perform(restArgs as FileHash);
+      }
     }
   }
 
   willDestroy() {
+    super.willDestroy();
+
     this.loadModels.cancelAll();
 
     const disposable = Object.values(this.assetContainerHash || {});
     this.assets = undefined;
     this.assetContainerHash = undefined;
     this.cleanup(disposable);
-
-    super.willDestroy();
   }
 
   @task
@@ -77,6 +85,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
     if (fileUrl) {
       try {
+        console.log('trying to load fileUrl', fileUrl);
         return yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene);
       } catch (e) {
         console.error(`Failed to load "${fileUrl}"`);
@@ -105,6 +114,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   });
 
   setup(ach: AssetContainerHash) {
+    console.log('setting up');
     // cleanup old AssetContainers
     const disposable: AssetContainer[] = [];
     Object.entries(this.assetContainerHash || {})

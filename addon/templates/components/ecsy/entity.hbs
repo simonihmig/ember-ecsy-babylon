@@ -1,10 +1,12 @@
 {{#if this.entity}}
   {{yield (hash
     world=@w.world
-    Entity=(component "ecsy/entity" createEntity=@createEntity parent=this)
+    Entity=@w.Entity
     LoadGltf=@w.LoadGltf
     LoadGltfs=@w.LoadGltfs
     private=(hash
+      rootEntity=@w.private.rootEntity
+      createEntity=@w.private.createEntity
       componentReference=this
       entity=this.entity
     )
