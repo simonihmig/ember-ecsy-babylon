@@ -22,14 +22,14 @@ export default class EcsyEntity extends DomlessGlimmerComponent<DomlessGlimmerAr
   constructor(owner: unknown, args: DomlessGlimmerArgs) {
     super(owner, args);
 
-    assert('A "w" argument containing a "createEntity" function must be passed to `<Ecsy::Entity/>`', !!args.w.private.createEntity);
+    assert('A "w" argument containing a "createEntity" function must be passed to `<Ecsy::Entity/>`', !!args.w!.private.createEntity);
 
     const parentEntityComponent = findParentEntity(this);
     const parentEntity = parentEntityComponent ? parentEntityComponent.entity : null;
 
     assert('Parent <Entity/> does not have a valid ECSY Entity component.', (!parentEntityComponent || !!parentEntity));
 
-    const entity = args.w.private.createEntity();
+    const entity = args.w!.private.createEntity!();
     entity.addComponent(EntityComponent, { parent: parentEntity });
 
     this.entity = entity;
