@@ -23,9 +23,9 @@ export { DESTROYING, DESTROYED, ARGS_SET };
 
 export interface WDefinition {
   world: World;
-  Entity: Constructor<EcsyEntity>;
-  LoadGltfs: Constructor<EcsyBabylonLoadGltfs>;
-  LoadGltf: Constructor<EcsyBabylonLoadGltf>;
+  Entity?: Constructor<EcsyEntity>;
+  LoadGltfs?: Constructor<EcsyBabylonLoadGltfs>;
+  LoadGltf?: Constructor<EcsyBabylonLoadGltf>;
   private: {
     rootEntity: Entity; // root ECSY Entity, contains the BabylonCore component
     componentReference: DomlessGlimmerComponent;
