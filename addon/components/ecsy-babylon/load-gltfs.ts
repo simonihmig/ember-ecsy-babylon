@@ -39,8 +39,8 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
       ...restArgs
     } = args;
 
-    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!w.private.rootEntity);
-    const core = w.private.rootEntity.getComponent(BabylonCore);
+    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!(w && w.private && w.private.rootEntity));
+    const core = w!.private.rootEntity.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
     this.core = core;
 
