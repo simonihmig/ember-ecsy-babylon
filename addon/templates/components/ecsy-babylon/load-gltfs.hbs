@@ -1,14 +1,12 @@
 {{#if this.assets}}
   {{yield
     this.assets
-    (hash
-      world=@w.world
-      Entity=@w.Entity
-      LoadGltf=@w.LoadGltf
-      LoadGltfs=@w.LoadGltfs
-      private=(hash
-        componentReference=this
-        createEntity=@w.private.createEntity
+    (merge-w
+      @w
+      (hash
+        private=(hash
+          componentReference=this
+        )
       )
     )
   }}

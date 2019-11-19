@@ -1,11 +1,13 @@
-{{yield (hash
-  world=@w.world
-  Entity=(component "ecsy/entity")
-  LoadGltf=(component "ecsy-babylon/load-gltf")
-  LoadGltfs=(component "ecsy-babylon/load-gltfs")
-  private=(hash
-    rootEntity=@w.private.rootEntity
-    createEntity=@w.private.createEntity
-    componentReference=this
+{{yield
+  (merge-w
+    @w
+    (hash
+      Entity=(component "ecsy/entity")
+      LoadGltf=(component "ecsy-babylon/load-gltf")
+      LoadGltfs=(component "ecsy-babylon/load-gltfs")
+      private=(hash
+        componentReference=this
+      )
+    )
   )
-)}}
+}}

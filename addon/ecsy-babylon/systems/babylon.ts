@@ -25,7 +25,6 @@ export default class BabylonSystem extends System {
 
     window.addEventListener('resize', this.listener);
 
-    console.log('setup core');
     const startTime = performance.now();
     core.engine.runRenderLoop((): void => {
       if (!core.engine || !core.scene) {
@@ -42,7 +41,6 @@ export default class BabylonSystem extends System {
   }
 
   remove(entity: Entity) {
-    console.log('remove core');
     window.removeEventListener('resize', this.listener);
 
     const core = entity.getRemovedComponent(BabylonCore);
@@ -50,7 +48,6 @@ export default class BabylonSystem extends System {
     core.engine.stopRenderLoop();
     core.scene.dispose();
     core.engine.dispose();
-    console.log('disposed scene');
   }
 }
 

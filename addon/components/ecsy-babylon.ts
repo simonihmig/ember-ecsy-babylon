@@ -47,10 +47,8 @@ export default class EcsyBabylon extends Ecsy {
     super.willDestroy();
 
     const entity = this.entity;
-    console.log('disposing');
 
     if (entity) {
-      console.log('removing entity');
       this.entity = undefined;
       entity.remove();
     }

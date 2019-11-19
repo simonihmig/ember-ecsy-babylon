@@ -44,21 +44,16 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     assert('BabylonCore could not be found', !!core);
     this.core = core;
 
-    console.log(restArgs);
-
     this.loadModels.perform(restArgs as FileHash);
   }
 
   didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfsArgs>) {
     if (Object.keys(changedArgs).length) {
-      console.log('CHANGED ARGS', changedArgs);
       const {
         w,
         parent,
         ...restArgs
       } = changedArgs;
-
-      console.log('restargs', restArgs);
 
       if (Object.keys(restArgs).length) {
         this.loadModels.perform(restArgs as FileHash);
@@ -85,7 +80,6 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
     if (fileUrl) {
       try {
-        console.log('trying to load fileUrl', fileUrl);
         return yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene);
       } catch (e) {
         console.error(`Failed to load "${fileUrl}"`);
@@ -114,7 +108,6 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   });
 
   setup(ach: AssetContainerHash) {
-    console.log('setting up');
     // cleanup old AssetContainers
     const disposable: AssetContainer[] = [];
     Object.entries(this.assetContainerHash || {})

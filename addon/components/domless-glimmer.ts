@@ -54,7 +54,6 @@ export default class DomlessGlimmerComponent<T extends DomlessGlimmerArgs = obje
     setOwner(this, owner as any);
 
     if (this.args.parent) {
-      console.log('registering', this.constructor.name, 'as child of', this.args.parent.constructor.name);
       this.args.parent.registerChild(this);
     }
   }

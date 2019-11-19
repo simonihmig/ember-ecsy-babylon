@@ -1,14 +1,13 @@
 {{#if this.entity}}
-  {{yield (hash
-    world=@w.world
-    Entity=@w.Entity
-    LoadGltf=@w.LoadGltf
-    LoadGltfs=@w.LoadGltfs
-    private=(hash
-      rootEntity=@w.private.rootEntity
-      createEntity=@w.private.createEntity
-      componentReference=this
-      entity=this.entity
+  {{yield
+    (merge-w
+      @w
+      (hash
+        private=(hash
+          componentReference=this
+          entity=this.entity
+        )
+      )
     )
-  )}}
+  }}
 {{/if}}

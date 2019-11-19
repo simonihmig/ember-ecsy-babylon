@@ -38,7 +38,6 @@ export default class EcsyEntity extends DomlessGlimmerComponent<DomlessGlimmerAr
   willDestroy(): void {
     super.willDestroy();
 
-    console.log('destroying entity', this.args.name);
     this.entity.remove();
   }
 }
