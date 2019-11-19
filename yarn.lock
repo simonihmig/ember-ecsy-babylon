@@ -4510,7 +4510,7 @@ ember-cli-typescript@^2.0.2:
     stagehand "^1.0.0"
     walk-sync "^1.0.0"
 
-ember-cli-typescript@^3.0.0:
+ember-cli-typescript@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/ember-cli-typescript/-/ember-cli-typescript-3.1.1.tgz#a5a12ebf915e43ded7bf6bb460ecea4b67b0d95b"
   integrity sha512-HCjM5EZ29Yh94Jy/M2+MVkS9LdtOoGYtYLIcZ4F7umJaRJM67ku/xCyN/2r+uTeYTNdpJN9+HWx30a6yyAbfRA==
