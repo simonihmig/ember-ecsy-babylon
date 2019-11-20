@@ -11,12 +11,14 @@ export default class SystemWithCore extends System {
 
       this.core = this.queries.core.added[0].getComponent(BabylonCore);
     }
+  }
 
-    // TODO: this needs to run after the other queries have run in the systems that extend from this
-    // if (this.queries.core.removed.length) {
-    //   // @ts-ignore
-    //   this.core = null;
-    // }
+  // this needs to run after the other queries have run in the systems that extend from this
+  afterExecute() {
+    if (this.queries.core.removed.length) {
+      // @ts-ignore
+      this.core = null;
+    }
   }
 }
 

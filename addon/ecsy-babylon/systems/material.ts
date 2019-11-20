@@ -18,11 +18,7 @@ export default class MaterialSystem extends SystemWithCore {
     this.queries.Material.changed.forEach((e: Entity) => this.setup(e));
     this.queries.Material.removed.forEach((e: Entity) => this.remove(e));
 
-    // TODO: clean this up
-    if (this.queries.core.removed.length) {
-      // @ts-ignore
-      this.core = null;
-    }
+    super.afterExecute();
   }
 
   getMesh (entity: Entity, removed = false): BabylonMesh {
