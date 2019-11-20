@@ -27,7 +27,6 @@ export interface EcsyContext {
     rootEntity: Entity; // root ECSY Entity, contains the BabylonCore component
     componentReference: DomlessGlimmerComponent;
     createEntity?: World['createEntity']; // bound function to create a new ECSY Entity
-    entity?: Entity; // closest ECSY Entity
   };
 }
 

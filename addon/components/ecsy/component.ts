@@ -1,12 +1,10 @@
-import { ComponentConstructor, Entity, World } from 'ecsy';
+import { ComponentConstructor, World, Component as _Component } from 'ecsy';
 import { assert } from '@ember/debug';
-import { Component as _Component } from 'ecsy';
-import DomlessGlimmerComponent from "@kaliber5/ember-ecsy-babylon/components/domless-glimmer";
-import EcsyEntity from "@kaliber5/ember-ecsy-babylon/components/ecsy/entity";
+import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import EcsyEntity from '@kaliber5/ember-ecsy-babylon/components/ecsy/entity';
 
 interface EcsyComponentArgs {
   // private
-  e: Entity;
   parent: EcsyEntity;
   name: string;
 }
@@ -18,19 +16,18 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
     super(owner, args);
 
     const {
-      e,
       parent,
       name,
       ...restArgs
     } = args;
 
-    assert('Entity `e` is not passed. Please do not use this component directly.', !!e);
     assert('Component reference `parent` is not passed. Please do not use this component directly.', !!parent);
     assert('Component reference `parent` is not an <Ecsy::Entity/>. Please do not use this component directly.', parent instanceof EcsyEntity);
+    assert('Component reference `parent` does not have a valid `entity` set. Please do not use this component directly.', parent.entity);
     assert('`name` is not passed. Please do not use this component directly.', !!name);
 
     // @ts-ignore: private API
-    const world = e._world as World;
+    const world = parent.entity._world as World;
 
     // @ts-ignore: private API
     const components = world.componentsManager.Components;
@@ -40,20 +37,19 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
       throw new Error(`Component "${name}" not found.`);
     }
 
-    e.addComponent(this._Component, restArgs);
+    parent.entity.addComponent(this._Component, restArgs);
   }
 
   didUpdate(changedArgs: object): void {
     super.didUpdate(changedArgs);
 
     const {
-      e,
       parent,
       name,
       ...args
     } = this.args;
 
-    const component = e.getMutableComponent(this._Component);
+    const component = parent.entity.getMutableComponent(this._Component);
     Object.assign(component, args);
   }
 
@@ -61,7 +57,7 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponent
     super.willDestroy();
 
     if (this._Component) {
-      this.args.e.removeComponent(this._Component);
+      this.args.parent.entity.removeComponent(this._Component);
     }
   }
 }
