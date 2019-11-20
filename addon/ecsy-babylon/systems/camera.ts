@@ -11,6 +11,8 @@ export default class PrimitiveSystem extends SystemWithCore {
     this.queries.arcRotateCamera.added.forEach((e: Entity) => this.setupArcRotateCamera(e));
     this.queries.arcRotateCamera.changed.forEach((e: Entity) => this.update(e, ArcRotateCamera));
     this.queries.arcRotateCamera.removed.forEach((e: Entity) => this.remove(e, ArcRotateCamera));
+
+    super.afterExecute();
   }
 
   setupArcRotateCamera(entity: Entity) {

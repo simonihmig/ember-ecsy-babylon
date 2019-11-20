@@ -8,6 +8,8 @@ export default class MeshSystem extends SystemWithCore {
 
     this.queries.meshes.added.forEach((e: Entity) => this.setup(e));
     this.queries.meshes.removed.forEach((e: Entity) => this.remove(e));
+
+    super.afterExecute();
   }
 
   setup(entity: Entity) {

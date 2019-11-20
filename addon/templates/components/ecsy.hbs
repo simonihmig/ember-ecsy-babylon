@@ -1,6 +1,9 @@
 {{#if this.world}}
   {{yield (hash
     world=this.world
-    Entity=(component "ecsy/entity" createEntity=this.createEntity)
+    Entity=(component "ecsy/entity")
+    private=(hash
+      createEntity=this.createEntity
+    )
   )}}
 {{/if}}

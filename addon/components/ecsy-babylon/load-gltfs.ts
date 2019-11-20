@@ -1,5 +1,4 @@
-import DomlessGlimmerComponent, { DomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
-import { Entity } from 'ecsy';
+import DomlessGlimmerComponent, { EcsyBabylonDomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import {assert} from '@ember/debug';
 import BabylonCore, { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 import { all } from 'ember-concurrency';
@@ -7,11 +6,13 @@ import { restartableTask, task } from 'ember-concurrency-decorators';
 import { AssetContainer, SceneLoader } from '@babylonjs/core';
 import { tracked } from '@glimmer/tracking';
 
+import '@babylonjs/loaders/glTF';
+
 /**
  * Any other arguments will be parsed as a fileUrl and added to the resulting assets hash
  */
-export interface EcsyBabylonLoadGltfsArgs extends DomlessGlimmerArgs {
-  e: Entity; // core entity instance
+export interface EcsyBabylonLoadGltfsArgs extends EcsyBabylonDomlessGlimmerArgs {
+  [key: string]: any;
 }
 
 type FileHash = {
@@ -33,13 +34,13 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     super(owner, args);
 
     const {
-      e,
+      w,
       parent,
       ...restArgs
     } = args;
 
-    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!e);
-    const core = e.getComponent(BabylonCore);
+    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!(w && w.private && w.private.rootEntity));
+    const core = w!.private.rootEntity.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
     this.core = core;
 
@@ -49,24 +50,26 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfsArgs>) {
     if (Object.keys(changedArgs).length) {
       const {
-        e,
+        w,
         parent,
         ...restArgs
       } = changedArgs;
 
-      this.loadModels.perform(restArgs as FileHash);
+      if (Object.keys(restArgs).length) {
+        this.loadModels.perform(restArgs as FileHash);
+      }
     }
   }
 
   willDestroy() {
+    super.willDestroy();
+
     this.loadModels.cancelAll();
 
     const disposable = Object.values(this.assetContainerHash || {});
     this.assets = undefined;
     this.assetContainerHash = undefined;
     this.cleanup(disposable);
-
-    super.willDestroy();
   }
 
   @task

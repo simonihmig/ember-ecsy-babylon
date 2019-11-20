@@ -24,6 +24,20 @@ export default class BabylonSystem extends System {
     }.bind({ engine: core.engine });
 
     window.addEventListener('resize', this.listener);
+
+    const startTime = performance.now();
+    core.engine.runRenderLoop((): void => {
+      if (!core.engine || !core.scene) {
+        throw new Error('Engine and/or Scene not found');
+      }
+
+      core.world.execute(core.engine.getDeltaTime(), performance.now() - startTime);
+
+      // only render if there is an active camera
+      if (core.scene.activeCamera) {
+        core.scene.render();
+      }
+    });
   }
 
   remove(entity: Entity) {
