@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { mergeW } from 'dummy/helpers/merge-w';
+import { mergeW } from '@kaliber5/ember-ecsy-babylon/helpers/merge-w';
 import { World } from 'ecsy';
 
 module('Integration | Helper | merge-w', function(hooks) {
