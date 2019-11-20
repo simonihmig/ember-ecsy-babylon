@@ -3,7 +3,7 @@ import { EcsyContext } from '@kaliber5/ember-ecsy-babylon/components/domless-gli
 import { assert } from '@ember/debug';
 
 export function mergeW([W, newW]: [EcsyContext, Partial<EcsyContext>]/*, hash*/) {
-  assert('Two arguments of type "WDefinition" must be passed', W && newW);
+  assert('Two arguments of type "EcsyContext" must be passed', W && newW);
 
   return {
     ...W,
