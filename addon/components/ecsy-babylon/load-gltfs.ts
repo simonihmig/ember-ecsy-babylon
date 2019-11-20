@@ -1,4 +1,4 @@
-import DomlessGlimmerComponent, { DomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent, { EcsyBabylonDomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import {assert} from '@ember/debug';
 import BabylonCore, { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 import { all } from 'ember-concurrency';
@@ -11,7 +11,7 @@ import '@babylonjs/loaders/glTF';
 /**
  * Any other arguments will be parsed as a fileUrl and added to the resulting assets hash
  */
-export interface EcsyBabylonLoadGltfsArgs extends DomlessGlimmerArgs {
+export interface EcsyBabylonLoadGltfsArgs extends EcsyBabylonDomlessGlimmerArgs {
   [key: string]: any;
 }
 

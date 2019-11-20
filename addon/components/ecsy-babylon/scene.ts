@@ -1,12 +1,12 @@
 import DomlessGlimmerComponent, {
-  DomlessGlimmerArgs,
-  WDefinition
+  EcsyBabylonDomlessGlimmerArgs,
+  EcsyContext
 } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import { Color3, Scene } from '@babylonjs/core';
 import { assert } from '@ember/debug';
 import BabylonCore from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 
-export interface EcsyBabylonSceneArgs extends DomlessGlimmerArgs {
+export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
   clearColor: Color3;
   ambientColor: Color3;
 }
@@ -29,7 +29,7 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
       private: {
         rootEntity
       }
-    } = w as WDefinition;
+    } = w as EcsyContext;
 
     assert('EcsyBabylon entity not found. Make sure to use the yielded version of <Scene/>', !!rootEntity);
     assert('EcsyBabylon world not found. Make sure to use the yielded version of <Scene/>', !!world);

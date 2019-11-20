@@ -21,11 +21,8 @@ if (DEBUG) {
 
 export { DESTROYING, DESTROYED, ARGS_SET };
 
-export interface WDefinition {
+export interface EcsyContext {
   world: World;
-  Entity?: Constructor<EcsyEntity>;
-  LoadGltfs?: Constructor<EcsyBabylonLoadGltfs>;
-  LoadGltf?: Constructor<EcsyBabylonLoadGltf>;
   private: {
     rootEntity: Entity; // root ECSY Entity, contains the BabylonCore component
     componentReference: DomlessGlimmerComponent;
@@ -35,8 +32,20 @@ export interface WDefinition {
 }
 
 export interface DomlessGlimmerArgs {
-  w?: WDefinition;
+  w?: EcsyContext;
   parent?: DomlessGlimmerComponent<DomlessGlimmerArgs>;
+}
+
+// TODO: extract to ember-ecsy-babylon addon
+export interface EcsyBabylonContext extends EcsyContext {
+  Entity: Constructor<EcsyEntity>;
+  LoadGltfs: Constructor<EcsyBabylonLoadGltfs>;
+  LoadGltf: Constructor<EcsyBabylonLoadGltf>;
+}
+
+export interface EcsyBabylonDomlessGlimmerArgs extends DomlessGlimmerArgs {
+  w: EcsyBabylonContext;
+  parent: DomlessGlimmerComponent<DomlessGlimmerArgs | EcsyBabylonDomlessGlimmerArgs>;
 }
 
 export default class DomlessGlimmerComponent<T extends DomlessGlimmerArgs = object> {
