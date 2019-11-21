@@ -2,13 +2,14 @@ import DomlessGlimmerComponent, {
   EcsyBabylonDomlessGlimmerArgs,
   EcsyContext
 } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
-import { Color3, Scene } from '@babylonjs/core';
+import { Color3, CubeTexture, Scene } from '@babylonjs/core';
 import { assert } from '@ember/debug';
 import BabylonCore from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 
 export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
   clearColor: Color3;
   ambientColor: Color3;
+  environmentTexture: string;
 }
 
 export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylonSceneArgs> {
@@ -19,6 +20,7 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
 
     const {
       w,
+      environmentTexture,
       ...restArgs
     } = args;
 
@@ -39,11 +41,43 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
 
     this.scene = core.scene;
     Object.assign(this.scene, restArgs);
+    this.updateEnvironmentTexture(environmentTexture);
   }
 
   didUpdate (changedArgs: Partial<EcsyBabylonSceneArgs>) {
     super.didUpdate(changedArgs);
 
-    Object.assign(this.scene, changedArgs);
+    const {
+      w,
+      environmentTexture,
+      ...restArgs
+    } = changedArgs;
+
+    if (Object.keys(restArgs).length) {
+      Object.assign(this.scene, changedArgs);
+    }
+
+    if (environmentTexture) {
+      this.updateEnvironmentTexture(environmentTexture);
+    }
+  }
+
+  updateEnvironmentTexture(environmentTexture: string) {
+    const oldTexture = this.scene.environmentTexture;
+
+    this.scene.environmentTexture = new CubeTexture(environmentTexture, this.scene);
+
+    if (oldTexture) {
+      oldTexture.dispose();
+    }
+  }
+
+  willDestroy() {
+    if (this.scene.environmentTexture) {
+      this.scene.environmentTexture.dispose();
+      this.scene.environmentTexture = null;
+    }
+
+    super.willDestroy();
   }
 }
