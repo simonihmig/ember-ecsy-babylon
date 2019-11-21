@@ -32,4 +32,6 @@ export default createComponentClass<ArcRotateComponent>({
   upperAlphaLimit: { default: null, type: Types.OptionalNumber },
   upperBetaLimit: { default: null, type: Types.OptionalNumber },
   upperRadiusLimit: { default: null, type: Types.OptionalNumber },
+
+  panningSensibility: { default: 0 }
 }, 'ArcRotateCamera');
