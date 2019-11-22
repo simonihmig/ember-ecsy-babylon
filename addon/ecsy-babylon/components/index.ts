@@ -6,6 +6,7 @@ import Sphere from './sphere';
 import Material from './material';
 import PBRMaterial from './pbr-material';
 import HemisphericLight from './hemispheric-light';
+import DirectionalLight from './directional-light';
 import PointLight from './point-light';
 import TransformNode from './transform-node';
 import Position from './position';
@@ -21,6 +22,7 @@ export {
   Material,
   PBRMaterial,
   HemisphericLight,
+  DirectionalLight,
   PointLight,
   TransformNode,
   Position,
@@ -37,6 +39,7 @@ export default [
   Material,
   PBRMaterial,
   HemisphericLight,
+  DirectionalLight,
   PointLight,
   TransformNode,
   Position,

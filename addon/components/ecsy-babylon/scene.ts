@@ -65,7 +65,7 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
   updateEnvironmentTexture(environmentTexture: string) {
     const oldTexture = this.scene.environmentTexture;
 
-    this.scene.environmentTexture = new CubeTexture(environmentTexture, this.scene);
+    this.scene.environmentTexture = environmentTexture ? new CubeTexture(environmentTexture, this.scene) : null;
 
     if (oldTexture) {
       oldTexture.dispose();
