@@ -22,6 +22,14 @@ export default class MeshSystem extends SystemWithCore {
     const transformNodeComponent = entity.getComponent(TransformNode);
     meshComponent.value.parent = transformNodeComponent.value;
 
+    const {
+      value,
+      dispose,
+      ...restArgs
+    } = meshComponent;
+
+    Object.assign(value, restArgs);
+
     this.core.scene.addMesh(meshComponent.value);
   }
 
