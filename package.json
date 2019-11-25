@@ -1,6 +1,6 @@
 {
   "name": "@kaliber5/ember-ecsy-babylon",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Embber addon that uses escy and babylon.js for a fully declarative 3D rendering experience in Ember apps",
   "keywords": [
     "ember-addon"
