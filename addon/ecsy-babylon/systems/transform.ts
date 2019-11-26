@@ -8,6 +8,7 @@ import { assert } from '@ember/debug';
 export default class TransformSystem extends System {
   execute() {
     this.queries.entity.added.forEach((e: Entity) => this.setup(e));
+    this.queries.transformNode.added.forEach((e: Entity) => this.setupTransformNode(e));
 
     this.queries.position.added.forEach((e: Entity) => this.position(e));
     this.queries.position.changed.forEach((e: Entity) => this.position(e));
@@ -19,35 +20,22 @@ export default class TransformSystem extends System {
     this.queries.scale.changed.forEach((e: Entity) => this.scale(e));
     this.queries.scale.removed.forEach((e: Entity) => this.removeScale(e));
 
+    // entity might remove TransformNode, so it needs to run before
     this.queries.entity.removed.forEach((e: Entity) => this.remove(e));
+    this.queries.transformNode.removed.forEach((e: Entity) => this.removeTransformNode(e));
   }
 
   setup (entity: Entity) {
-    const entityComponent = entity.getComponent(EntityComponent);
-    const parentEntity = entityComponent.parent;
-    const transformNode = new BabylonTransformNode(`${guidFor(entity)}__TransformNode`);
-
-    if (parentEntity) {
-      const parentTransformNodeComponent = parentEntity.getComponent(TransformNode);
-
-      assert('The parent <Entity/> does not have a valid TransformNode ECSY component', !!(parentTransformNodeComponent && parentTransformNodeComponent.value));
-
-      transformNode.parent = parentTransformNodeComponent.value;
+    if (entity.hasComponent(TransformNode)) {
+      return;
     }
+
+    const transformNode = new BabylonTransformNode(`${guidFor(entity)}__TransformNode`);
 
     entity.addComponent(TransformNode, { value: transformNode });
   }
 
   remove (entity: Entity) {
-    // the TransformNode component might already be removed if the Entity was removed
-    const transformNodeComponent = entity.getComponent(TransformNode) || entity.getRemovedComponent(TransformNode);
-
-    if (!transformNodeComponent || !transformNodeComponent.value) {
-      throw new Error('TransformNode Component does not have a valid TransformNode instance.');
-    }
-
-    // we do not recursively dispose of all children of this transform node, they will clean up themselves
-    transformNodeComponent.value.dispose(true);
     entity.removeComponent(TransformNode);
   }
 
@@ -62,6 +50,41 @@ export default class TransformSystem extends System {
 
     // @ts-ignore
     return transformNodeComponent.value;
+  }
+
+  setupTransformNode (entity: Entity) {
+    const entityComponent = entity.getComponent(EntityComponent);
+    const transformNodeComponent = entity.getComponent(TransformNode);
+    const parentEntity = entityComponent.parent;
+
+    if (transformNodeComponent.value) {
+      if (transformNodeComponent.clone) {
+        transformNodeComponent.value = transformNodeComponent.value.clone(`${guidFor(entity)}__TransformNode__cloned`, null, true);
+      }
+
+      if (parentEntity) {
+        const parentTransformNodeComponent = parentEntity.getComponent(TransformNode);
+
+        assert('The parent <Entity/> does not have a valid TransformNode ECSY component', !!(parentTransformNodeComponent && parentTransformNodeComponent.value));
+
+        transformNodeComponent.value!.parent = parentTransformNodeComponent.value;
+        transformNodeComponent.value!.computeWorldMatrix(true);
+      }
+    }
+  }
+
+  removeTransformNode (entity: Entity) {
+    // the TransformNode component might already be removed if the Entity was removed
+    const transformNodeComponent = entity.getRemovedComponent(TransformNode);
+
+    if (!transformNodeComponent || !transformNodeComponent.value) {
+      throw new Error('TransformNode Component does not have a valid TransformNode instance.');
+    }
+
+    // we do not recursively dispose of all children of this transform node, they will clean up themselves
+    transformNodeComponent.value.getChildren().forEach(c => c.parent = null);
+    transformNodeComponent.value.dispose();
+    transformNodeComponent.value = null;
   }
 
   position (entity: Entity) {
@@ -112,6 +135,13 @@ export default class TransformSystem extends System {
 TransformSystem.queries = {
   entity: {
     components: [EntityComponent],
+    listen: {
+      added: true,
+      removed: true
+    }
+  },
+  transformNode: {
+    components: [TransformNode],
     listen: {
       added: true,
       removed: true
