@@ -127,7 +127,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
         const assets = ac
           ? {
             // we only yield meshes and materials for now
-            meshes: ac.meshes,
+            meshes: ac.meshes.filter((m) => m.getTotalVertices() > 0),
             materials: ac.materials
           }
           : null;
