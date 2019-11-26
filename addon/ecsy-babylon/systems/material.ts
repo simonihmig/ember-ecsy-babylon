@@ -14,9 +14,9 @@ export default class MaterialSystem extends SystemWithCore {
     this.queries.PBRMaterial.changed.forEach((e: Entity) => this.updatePBRMaterial(e));
     this.queries.PBRMaterial.removed.forEach((e: Entity) => this.removePBRMaterial(e));
 
+    this.queries.Material.removed.forEach((e: Entity) => this.remove(e));
     this.queries.Material.added.forEach((e: Entity) => this.setup(e));
     this.queries.Material.changed.forEach((e: Entity) => this.setup(e));
-    this.queries.Material.removed.forEach((e: Entity) => this.remove(e));
 
     super.afterExecute();
   }

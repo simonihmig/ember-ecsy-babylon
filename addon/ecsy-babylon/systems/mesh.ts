@@ -19,33 +19,35 @@ export default class MeshSystem extends SystemWithCore {
       throw new Error('Failed to add Mesh Component. No valid Mesh found.');
     }
 
+    meshComponent.instance = meshComponent.value.createInstance(`${meshComponent.value.name}__instance`);
+
     const transformNodeComponent = entity.getComponent(TransformNode);
-    meshComponent.value.parent = transformNodeComponent.value;
+    meshComponent.instance.parent = null;
+    meshComponent.instance.parent = transformNodeComponent.value;
+    meshComponent.instance.computeWorldMatrix(true);
 
     const {
       value,
       dispose,
+      instance,
       ...restArgs
     } = meshComponent;
 
-    Object.assign(value, restArgs);
+    Object.assign(instance, restArgs);
 
-    this.core.scene.addMesh(meshComponent.value);
+    this.core.scene.addMesh(meshComponent.instance);
   }
 
   remove(entity: Entity) {
     const meshComponent = entity.getRemovedComponent(Mesh);
 
-    if (!meshComponent || !meshComponent.value) {
+    if (!meshComponent || !meshComponent.instance) {
       throw new Error('No removed Mesh Component found. Make sure this system is registered at the correct time.');
     }
 
-    if (meshComponent.dispose) {
-      meshComponent.value.dispose();
-    } else {
-      meshComponent.value.parent = null;
-      this.core.scene.removeMesh(meshComponent.value);
-    }
+    meshComponent.instance.dispose();
+    meshComponent.instance = null;
+    //meshComponent.value = null;
   }
 }
 
