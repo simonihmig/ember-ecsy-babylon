@@ -1,7 +1,7 @@
 import DomlessGlimmerComponent, { EcsyBabylonDomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import {assert} from '@ember/debug';
 import BabylonCore, { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
-import { all } from 'ember-concurrency';
+import { hash } from 'ember-concurrency';
 import { restartableTask, task } from 'ember-concurrency-decorators';
 import { AssetContainer, SceneLoader } from '@babylonjs/core';
 import { tracked } from '@glimmer/tracking';
@@ -91,20 +91,19 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
   @restartableTask
   loadModels = task(function* (this: EcsyBabylonLoadGltfs, fileHash: FileHash) {
-    const models = Object.values(fileHash).filter(Boolean).map((fileUrl => this.loadModel.perform(fileUrl)));
-    const files = yield all(models);
+    const models = Object
+      .entries(fileHash)
+      .reduce((result, [key, fileUrl]) => ({
+         ...result,
+        [key]: this.loadModel.perform(fileUrl)
+      }), {});
+    const files = yield hash(models);
 
     if (!files) {
       throw new Error('Failed to load files');
     }
 
-    const result = Object.keys(fileHash)
-      .reduce((result, name, index) => ({
-        ...result,
-        [name]: files![index]
-      }), {});
-
-    this.setup(result);
+    this.setup(files);
   });
 
   setup(ach: AssetContainerHash) {
