@@ -1,10 +1,10 @@
-import DomlessGlimmerComponent, {
-  EcsyBabylonDomlessGlimmerArgs,
-  EcsyContext
-} from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import { Color3, CubeTexture, Scene } from '@babylonjs/core';
 import { assert } from '@ember/debug';
 import BabylonCore from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
+import {
+  EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs
+} from '@kaliber5/ember-ecsy-babylon/components/ecsy-babylon';
 
 export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
   clearColor: Color3;
@@ -12,26 +12,23 @@ export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
   environmentTexture: string;
 }
 
-export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylonSceneArgs> {
+export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylonContext, EcsyBabylonSceneArgs> {
   scene: Scene;
 
   constructor (owner: unknown, args: EcsyBabylonSceneArgs) {
     super(owner, args);
 
     const {
-      w,
       environmentTexture,
       ...restArgs
     } = args;
 
-    assert(`Argument "w" not passed. Make sure to use the yielded version of <Scene/>`, !!w);
+    assert('No ECSY context found.', this.context);
 
     const {
       world,
-      private: {
-        rootEntity
-      }
-    } = w as EcsyContext;
+      rootEntity
+    } = this.context!;
 
     assert('EcsyBabylon entity not found. Make sure to use the yielded version of <Scene/>', !!rootEntity);
     assert('EcsyBabylon world not found. Make sure to use the yielded version of <Scene/>', !!world);
@@ -48,7 +45,6 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
     super.didUpdate(changedArgs);
 
     const {
-      w,
       environmentTexture,
       ...restArgs
     } = changedArgs;

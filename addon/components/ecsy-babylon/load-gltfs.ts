@@ -1,4 +1,4 @@
-import DomlessGlimmerComponent, { EcsyBabylonDomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import {assert} from '@ember/debug';
 import BabylonCore, { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 import { hash } from 'ember-concurrency';
@@ -7,6 +7,10 @@ import { AssetContainer, SceneLoader } from '@babylonjs/core';
 import { tracked } from '@glimmer/tracking';
 
 import '@babylonjs/loaders/glTF';
+import {
+  EcsyBabylonContext,
+  EcsyBabylonDomlessGlimmerArgs
+} from '@kaliber5/ember-ecsy-babylon/components/ecsy-babylon';
 
 /**
  * Any other arguments will be parsed as a fileUrl and added to the resulting assets hash
@@ -23,7 +27,7 @@ type AssetContainerHash = {
   [index: string]: AssetContainer;
 }
 
-export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBabylonLoadGltfsArgs> {
+export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBabylonContext, EcsyBabylonLoadGltfsArgs> {
 
   @tracked assets?: object;
 
@@ -34,13 +38,12 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     super(owner, args);
 
     const {
-      w,
       parent,
       ...restArgs
     } = args;
 
-    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!(w && w.private && w.private.rootEntity));
-    const core = w!.private.rootEntity.getComponent(BabylonCore);
+    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <LoadGltf/>', !!(this.context && this.context.rootEntity));
+    const core = this.context!.rootEntity.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
     this.core = core;
 

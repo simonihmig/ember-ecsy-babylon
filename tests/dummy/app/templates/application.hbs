@@ -22,7 +22,7 @@
       {{!-- GLTF mesh example --}}
       {{!--
       {{#if this.showEntity}}
-        <World.LoadGltf @fileName="test.gltf" as |ac|>
+        <World.LoadGltf @fileUrl="test.gltf" as |ac|>
 
           <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0)}}>
             {{#each ac.meshes as |_mesh|}}

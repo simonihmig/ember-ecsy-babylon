@@ -1,13 +1,9 @@
 // @ts-ignore
 import { setComponentManager } from '@ember/component';
 import ApplicationInstance from '@ember/application/instance';
-import DomlessGlimmerComponentManager, { Constructor } from '@kaliber5/ember-ecsy-babylon/component-managers/domless-glimmer';
+import DomlessGlimmerComponentManager from '@kaliber5/ember-ecsy-babylon/component-managers/domless-glimmer';
 import { setOwner } from '@ember/application';
 import { DEBUG } from '@glimmer/env';
-import { Entity, World } from 'ecsy';
-import EcsyEntity from '@kaliber5/ember-ecsy-babylon/components/ecsy/entity';
-import EcsyBabylonLoadGltfs from '@kaliber5/ember-ecsy-babylon/components/ecsy-babylon/load-gltfs';
-import EcsyBabylonLoadGltf from '@kaliber5/ember-ecsy-babylon/components/ecsy-babylon/load-gltf';
 
 const WILL_DESTROY = Symbol('will_destroy');
 const DESTROYING = Symbol('destroying');
@@ -21,33 +17,11 @@ if (DEBUG) {
 
 export { DESTROYING, DESTROYED, ARGS_SET };
 
-export interface EcsyContext {
-  world: World;
-  private: {
-    rootEntity: Entity; // root ECSY Entity, contains the BabylonCore component
-    componentReference: DomlessGlimmerComponent;
-    createEntity?: World['createEntity']; // bound function to create a new ECSY Entity
-  };
+export interface DomlessGlimmerArgs<C> {
+  parent?: DomlessGlimmerComponent<C, DomlessGlimmerArgs<C>>;
 }
 
-export interface DomlessGlimmerArgs {
-  w?: EcsyContext;
-  parent?: DomlessGlimmerComponent<DomlessGlimmerArgs>;
-}
-
-// TODO: extract to ember-ecsy-babylon addon
-export interface EcsyBabylonContext extends EcsyContext {
-  Entity: Constructor<EcsyEntity>;
-  LoadGltfs: Constructor<EcsyBabylonLoadGltfs>;
-  LoadGltf: Constructor<EcsyBabylonLoadGltf>;
-}
-
-export interface EcsyBabylonDomlessGlimmerArgs extends DomlessGlimmerArgs {
-  w: EcsyBabylonContext;
-  parent: DomlessGlimmerComponent<DomlessGlimmerArgs | EcsyBabylonDomlessGlimmerArgs>;
-}
-
-export default class DomlessGlimmerComponent<T extends DomlessGlimmerArgs = object> {
+export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimmerArgs<C> = object> {
   constructor(owner: unknown, args: T) {
     if (DEBUG && !(owner !== null && typeof owner === 'object' && ARGS_SET.has(args))) {
       throw new Error(
@@ -67,7 +41,8 @@ export default class DomlessGlimmerComponent<T extends DomlessGlimmerArgs = obje
   }
 
   args: Readonly<T>;
-  children: Set<DomlessGlimmerComponent>;
+  children: Set<DomlessGlimmerComponent<C>>;
+  _context?: C;
 
   [WILL_DESTROY] = false;
   [DESTROYING] = false;
@@ -79,6 +54,13 @@ export default class DomlessGlimmerComponent<T extends DomlessGlimmerArgs = obje
 
   get isDestroyed() {
     return this[DESTROYED];
+  }
+
+  get context(): C | undefined {
+    return this._context !== undefined ? this._context : (this.args.parent && this.args.parent.context);
+  }
+  set context(context: C | undefined) {
+    this._context = context;
   }
 
   /**
@@ -113,11 +95,11 @@ export default class DomlessGlimmerComponent<T extends DomlessGlimmerArgs = obje
     }
   }
 
-  registerChild(child: DomlessGlimmerComponent) {
+  registerChild(child: DomlessGlimmerComponent<C>) {
     this.children.add(child);
   }
 
-  unregisterChild(child: DomlessGlimmerComponent) {
+  unregisterChild(child: DomlessGlimmerComponent<C>) {
     this.children.delete(child);
   }
 }
