@@ -1,7 +1,7 @@
 import { Entity } from 'ecsy';
-import { Action, BabylonCore, Mesh } from '../components';
-import { ActionManager, ExecuteCodeAction } from '@babylonjs/core';
-import SystemWithCore from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/SystemWithCore';
+import { Action, Mesh } from '../components';
+import { AbstractActionManager, ActionManager, ExecuteCodeAction } from '@babylonjs/core';
+import SystemWithCore, { queries } from '../SystemWithCore';
 
 const TRIGGER = {
   pick: ActionManager.OnPickTrigger,
@@ -27,61 +27,70 @@ export default class ActionSystem extends SystemWithCore {
     super.execute();
 
     this.queries.action.added.forEach((e: Entity) => this.setup(e));
+    this.queries.action.changed.forEach((e: Entity) => this.setup(e));
     this.queries.action.removed.forEach((e: Entity) => this.remove(e));
 
     super.afterExecute();
   }
 
   setup(entity: Entity) {
-    const action = entity.getMutableComponent(Action);
+    const actionComponent = entity.getMutableComponent(Action);
 
-    const meshComponent = entity.getComponent(Mesh);
-    if (!meshComponent || !meshComponent.instance) {
-      throw new Error('Action component can only be applied to Entities with a mesh');
+    let actionManager = this.getActionManager(entity);
+    if (actionManager === null) {
+
+      const meshComponent = entity.getComponent(Mesh);
+      if (!meshComponent || !meshComponent.instance) {
+        throw new Error('Action component can only be applied to Entities with a mesh');
+      }
+
+      actionManager = new ActionManager(this.core.scene);
+      const mesh = meshComponent.instance;
+      mesh.actionManager = actionManager;
     }
 
-    const mesh = meshComponent.instance;
-    mesh.actionManager = mesh.actionManager || new ActionManager(this.core.scene);
+    Object.keys(TRIGGER).forEach((triggerName: keyof typeof TRIGGER) => {
+      if (actionComponent._actions[triggerName]) {
+        actionManager!.unregisterAction(actionComponent._actions[triggerName]);
+        delete actionComponent._actions[triggerName];
+      }
 
-    Object.keys(TRIGGER).forEach((triggerName) => {
-      // @todo handle updates properly, i.e. not registering actions twice, unregistering actions
-      const fn = action[triggerName];
+      const fn = actionComponent[triggerName];
       if (!fn) {
         return;
       }
+
       const trigger = TRIGGER[triggerName];
-      mesh.actionManager!.registerAction(
-        new ExecuteCodeAction(
-          trigger,
-          () => {
-            fn()
-          }
-        )
+      const action = actionManager!.registerAction(
+        new ExecuteCodeAction(trigger, fn)
       );
+      if (action) {
+        actionComponent._actions[triggerName] = action;
+      }
     });
   }
 
   remove(entity: Entity) {
     const meshComponent = entity.getComponent(Mesh);
-    if (meshComponent && meshComponent.instance && meshComponent.instance.actionManager) {
+    if (meshComponent?.instance?.actionManager) {
       meshComponent.instance.actionManager.dispose();
       meshComponent.instance.actionManager = null;
     }
   }
+
+  private getActionManager(entity: Entity): AbstractActionManager | null {
+    const meshComponent = entity.getComponent(Mesh);
+    return (meshComponent && meshComponent.instance && meshComponent.instance.actionManager) || null;
+  }
 }
 
 ActionSystem.queries = {
-  core: {
-    components: [BabylonCore],
-    listen: {
-      added: true,
-      removed: true
-    }
-  },
+  ...queries,
   action: {
     components: [Action, Mesh],
     listen: {
       added: true,
+      changed: true,
       removed: true
     }
   }

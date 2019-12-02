@@ -1,22 +1,29 @@
 import { Component, createComponentClass } from 'ecsy';
+import { ActionEvent, IAction } from '@babylonjs/core';
+
+type ActionCallback = (evt: ActionEvent) => void;
 
 export interface ActionComponent extends Component {
-  pick?: Function,
-  doublePick?: Function,
-  centerPick?: Function,
-  everyFrame?: Function,
-  intersectionEnter?: Function,
-  intersectionExit?: Function,
-  keyDown?: Function,
-  keyUp?: Function,
-  leftPick?: Function,
-  longPress?: Function,
-  pickDown?: Function,
-  pickOut?: Function,
-  pickUp?: Function,
-  pointerOut?: Function,
-  pointerOver?: Function,
-  rightPick?: Function,
+  pick?: ActionCallback;
+  doublePick?: ActionCallback;
+  centerPick?: ActionCallback;
+  everyFrame?: ActionCallback;
+  intersectionEnter?: ActionCallback;
+  intersectionExit?: ActionCallback;
+  keyDown?: ActionCallback;
+  keyUp?: ActionCallback;
+  leftPick?: ActionCallback;
+  longPress?: ActionCallback;
+  pickDown?: ActionCallback;
+  pickOut?: ActionCallback;
+  pickUp?: ActionCallback;
+  pointerOut?: ActionCallback;
+  pointerOver?: ActionCallback;
+  rightPick?: ActionCallback;
+
+  _actions: {
+    [key: string]: IAction;
+  };
 }
 
 export default createComponentClass<ActionComponent>({
@@ -36,4 +43,6 @@ export default createComponentClass<ActionComponent>({
   pointerOut: { default: null },
   pointerOver: { default: null },
   rightPick: { default: null },
+  _actions: { default: {} },
+
 }, 'Action');

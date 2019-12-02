@@ -47,10 +47,18 @@
             {{sphere diameter=3}}
             {{pbr-material ambientColor=(color 1 0 0) albedoColor=(color 1 0 0) metallic=0.5 roughness=0.5}}
             {{position (vector 1 2 1)}}
-            {{action pick=this.toggleEntity pointerOver=(fn this.rotate "left" 5) pointerOut=(fn this.rotate "right" 5)}}
           />
         </World.Entity>
       {{/if}}
+
+      <World.Entity
+        @name="controller"
+        {{sphere diameter=0.5}}
+        {{pbr-material albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
+        {{position (vector 0 -2 0)}}
+        {{action pick=this.toggleEntity pointerOver=(if this.showEntity (fn this.rotate "left" 5) undefined) pointerOut=(if this.showEntity (fn this.rotate "right" 5) undefined)}}
+      />
+
     </Scene>
   </EcsyBabylon>
 
