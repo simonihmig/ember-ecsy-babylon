@@ -12,6 +12,7 @@ import TransformNode from './transform-node';
 import Position from './position';
 import Rotation from './rotation';
 import Scale from './scale';
+import Action from './action';
 
 export {
   BabylonCore,
@@ -27,7 +28,8 @@ export {
   TransformNode,
   Position,
   Rotation,
-  Scale
+  Scale,
+  Action
 }
 
 export default [
@@ -45,4 +47,5 @@ export default [
   Position,
   Rotation,
   Scale,
+  Action,
 ];
