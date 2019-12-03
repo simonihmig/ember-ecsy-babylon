@@ -1,6 +1,6 @@
 import { ComponentConstructor, Entity } from 'ecsy';
-import { ArcRotateCamera } from '../components';
-import {ArcRotateCamera as BabylonArcRotateCamera } from '@babylonjs/core';
+import { ArcRotateCamera, TransformNode } from '../components';
+import { ArcRotateCamera as BabylonArcRotateCamera } from '@babylonjs/core';
 import { guidFor } from '@ember/object/internals';
 import SystemWithCore, { queries } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/SystemWithCore';
 
@@ -44,6 +44,9 @@ export default class PrimitiveSystem extends SystemWithCore {
 
     scene.activeCamera = instance;
     scene.activeCamera.attachControl(canvas, false);
+
+    const transformNodeComponent = entity.getComponent(TransformNode);
+    instance.parent = transformNodeComponent.value;
   }
 
   update(entity: Entity, component: ComponentConstructor<any>) {
