@@ -13,7 +13,7 @@ export default class PrimitiveSystem extends System {
 
   setup(entity: Entity, Component: ComponentConstructor<any>, createPrimitive: (name: string, options: any, scene?: any) => BabylonMesh) {
     const component = entity.getComponent(Component);
-    const mesh = createPrimitive(component.name, component);
+    const mesh = createPrimitive(component.name || 'primitive', component);
 
     // remove mesh from its default scene
     const scene = mesh.getScene();
