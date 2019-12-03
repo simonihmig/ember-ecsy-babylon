@@ -27,7 +27,7 @@
     "@babylonjs/core": "^4.1.0-beta.4",
     "@babylonjs/inspector": "^4.1.0-beta.4",
     "@babylonjs/loaders": "^4.1.0-beta.4",
-    "@babylonjs/materials": "^4.0.3",
+    "@babylonjs/materials": "^4.1.0-beta.4",
     "@ember/render-modifiers": "^1.0.2",
     "@glimmer/env": "^0.1.7",
     "@glimmer/tracking": "^0.14.0-alpha.1",
