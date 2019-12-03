@@ -5,6 +5,7 @@ import Primitive from './primitive';
 import Mesh from './mesh';
 import Material from './material';
 import Light from './light';
+import Shadow from './shadow';
 
 export { default as Babylon } from './babylon';
 export { default as Camera } from './camera';
@@ -13,13 +14,15 @@ export { default as Primitive } from './primitive';
 export { default as Mesh } from './mesh';
 export { default as Material } from './material';
 export { default as Light } from './light';
+export { default as Shadow } from './shadow';
 
 export default [
   Babylon,
-  Camera,
   Transform,
+  Camera,
   Primitive,
   Mesh,
   Material,
-  Light
+  Light,
+  Shadow,
 ];

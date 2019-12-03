@@ -1,7 +1,8 @@
 import { Entity } from 'ecsy';
 import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
-import { Mesh, PBRMaterial, Material } from '../components';
+import { Mesh, PBRMaterial, Material, ShadowOnlyMaterial } from '../components';
 import { Mesh as BabylonMesh, PBRMaterial as BabylonPBRMaterial } from '@babylonjs/core';
+import { ShadowOnlyMaterial as BabylonShadowOnlyMaterial } from '@babylonjs/materials';
 import { assert } from '@ember/debug';
 import { guidFor } from '@ember/object/internals';
 import SystemWithCore, { queries } from '../SystemWithCore';
@@ -10,9 +11,12 @@ export default class MaterialSystem extends SystemWithCore {
   execute() {
     super.execute();
 
+    this.queries.ShadowOnlyMaterial.added.forEach((e: Entity) => this.setupShadowOnlyMaterial(e));
+    this.queries.ShadowOnlyMaterial.removed.forEach((e: Entity) => this.removeMaterial(e));
+
     this.queries.PBRMaterial.added.forEach((e: Entity) => this.setupPBRMaterial(e));
     this.queries.PBRMaterial.changed.forEach((e: Entity) => this.updatePBRMaterial(e));
-    this.queries.PBRMaterial.removed.forEach((e: Entity) => this.removePBRMaterial(e));
+    this.queries.PBRMaterial.removed.forEach((e: Entity) => this.removeMaterial(e));
 
     this.queries.Material.removed.forEach((e: Entity) => this.remove(e));
     this.queries.Material.added.forEach((e: Entity) => this.setup(e));
@@ -77,7 +81,16 @@ export default class MaterialSystem extends SystemWithCore {
     Object.assign(mesh.material, materialComponent);
   }
 
-  removePBRMaterial (entity: Entity) {
+  setupShadowOnlyMaterial (entity: Entity) {
+    const materialComponent = entity.getComponent(ShadowOnlyMaterial);
+
+    const material = new BabylonShadowOnlyMaterial(`${guidFor(entity)}__ShadowOnlyMaterial`, this.core.scene);
+    Object.assign(material, materialComponent);
+
+    entity.addComponent(Material, { value: material });
+  }
+
+  removeMaterial (entity: Entity) {
     entity.removeComponent(Material);
   }
 }
@@ -105,6 +118,13 @@ MaterialSystem.queries = {
       added: true,
       changed: true,
       removed: true
+    }
+  },
+  ShadowOnlyMaterial: {
+    components: [Mesh, ShadowOnlyMaterial],
+    listen: {
+      added: true,
+      removed: true,
     }
   }
 };
