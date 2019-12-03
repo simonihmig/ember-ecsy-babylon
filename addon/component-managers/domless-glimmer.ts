@@ -100,7 +100,7 @@ export default class GlimmerComponentManager {
     const { instance: component, args, newArgs } = bucket;
 
     if (newArgs === undefined) {
-      throw new Error('Updated DomlessGlimmerComponent arguments are undefined. This should never happen'); // please TS
+      return;
     }
 
     const argsDiff = Object.keys(newArgs)

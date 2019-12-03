@@ -2,14 +2,15 @@ import { ComponentConstructor, World, Component as _Component } from 'ecsy';
 import { assert } from '@ember/debug';
 import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
 import EcsyEntity from '@kaliber5/ember-ecsy-babylon/components/ecsy/entity';
+import { EcsyArgs, EcsyContext } from '@kaliber5/ember-ecsy-babylon/components/ecsy';
 
-interface EcsyComponentArgs {
+interface EcsyComponentArgs extends EcsyArgs {
   // private
   parent: EcsyEntity;
   name: string;
 }
 
-export default class EcsyComponent extends DomlessGlimmerComponent<EcsyComponentArgs> {
+export default class EcsyComponent extends DomlessGlimmerComponent<EcsyContext, EcsyComponentArgs> {
   _Component!: ComponentConstructor<_Component>;
 
   constructor(owner: unknown, args: EcsyComponentArgs) {

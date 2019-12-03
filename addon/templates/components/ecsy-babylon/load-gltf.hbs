@@ -1,13 +1,6 @@
-<EcsyBabylon::LoadGltfs @w={{@w}} parent={{this}} @file={{@fileUrl}} as |ach|>
+<EcsyBabylon::LoadGltfs @parent={{this}} @file={{@fileUrl}} as |ach|>
   {{yield
     (get ach "file")
-    (merge-w
-      @w
-      (hash
-        private=(hash
-          componentReference=this
-        )
-      )
-    )
+    this
   }}
 </EcsyBabylon::LoadGltfs>
