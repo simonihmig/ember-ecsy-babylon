@@ -25,6 +25,14 @@ export default class MaterialSystem extends SystemWithCore {
     super.afterExecute();
   }
 
+  hasMesh (entity: Entity, removed = false): boolean {
+    const component = removed
+      ? entity.getComponent(Mesh) || entity.getRemovedComponent(Mesh)
+      : entity.getComponent(Mesh);
+
+    return !!component?.value;
+  }
+
   getMesh (entity: Entity, removed = false): BabylonMesh {
     // Optionally allow getting the TransformNode as a removed component.
     // Useful in the case where the entire Entity is being removed.
@@ -56,13 +64,21 @@ export default class MaterialSystem extends SystemWithCore {
   }
 
   remove (entity: Entity) {
-    const mesh = this.getMesh(entity, true);
+    // remove mesh from material if there still is one
+    if (this.hasMesh(entity, true)) {
+      const mesh = this.getMesh(entity, true);
 
-    if (mesh.material) {
-      mesh.material.dispose();
+      if (mesh.material) {
+        mesh.material = null;
+      }
     }
 
-    mesh.material = null;
+    const material = entity.getRemovedComponent(Material);
+
+    if (material.value) {
+      material.value.dispose();
+      material.value = null;
+    }
   }
 
   setupPBRMaterial (entity: Entity) {

@@ -16,7 +16,7 @@ export default class ShadowSystem extends SystemWithCore {
     this.queries.shadowGenerator.added.forEach((e: Entity) => this.setup(e));
 
     this.queries.mesh.added.forEach((e: Entity) => this.addMesh(e));
-    this.queries.mesh.removed.forEach((e: Entity) => this.addMesh(e));
+    this.queries.mesh.removed.forEach((e: Entity) => this.removeMesh(e));
 
     this.queries.shadowGenerator.removed.forEach((e: Entity) => this.remove(e));
 
@@ -64,18 +64,22 @@ export default class ShadowSystem extends SystemWithCore {
   addMesh(entity: Entity) {
     const meshComponent = entity.getComponent(Mesh);
 
-    if (meshComponent && meshComponent.instance) {
-    console.log('adding mesh as caster', meshComponent.instance);
-    meshComponent.instance.sourceMesh.receiveShadows = true;
-    Array.from(shadowGenerators).forEach(sg => sg.addShadowCaster(meshComponent.instance, false));
+    if (meshComponent?.value) {
+      meshComponent.value.receiveShadows = true;
+      shadowGenerators.forEach(sg => sg.addShadowCaster(meshComponent.value!, false));
     }
   }
 
+  // TODO: currently this method does nothing, it runs when a Mesh is removed
+  //  but a removed Mesh is always disposed right now.
   removeMesh(entity: Entity) {
-    const component = entity.getMutableComponent(ShadowGenerator);
-    const meshComponent = entity.getComponent(Mesh);
+    const meshComponent = entity.getRemovedComponent(Mesh);
 
-    component.value?.removeShadowCaster(meshComponent.instance, false);
+    // we only need to remove the shadowCaster if the Mesh still exists
+    if (meshComponent?.value) {
+      const component = entity.getMutableComponent(ShadowGenerator);
+      component.value?.removeShadowCaster(meshComponent.value!, false);
+    }
   }
 
   remove(entity: Entity) {
