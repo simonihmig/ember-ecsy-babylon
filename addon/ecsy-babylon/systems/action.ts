@@ -40,12 +40,12 @@ export default class ActionSystem extends SystemWithCore {
     if (actionManager === null) {
 
       const meshComponent = entity.getComponent(Mesh);
-      if (!meshComponent || !meshComponent.instance) {
+      if (!meshComponent?.value) {
         throw new Error('Action component can only be applied to Entities with a mesh');
       }
 
       actionManager = new ActionManager(this.core.scene);
-      const mesh = meshComponent.instance;
+      const mesh = meshComponent.value;
       mesh.actionManager = actionManager;
     }
 
@@ -72,15 +72,15 @@ export default class ActionSystem extends SystemWithCore {
 
   remove(entity: Entity) {
     const meshComponent = entity.getComponent(Mesh);
-    if (meshComponent?.instance?.actionManager) {
-      meshComponent.instance.actionManager.dispose();
-      meshComponent.instance.actionManager = null;
+    if (meshComponent?.value?.actionManager) {
+      meshComponent.value.actionManager.dispose();
+      meshComponent.value.actionManager = null;
     }
   }
 
   private getActionManager(entity: Entity): AbstractActionManager | null {
     const meshComponent = entity.getComponent(Mesh);
-    return (meshComponent && meshComponent.instance && meshComponent.instance.actionManager) || null;
+    return (meshComponent && meshComponent.value && meshComponent.value.actionManager) || null;
   }
 }
 

@@ -15,8 +15,18 @@
       {{/if}}
 
       <World.Entity
-        {{hemispheric-light direction=(vector 1 1 0) intensity=0.7}}
-        {{point-light direction=(vector 0 4 -4) intensity=0.3}}
+        {{directional-light direction=(vector -1 -1 0) position=(vector 0 10 0) intensity=1 shadowMinZ = 0.1 shadowMaxZ=20}}
+        {{shadow-generator
+          size=512
+          useBlurCloseExponentialShadowMap=true
+          forceBackFacesOnly=false
+          blurKernel=8
+          useKernelBlur=true
+          bias=0
+          normalBias=0
+          darkness=0.2
+          transparencyShadow=true
+        }}
       />
 
       {{!-- GLTF mesh example --}}
@@ -64,13 +74,13 @@
 
 {{/if}}
 
-  <div local-class="buttons">
-    <button {{on "click" this.toggleViewer}}>Toggle View</button>
-    {{#if this.showViewer}}
-      <button {{on "click" this.toggleCamera}}>Toggle Camera</button>
-      <button {{on "click" this.toggleEntity}}>Toggle Box</button>
-      <button {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
-      <button {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>
-    {{/if}}
-  </div>
+<div local-class="buttons">
+  <button {{on "click" this.toggleViewer}}>Toggle View</button>
+  {{#if this.showViewer}}
+    <button {{on "click" this.toggleCamera}}>Toggle Camera</button>
+    <button {{on "click" this.toggleEntity}}>Toggle Box</button>
+    <button {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
+    <button {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>
+  {{/if}}
+</div>
 
