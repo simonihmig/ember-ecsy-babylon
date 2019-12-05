@@ -99,10 +99,10 @@ module('Integration | Component | domless-glimmer', function() {
   module('willDestroy', function(hooks) {
     setupRenderingTest(hooks);
 
-    interface DummyArgs extends DomlessGlimmerArgs {
+    interface DummyArgs extends DomlessGlimmerArgs<any> {
       onDestroy?: Function;
     }
-    class DummyComponent extends DomlessGlimmerComponent<DummyArgs> {
+    class DummyComponent extends DomlessGlimmerComponent<any, DummyArgs> {
       willDestroy() {
         super.willDestroy();
         if (this.args.onDestroy) {

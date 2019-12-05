@@ -1,17 +1,9 @@
 <canvas id="{{this.guid}}__canvas" {{did-insert this.onCanvasReady}} ...attributes></canvas>
 
-{{#if this.entity}}
+{{#if this.ready}}
   {{yield
     (component "ecsy-babylon/scene"
       parent=this
-      w=(hash
-        world=this.world
-        private=(hash
-          rootEntity=this.entity
-          createEntity=this.createEntity
-          componentReference=this
-        )
-      )
     )
   }}
 {{/if}}

@@ -1,13 +1,6 @@
 {{#if this.assets}}
   {{yield
     this.assets
-    (merge-w
-      @w
-      (hash
-        private=(hash
-          componentReference=this
-        )
-      )
-    )
+    this
   }}
 {{/if}}

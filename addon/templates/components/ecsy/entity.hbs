@@ -1,12 +1,5 @@
 {{#if this.entity}}
   {{yield
-    (merge-w
-      @w
-      (hash
-        private=(hash
-          componentReference=this
-        )
-      )
-    )
+    this
   }}
 {{/if}}

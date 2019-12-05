@@ -22,7 +22,7 @@
       {{!-- GLTF mesh example --}}
       {{!--
       {{#if this.showEntity}}
-        <World.LoadGltf @fileName="test.gltf" as |ac|>
+        <World.LoadGltf @fileUrl="test.gltf" as |ac|>
 
           <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0)}}>
             {{#each ac.meshes as |_mesh|}}
@@ -50,6 +50,15 @@
           />
         </World.Entity>
       {{/if}}
+
+      <World.Entity
+        @name="controller"
+        {{sphere diameter=0.5}}
+        {{pbr-material albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
+        {{position (vector 0 -2 0)}}
+        {{action pick=this.toggleEntity pointerOver=(if this.showEntity (fn this.rotate "left" 5) undefined) pointerOut=(if this.showEntity (fn this.rotate "right" 5) undefined)}}
+      />
+
     </Scene>
   </EcsyBabylon>
 
