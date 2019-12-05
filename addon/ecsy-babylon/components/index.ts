@@ -5,9 +5,11 @@ import Box from './box';
 import Sphere from './sphere';
 import Material from './material';
 import PBRMaterial from './pbr-material';
+import ShadowOnlyMaterial from './shadow-only-material';
 import HemisphericLight from './hemispheric-light';
 import DirectionalLight from './directional-light';
 import PointLight from './point-light';
+import ShadowGenerator from './shadow-generator';
 import TransformNode from './transform-node';
 import Position from './position';
 import Rotation from './rotation';
@@ -22,9 +24,11 @@ export {
   Sphere,
   Material,
   PBRMaterial,
+  ShadowOnlyMaterial,
   HemisphericLight,
   DirectionalLight,
   PointLight,
+  ShadowGenerator,
   TransformNode,
   Position,
   Rotation,
@@ -40,9 +44,11 @@ export default [
   Sphere,
   Material,
   PBRMaterial,
+  ShadowOnlyMaterial,
   HemisphericLight,
   DirectionalLight,
   PointLight,
+  ShadowGenerator,
   TransformNode,
   Position,
   Rotation,

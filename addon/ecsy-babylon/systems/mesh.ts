@@ -1,6 +1,7 @@
 import { Entity } from 'ecsy';
-import { Mesh, TransformNode } from '../components';
+import { Mesh, TransformNode, Material } from '../components';
 import SystemWithCore, { queries } from '../SystemWithCore';
+import { assert } from '@ember/debug';
 
 export default class MeshSystem extends SystemWithCore {
   execute() {
@@ -15,18 +16,17 @@ export default class MeshSystem extends SystemWithCore {
   setup(entity: Entity) {
     const meshComponent = entity.getComponent(Mesh);
 
-    if(!meshComponent.value){
-      throw new Error('Failed to add Mesh Component. No valid Mesh found.');
-    }
+    assert('Failed to add Mesh Component. No valid Mesh found.', !!meshComponent?.value);
 
     // We're using an instance here because we cannot reliably undo the internal transformations that happen when
     // parenting/un-parenting a mesh. An instance of a mesh has the identical geometry and properties of the original
     // but with its own position, rotation, scaling meaning the original won't be touched.
-    meshComponent.instance = meshComponent.value.createInstance(`${meshComponent.value.name}__instance`);
+    // TODO: remove cloning?
+    meshComponent.value = meshComponent.value!.clone(`${meshComponent.value!.name}__clone`, null);
 
     const transformNodeComponent = entity.getComponent(TransformNode);
-    meshComponent.instance.parent = transformNodeComponent.value;
-    meshComponent.instance.computeWorldMatrix(true);
+    meshComponent.value!.parent = transformNodeComponent.value;
+    meshComponent.value!.computeWorldMatrix(true);
 
     const {
       value,
@@ -35,22 +35,25 @@ export default class MeshSystem extends SystemWithCore {
       ...restArgs
     } = meshComponent;
 
-    Object.assign(instance, restArgs);
-
-    this.core.scene.addMesh(meshComponent.instance);
+    Object.assign(value, restArgs);
+    this.core.scene.addMesh(meshComponent.value!);
   }
 
   remove(entity: Entity) {
     const meshComponent = entity.getRemovedComponent(Mesh);
 
-    if (!meshComponent || !meshComponent.instance) {
-      throw new Error('No removed Mesh Component found. Make sure this system is registered at the correct time.');
+    assert('No removed Mesh Component found. Make sure this system is registered at the correct time.', !!meshComponent?.value);
+
+    if (entity.hasComponent(Material) || entity.hasRemovedComponent(Material)) {
+      // unset the material so it is not also disposed of here
+      meshComponent.value!.material = null;
     }
 
-    meshComponent.instance.dispose();
-    meshComponent.instance = null;
-    // TODO: Ember component is not setting "value" again when its removed/added in a single runloop so we cannot clean.
-    //meshComponent.value = null;
+    this.core.scene.removeMesh(meshComponent.value!);
+
+    // we work with a clone so we must always dispose
+    meshComponent.value!.dispose();
+    meshComponent.value = null;
   }
 }
 
