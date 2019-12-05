@@ -1,4 +1,4 @@
-import { Camera, Engine, Scene } from '@babylonjs/core';
+import { Camera, Engine, Scene, ShadowGenerator } from '@babylonjs/core';
 import { createComponentClass, Component, World } from 'ecsy';
 
 export interface BabylonCoreComponent extends Component {
@@ -7,6 +7,7 @@ export interface BabylonCoreComponent extends Component {
   defaultCamera: Camera;
   engine: Engine;
   scene: Scene;
+  shadowGenerators: Set<ShadowGenerator>;
 }
 
 export default createComponentClass<BabylonCoreComponent>({
@@ -15,4 +16,5 @@ export default createComponentClass<BabylonCoreComponent>({
   defaultCamera: { default: null },
   engine: { default: null },
   scene: { default: null },
+  shadowGenerators: { default: new Set() },
 }, 'BabylonCore');

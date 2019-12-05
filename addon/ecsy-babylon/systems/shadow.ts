@@ -7,8 +7,6 @@ import {
 import SystemWithCore, { queries } from '../SystemWithCore';
 import { assert } from '@ember/debug';
 
-const shadowGenerators: Set<_ShadowGenerator> = new Set();
-
 export default class ShadowSystem extends SystemWithCore {
   execute() {
     super.execute();
@@ -58,7 +56,7 @@ export default class ShadowSystem extends SystemWithCore {
     });
 
     component.value = shadowGenerator;
-    shadowGenerators.add(shadowGenerator);
+    this.core.shadowGenerators.add(shadowGenerator);
   }
 
   addMesh(entity: Entity) {
@@ -66,7 +64,7 @@ export default class ShadowSystem extends SystemWithCore {
 
     if (meshComponent?.value) {
       meshComponent.value.receiveShadows = true;
-      shadowGenerators.forEach(sg => sg.addShadowCaster(meshComponent.value!, false));
+      this.core.shadowGenerators.forEach(sg => sg.addShadowCaster(meshComponent.value!, false));
     }
   }
 
@@ -86,7 +84,7 @@ export default class ShadowSystem extends SystemWithCore {
     const component = entity.getRemovedComponent(ShadowGenerator);
 
     if (component.value) {
-      shadowGenerators.delete(component.value);
+      this.core.shadowGenerators.delete(component.value);
       component.value.dispose();
       component.value = undefined;
     }
