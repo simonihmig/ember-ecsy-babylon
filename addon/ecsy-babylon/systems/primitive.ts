@@ -1,12 +1,14 @@
 import { ComponentConstructor, Entity, System } from 'ecsy';
-import { Box, Mesh, Sphere } from '../components';
-import { BoxBuilder, Mesh as BabylonMesh, SphereBuilder } from '@babylonjs/core';
+import { Plane, Box, Mesh, Sphere } from '../components';
+import { PlaneBuilder, BoxBuilder, Mesh as BabylonMesh, SphereBuilder } from '@babylonjs/core';
 
 export default class PrimitiveSystem extends System {
   execute() {
+    this.queries.planes.added.forEach((e: Entity) => this.setup(e, Plane, PlaneBuilder.CreatePlane));
     this.queries.boxes.added.forEach((e: Entity) => this.setup(e, Box, BoxBuilder.CreateBox));
     this.queries.spheres.added.forEach((e: Entity) => this.setup(e, Sphere, SphereBuilder.CreateSphere));
 
+    this.queries.planes.removed.forEach((e: Entity) => this.remove(e));
     this.queries.boxes.removed.forEach((e: Entity) => this.remove(e));
     this.queries.spheres.removed.forEach((e: Entity) => this.remove(e))
   }
@@ -30,6 +32,13 @@ export default class PrimitiveSystem extends System {
 }
 
 PrimitiveSystem.queries = {
+  planes: {
+    components: [Plane],
+    listen: {
+      added: true,
+      removed: true
+    }
+  },
   boxes: {
     components: [Box],
     listen: {

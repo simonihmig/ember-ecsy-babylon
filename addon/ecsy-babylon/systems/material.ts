@@ -1,21 +1,32 @@
-import { Entity } from 'ecsy';
+import {ComponentConstructor, Entity} from 'ecsy';
 import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
-import { Mesh, PBRMaterial, Material, ShadowOnlyMaterial } from '../components';
-import { Mesh as BabylonMesh, PBRMaterial as BabylonPBRMaterial } from '@babylonjs/core';
+import { Mesh, PBRMaterial, Material, ShadowOnlyMaterial , BackgroundMaterial} from '../components';
+import {
+  Mesh as BabylonMesh,
+  Material as BabylonMaterial,
+  PBRMaterial as BabylonPBRMaterial,
+  BackgroundMaterial as BabylonBackgroundMaterial
+} from '@babylonjs/core';
 import { ShadowOnlyMaterial as BabylonShadowOnlyMaterial } from '@babylonjs/materials';
 import { assert } from '@ember/debug';
 import { guidFor } from '@ember/object/internals';
 import SystemWithCore, { queries } from '../SystemWithCore';
+import { Constructor } from '@kaliber5/ember-ecsy-babylon/component-managers/domless-glimmer';
 
 export default class MaterialSystem extends SystemWithCore {
   execute() {
     super.execute();
 
-    this.queries.ShadowOnlyMaterial.added.forEach((e: Entity) => this.setupShadowOnlyMaterial(e));
+    this.queries.ShadowOnlyMaterial.added.forEach((e: Entity) => this.setupMaterial(e, ShadowOnlyMaterial, BabylonShadowOnlyMaterial));
+    this.queries.ShadowOnlyMaterial.changed.forEach((e: Entity) => this.updateMaterial(e, ShadowOnlyMaterial));
     this.queries.ShadowOnlyMaterial.removed.forEach((e: Entity) => this.removeMaterial(e));
 
-    this.queries.PBRMaterial.added.forEach((e: Entity) => this.setupPBRMaterial(e));
-    this.queries.PBRMaterial.changed.forEach((e: Entity) => this.updatePBRMaterial(e));
+    this.queries.BackgroundMaterial.added.forEach((e: Entity) => this.setupMaterial(e, BackgroundMaterial, BabylonBackgroundMaterial));
+    this.queries.BackgroundMaterial.changed.forEach((e: Entity) => this.updateMaterial(e, BackgroundMaterial));
+    this.queries.BackgroundMaterial.removed.forEach((e: Entity) => this.removeMaterial(e));
+
+    this.queries.PBRMaterial.added.forEach((e: Entity) => this.setupMaterial(e, PBRMaterial, BabylonPBRMaterial));
+    this.queries.PBRMaterial.changed.forEach((e: Entity) => this.updateMaterial(e, PBRMaterial));
     this.queries.PBRMaterial.removed.forEach((e: Entity) => this.removeMaterial(e));
 
     this.queries.Material.removed.forEach((e: Entity) => this.remove(e));
@@ -76,37 +87,35 @@ export default class MaterialSystem extends SystemWithCore {
     const material = entity.getRemovedComponent(Material);
 
     if (material.value) {
-      material.value.dispose();
+      // we should not dispose here, a Material instance is always passed, never created here
       material.value = null;
     }
   }
 
-  setupPBRMaterial (entity: Entity) {
-    const materialComponent = entity.getComponent(PBRMaterial);
+  setupMaterial (entity: Entity, Component: ComponentConstructor<any>, MaterialClass: Constructor<BabylonMaterial>) {
+    const materialComponent = entity.getComponent(Component);
 
-    const material = new BabylonPBRMaterial(`${guidFor(entity)}__PBRMaterial`, this.core.scene);
+    const material = new MaterialClass(`${guidFor(entity)}__${MaterialClass.constructor.name}`, this.core.scene);
     Object.assign(material, materialComponent);
 
     entity.addComponent(Material, { value: material });
   }
 
-  updatePBRMaterial (entity: Entity) {
+
+  updateMaterial (entity: Entity, Component: ComponentConstructor<any>) {
     const mesh = this.getMesh(entity);
-    const materialComponent = entity.getComponent(PBRMaterial);
+    const materialComponent = entity.getComponent(Component);
 
     Object.assign(mesh.material, materialComponent);
   }
 
-  setupShadowOnlyMaterial (entity: Entity) {
-    const materialComponent = entity.getComponent(ShadowOnlyMaterial);
-
-    const material = new BabylonShadowOnlyMaterial(`${guidFor(entity)}__ShadowOnlyMaterial`, this.core.scene);
-    Object.assign(material, materialComponent);
-
-    entity.addComponent(Material, { value: material });
-  }
-
   removeMaterial (entity: Entity) {
+    const component = entity.getComponent(Material);
+
+    if (component.value) {
+      component.value.dispose();
+    }
+
     entity.removeComponent(Material);
   }
 }
@@ -128,6 +137,14 @@ MaterialSystem.queries = {
       removed: true
     }
   },
+  BackgroundMaterial: {
+    components: [Mesh, BackgroundMaterial],
+    listen: {
+      added: true,
+      changed: true,
+      removed: true
+    }
+  },
   PBRMaterial: {
     components: [Mesh, PBRMaterial],
     listen: {
@@ -140,6 +157,7 @@ MaterialSystem.queries = {
     components: [Mesh, ShadowOnlyMaterial],
     listen: {
       added: true,
+      changed: true,
       removed: true,
     }
   }
