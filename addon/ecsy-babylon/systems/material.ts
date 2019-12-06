@@ -95,7 +95,7 @@ export default class MaterialSystem extends SystemWithCore {
   setupMaterial (entity: Entity, Component: ComponentConstructor<any>, MaterialClass: Constructor<BabylonMaterial>) {
     const materialComponent = entity.getComponent(Component);
 
-    const material = new MaterialClass(`${guidFor(entity)}__${MaterialClass.constructor.name}`, this.core.scene);
+    const material = new MaterialClass(`${guidFor(entity)}__${MaterialClass.name}`, this.core.scene);
     Object.assign(material, materialComponent);
 
     entity.addComponent(Material, { value: material });
