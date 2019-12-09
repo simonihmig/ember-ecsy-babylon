@@ -2,7 +2,7 @@ import { Component, createComponentClass } from 'ecsy';
 import { Mesh } from '@babylonjs/core';
 import Types from '../types';
 
-export interface SphereComponent extends Component {
+export interface PlaneComponent extends Component {
   size: number;
   width?: number;
   height?: number;
@@ -10,7 +10,7 @@ export interface SphereComponent extends Component {
   sideOrientation: number;
 }
 
-export default createComponentClass<SphereComponent>({
+export default createComponentClass<PlaneComponent>({
   size: { default: 1 },
   width: { default: undefined , type: Types.OptionalNumber },
   height: { default: undefined, type: Types.OptionalNumber },
