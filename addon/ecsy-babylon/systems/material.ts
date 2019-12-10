@@ -1,11 +1,12 @@
-import {ComponentConstructor, Entity} from 'ecsy';
+import { ComponentConstructor, Entity } from 'ecsy';
 import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
-import { Mesh, PBRMaterial, Material, ShadowOnlyMaterial , BackgroundMaterial} from '../components';
+import { Mesh, PBRMaterial, Material, ShadowOnlyMaterial, BackgroundMaterial, StandardMaterial } from '../components';
 import {
   Mesh as BabylonMesh,
   Material as BabylonMaterial,
   PBRMaterial as BabylonPBRMaterial,
-  BackgroundMaterial as BabylonBackgroundMaterial
+  BackgroundMaterial as BabylonBackgroundMaterial,
+  StandardMaterial as BabylonStandardMaterial
 } from '@babylonjs/core';
 import { ShadowOnlyMaterial as BabylonShadowOnlyMaterial } from '@babylonjs/materials';
 import { assert } from '@ember/debug';
@@ -16,6 +17,10 @@ import { Constructor } from '@kaliber5/ember-ecsy-babylon/component-managers/dom
 export default class MaterialSystem extends SystemWithCore {
   execute() {
     super.execute();
+
+    this.queries.StandardMaterial.added.forEach((e: Entity) => this.setupMaterial(e, StandardMaterial, BabylonStandardMaterial));
+    this.queries.StandardMaterial.changed.forEach((e: Entity) => this.updateMaterial(e, StandardMaterial));
+    this.queries.StandardMaterial.removed.forEach((e: Entity) => this.removeMaterial(e));
 
     this.queries.ShadowOnlyMaterial.added.forEach((e: Entity) => this.setupMaterial(e, ShadowOnlyMaterial, BabylonShadowOnlyMaterial));
     this.queries.ShadowOnlyMaterial.changed.forEach((e: Entity) => this.updateMaterial(e, ShadowOnlyMaterial));
@@ -131,6 +136,14 @@ MaterialSystem.queries = {
   },
   Material: {
     components: [Mesh, Material],
+    listen: {
+      added: true,
+      changed: true,
+      removed: true
+    }
+  },
+  StandardMaterial: {
+    components: [Mesh, StandardMaterial],
     listen: {
       added: true,
       changed: true,

@@ -14,7 +14,7 @@ export interface PBRMaterialComponent extends Component {
 
 export default createComponentClass<PBRMaterialComponent>({
   diffuseTexture: { default: null },
-  alpha: { default: 0.9 },
+  alpha: { default: 1.0 },
   alphaMode: { default: Constants.ALPHA_PREMULTIPLIED_PORTERDUFF },
   shadowLevel: { default: 0.5 },
   primaryColor: { default: new Color3(0, 0, 0), type: Types.Color3 },
