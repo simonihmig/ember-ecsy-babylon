@@ -4,7 +4,7 @@ import { ArcRotateCamera as BabylonArcRotateCamera } from '@babylonjs/core';
 import { guidFor } from '@ember/object/internals';
 import SystemWithCore, { queries } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/SystemWithCore';
 
-export default class PrimitiveSystem extends SystemWithCore {
+export default class CameraSystem extends SystemWithCore {
   execute() {
     super.execute();
 
@@ -84,7 +84,7 @@ export default class PrimitiveSystem extends SystemWithCore {
   }
 }
 
-PrimitiveSystem.queries = {
+CameraSystem.queries = {
   ...queries,
   arcRotateCamera: {
     components: [ArcRotateCamera],
