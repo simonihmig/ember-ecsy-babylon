@@ -75,12 +75,12 @@
 {{/if}}
 
 <div local-class="buttons">
-  <button {{on "click" this.toggleViewer}}>Toggle View</button>
+  <button type="button" {{on "click" this.toggleViewer}}>Toggle View</button>
   {{#if this.showViewer}}
-    <button {{on "click" this.toggleCamera}}>Toggle Camera</button>
-    <button {{on "click" this.toggleEntity}}>Toggle Box</button>
-    <button {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
-    <button {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>
+    <button type="button" {{on "click" this.toggleCamera}}>Toggle Camera</button>
+    <button type="button" {{on "click" this.toggleEntity}}>Toggle Box</button>
+    <button type="button" {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
+    <button type="button" {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>
   {{/if}}
 </div>
 
