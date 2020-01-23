@@ -1,6 +1,6 @@
-import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
 import {assert} from '@ember/debug';
-import BabylonCore, { BabylonCoreComponent } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
+import BabylonCore, { BabylonCoreComponent } from 'ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 import { hash } from 'ember-concurrency';
 import { restartableTask, task } from 'ember-concurrency-decorators';
 import { AssetContainer, SceneLoader } from '@babylonjs/core';
@@ -10,7 +10,7 @@ import '@babylonjs/loaders/glTF';
 import {
   EcsyBabylonContext,
   EcsyBabylonDomlessGlimmerArgs
-} from '@kaliber5/ember-ecsy-babylon/components/ecsy-babylon';
+} from 'ember-ecsy-babylon/components/ecsy-babylon';
 
 /**
  * Any other arguments will be parsed as a fileUrl and added to the resulting assets hash

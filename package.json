@@ -1,11 +1,11 @@
 {
-  "name": "@kaliber5/ember-ecsy-babylon",
+  "name": "ember-ecsy-babylon",
   "version": "0.0.14",
-  "description": "Embber addon that uses escy and babylon.js for a fully declarative 3D rendering experience in Ember apps",
+  "description": "Ember addon that uses escy and babylon.js for a fully declarative 3D rendering experience in Ember apps",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "https://bitbucket.org/kaliber5/ember-ecsy-babylon",
+  "repository": "https://github.com/kaliber5/ember-ecsy-babylon.git",
   "license": "MIT",
   "author": "",
   "directories": {

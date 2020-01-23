@@ -1,9 +1,9 @@
-import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
 import { assert } from '@ember/debug';
 import {
   EcsyBabylonContext,
   EcsyBabylonDomlessGlimmerArgs
-} from '@kaliber5/ember-ecsy-babylon/components/ecsy-babylon';
+} from 'ember-ecsy-babylon/components/ecsy-babylon';
 
 export interface EcsyBabylonLoadGltfArgs extends EcsyBabylonDomlessGlimmerArgs {
   fileUrl: string;

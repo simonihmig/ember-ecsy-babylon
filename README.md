@@ -16,7 +16,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install @kaliber5/ember-ecsy-babylon
+ember install ember-ecsy-babylon
 ```
 
 

@@ -1,6 +1,6 @@
-import DomlessGlimmerComponent, { DomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent, { DomlessGlimmerArgs } from 'ember-ecsy-babylon/components/domless-glimmer';
 import { Component as EcsyComponent, ComponentConstructor, System as EcsySystem, SystemConstructor, World } from 'ecsy';
-import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
+import EntityComponent from 'ember-ecsy-babylon/ecsy/components/entity';
 import { assert } from '@ember/debug';
 
 export interface EcsyArgs extends DomlessGlimmerArgs<EcsyContext> {

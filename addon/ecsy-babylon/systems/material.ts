@@ -1,5 +1,5 @@
 import { ComponentConstructor, Entity } from 'ecsy';
-import EntityComponent from '@kaliber5/ember-ecsy-babylon/ecsy/components/entity';
+import EntityComponent from 'ember-ecsy-babylon/ecsy/components/entity';
 import { Mesh, PBRMaterial, Material, ShadowOnlyMaterial, BackgroundMaterial, StandardMaterial } from '../components';
 import {
   Mesh as BabylonMesh,
@@ -12,7 +12,7 @@ import { ShadowOnlyMaterial as BabylonShadowOnlyMaterial } from '@babylonjs/mate
 import { assert } from '@ember/debug';
 import { guidFor } from '@ember/object/internals';
 import SystemWithCore, { queries } from '../SystemWithCore';
-import { Constructor } from '@kaliber5/ember-ecsy-babylon/component-managers/domless-glimmer';
+import { Constructor } from 'ember-ecsy-babylon/component-managers/domless-glimmer';
 
 export default class MaterialSystem extends SystemWithCore {
   execute() {
