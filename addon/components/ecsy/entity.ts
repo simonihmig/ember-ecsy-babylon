@@ -1,6 +1,6 @@
 import { Entity } from 'ecsy';
 import { assert } from '@ember/debug';
-import EntityComponent from 'ember-ecsy-babylon/ecsy/components/entity';
+import { Parent } from 'ecsy-babylon';
 import DomlessGlimmerComponent, { DomlessGlimmerArgs } from 'ember-ecsy-babylon/components/domless-glimmer';
 import { EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
 
@@ -30,7 +30,7 @@ export default class EcsyEntity extends DomlessGlimmerComponent<EcsyContext, Dom
     assert('No ECSY context found.', this.context);
 
     const entity = this.context!.world.createEntity!();
-    entity.addComponent(EntityComponent, { parent: parentEntity });
+    entity.addComponent(Parent, { value: parentEntity });
 
     this.entity = entity;
   }
