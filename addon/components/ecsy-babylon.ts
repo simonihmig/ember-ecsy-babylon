@@ -1,10 +1,10 @@
-import Ecsy, { EcsyArgs, EcsyContext } from '@kaliber5/ember-ecsy-babylon/components/ecsy';
-import { BabylonCore } from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components';
+import Ecsy, { EcsyArgs, EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
+import { BabylonCore } from 'ember-ecsy-babylon/ecsy-babylon/components';
 import { Entity } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { DomlessGlimmerArgs } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import { DomlessGlimmerArgs } from 'ember-ecsy-babylon/components/domless-glimmer';
 
 export interface EcsyBabylonContext extends EcsyContext {
   rootEntity: Entity;

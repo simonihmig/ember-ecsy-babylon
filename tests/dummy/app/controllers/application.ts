@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
-import components from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/index';
-import systems from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/systems';
+import components from 'ember-ecsy-babylon/ecsy-babylon/components/index';
+import systems from 'ember-ecsy-babylon/ecsy-babylon/systems';
 import { action } from '@ember/object';
 
 export default class Application extends Controller {

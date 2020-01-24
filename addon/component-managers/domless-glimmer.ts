@@ -1,7 +1,7 @@
 import { getOwner, setOwner } from '@ember/application';
 import ApplicationInstance from '@ember/application/instance';
 import { capabilities } from '@ember/component';
-import DomlessGlimmerComponent, { DESTROYING, DESTROYED, ARGS_SET } from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent, { DESTROYING, DESTROYED, ARGS_SET } from 'ember-ecsy-babylon/components/domless-glimmer';
 import Ember from 'ember';
 import { schedule } from '@ember/runloop';
 import { DEBUG } from '@glimmer/env';

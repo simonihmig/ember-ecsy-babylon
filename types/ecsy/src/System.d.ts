@@ -8,7 +8,7 @@ declare module 'ecsy' {
   export abstract class System {
     /**
      * Defines what Components the System will query for.
-     * This needs to be user defined.
+     * This needs to be user defined.x
      */
     static queries: {
       [queryName: string]: {

@@ -1,1 +1,1 @@
-export { default } from '@kaliber5/ember-ecsy-babylon/components/ecsy/entity';
+export { default } from 'ember-ecsy-babylon/components/ecsy/entity';

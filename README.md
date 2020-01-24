@@ -7,16 +7,16 @@ ember-ecsy-babylon
 Compatibility
 ------------------------------------------------------------------------------
 
-* Ember.js v3.4 or above
+* Ember.js v3.15 or above
 * Ember CLI v2.13 or above
-* Node.js v8 or above
+* Node.js v10 or above
 
 
 Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install @kaliber5/ember-ecsy-babylon
+ember install ember-ecsy-babylon
 ```
 
 

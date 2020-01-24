@@ -1,1 +1,1 @@
-export { default, texture } from '@kaliber5/ember-ecsy-babylon/helpers/texture';
+export { default, texture } from 'ember-ecsy-babylon/helpers/texture';

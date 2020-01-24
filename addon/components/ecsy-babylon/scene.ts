@@ -1,10 +1,10 @@
-import DomlessGlimmerComponent from '@kaliber5/ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
 import { Color3, CubeTexture, Scene } from '@babylonjs/core';
 import { assert } from '@ember/debug';
-import BabylonCore from '@kaliber5/ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
+import BabylonCore from 'ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
 import {
   EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs
-} from '@kaliber5/ember-ecsy-babylon/components/ecsy-babylon';
+} from 'ember-ecsy-babylon/components/ecsy-babylon';
 
 export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
   clearColor: Color3;

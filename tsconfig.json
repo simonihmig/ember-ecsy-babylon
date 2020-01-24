@@ -29,16 +29,16 @@
         "tests/dummy/app/*",
         "app/*"
       ],
-      "@kaliber5/ember-ecsy-babylon": [
+      "ember-ecsy-babylon": [
         "addon"
       ],
-      "@kaliber5/ember-ecsy-babylon/*": [
+      "ember-ecsy-babylon/*": [
         "addon/*"
       ],
-      "@kaliber5/ember-ecsy-babylon/test-support": [
+      "ember-ecsy-babylon/test-support": [
         "addon-test-support"
       ],
-      "@kaliber5/ember-ecsy-babylon/test-support/*": [
+      "ember-ecsy-babylon/test-support/*": [
         "addon-test-support/*"
       ],
       "*": [

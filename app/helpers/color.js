@@ -1,1 +1,1 @@
-export { default, color } from '@kaliber5/ember-ecsy-babylon/helpers/color';
+export { default, color } from 'ember-ecsy-babylon/helpers/color';
