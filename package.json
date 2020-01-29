@@ -28,7 +28,7 @@
     "@babylonjs/loaders": "^4.0.3",
     "@ember/render-modifiers": "^1.0.2",
     "@glimmer/env": "^0.1.7",
-    "@glimmer/tracking": "^0.14.0-alpha.1",
+    "@glimmer/tracking": "^1.0.0",
     "ecsy": "^0.2.2",
     "ecsy-babylon": "^0.0.1",
     "ember-auto-import": "^1.5.3",
