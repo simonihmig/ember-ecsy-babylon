@@ -82,8 +82,5 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  },
-  "publishConfig": {
-    "registry": "https://npm.kaliber5.de"
   }
 }
