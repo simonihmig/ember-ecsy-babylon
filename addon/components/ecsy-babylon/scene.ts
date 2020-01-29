@@ -1,7 +1,7 @@
 import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
-import { Color3, CubeTexture, Scene } from '@babylonjs/core';
+import { Color3, CubeTexture } from '@babylonjs/core';
 import { assert } from '@ember/debug';
-import BabylonCore from 'ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
+import { BabylonCore } from 'ecsy-babylon';
 import {
   EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs
 } from 'ember-ecsy-babylon/components/ecsy-babylon';
@@ -13,7 +13,8 @@ export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
 }
 
 export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylonContext, EcsyBabylonSceneArgs> {
-  scene: Scene;
+  // @todo fix typing when we have native classes in ecsy-babylon/components
+  scene: any;
 
   constructor (owner: unknown, args: EcsyBabylonSceneArgs) {
     super(owner, args);

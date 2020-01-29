@@ -1,7 +1,7 @@
 import DomlessGlimmerComponent, { DomlessGlimmerArgs } from 'ember-ecsy-babylon/components/domless-glimmer';
 import { Component as EcsyComponent, ComponentConstructor, System as EcsySystem, SystemConstructor, World } from 'ecsy';
-import EntityComponent from 'ember-ecsy-babylon/ecsy/components/entity';
 import { assert } from '@ember/debug';
+import { Parent } from 'ecsy-babylon';
 
 export interface EcsyArgs extends DomlessGlimmerArgs<EcsyContext> {
   components: ComponentConstructor<EcsyComponent>[];
@@ -21,7 +21,7 @@ export default class Ecsy extends DomlessGlimmerComponent<EcsyContext, EcsyArgs>
     super(owner, args);
 
     this.world = new World();
-    this.world.registerComponent(EntityComponent);
+    this.world.registerComponent(Parent);
 
     assert('A `components` argument of type Array must be passed.', Array.isArray(this.args.components));
     assert('A `systems` argument of type Array must be passed.', Array.isArray(this.args.systems));

@@ -1,6 +1,6 @@
 import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
 import {assert} from '@ember/debug';
-import BabylonCore, { BabylonCoreComponent } from 'ember-ecsy-babylon/ecsy-babylon/components/babylon-core';
+import { BabylonCore } from 'ecsy-babylon';
 import { hash } from 'ember-concurrency';
 import { restartableTask, task } from 'ember-concurrency-decorators';
 import { AssetContainer, SceneLoader } from '@babylonjs/core';
@@ -31,7 +31,8 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
   @tracked assets?: object;
 
-  private core: BabylonCoreComponent;
+  // @todo fix typing when we have native classes in ecsy-babylon/components
+  private core: any;
   private assetContainerHash?: AssetContainerHash;
 
   constructor(owner: unknown, args: EcsyBabylonLoadGltfsArgs) {
@@ -85,7 +86,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
       try {
         return yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene);
       } catch (e) {
-        console.error(`Failed to load "${fileUrl}"`);
+        console.error(`Failed to load "${fileUrl}": ${e.message}`);
       }
     }
 

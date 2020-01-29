@@ -1,5 +1,5 @@
 import Ecsy, { EcsyArgs, EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
-import { BabylonCore } from 'ember-ecsy-babylon/ecsy-babylon/components';
+import { BabylonCore } from 'ecsy-babylon';
 import { Entity } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
