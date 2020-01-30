@@ -5,28 +5,25 @@ import { hbs } from 'ember-cli-htmlbars';
 import setupServerMock from 'dummy/tests/helpers/server-mock';
 import setupDataDumper from 'dummy/tests/helpers/dump';
 
-module('Integration | Component | ecsy-babylon/load-gltfs', function(hooks) {
+module('Integration | Component | ecsy-babylon/load-gltf', function(hooks) {
   setupRenderingTest(hooks);
   setupServerMock(hooks);
   const getData = setupDataDumper(hooks);
 
-  test('it yields loaded asset hash', async function(assert) {
+  test('it yields loaded asset', async function(assert) {
 
     await render(hbs`
       <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
         <Scene as |World|>
-          <World.LoadGltfs @obj1="/gltf/object1" @obj2="/gltf/object2" as |ach|>
-            {{dump ach}}
-          </World.LoadGltfs>
+          <World.LoadGltf @fileUrl="/gltf/object1" as |ac|>
+            {{dump ac}}
+          </World.LoadGltf>
         </Scene>
       </EcsyBabylon>
     `);
 
     const data = getData();
-    assert.deepEqual(Object.keys(data), ['obj1', 'obj2']);
-    assert.deepEqual(data.obj1.meshes, []);
-    assert.deepEqual(data.obj1.materials, []);
-    assert.deepEqual(data.obj2.meshes, []);
-    assert.deepEqual(data.obj2.materials, []);
+    assert.deepEqual(data.meshes, []);
+    assert.deepEqual(data.materials, []);
   });
 });
