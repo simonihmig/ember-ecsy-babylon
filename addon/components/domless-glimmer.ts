@@ -9,13 +9,7 @@ const WILL_DESTROY = Symbol('will_destroy');
 const DESTROYING = Symbol('destroying');
 const DESTROYED = Symbol('destroyed');
 
-let ARGS_SET: WeakSet<any>;
-
-if (DEBUG) {
-  ARGS_SET = new WeakSet();
-}
-
-export { DESTROYING, DESTROYED, ARGS_SET };
+export { DESTROYING, DESTROYED };
 
 export interface DomlessGlimmerArgs<C> {
   parent?: DomlessGlimmerComponent<C, DomlessGlimmerArgs<C>>;
@@ -23,7 +17,7 @@ export interface DomlessGlimmerArgs<C> {
 
 export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimmerArgs<C> = object> {
   constructor(owner: unknown, args: T) {
-    if (DEBUG && !(owner !== null && typeof owner === 'object' && ARGS_SET.has(args))) {
+    if (DEBUG && !(owner !== null && typeof owner === 'object' && args !== null && typeof args === 'object')) {
       throw new Error(
         `You must pass both the owner and args to super() in your component: ${
           this.constructor.name

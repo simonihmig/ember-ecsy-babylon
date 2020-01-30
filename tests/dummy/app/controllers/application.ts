@@ -1,10 +1,7 @@
 import Controller from '@ember/controller';
-import { components, systems } from 'ecsy-babylon';
 import { action } from '@ember/object';
 
 export default class Application extends Controller {
-  components = components;
-  systems = systems;
 
   rotateValue = 45;
   showEntity = true;
