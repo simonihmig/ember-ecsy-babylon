@@ -21,7 +21,7 @@ module('Integration | Component | ecsy-babylon/load-gltf', function(hooks) {
     await render(hbs`
       <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
         <Scene as |World|>
-          <World.LoadGltf @fileUrl="/gltf/object1" as |ac|>
+          <World.LoadGltf @file="/gltf/object1" as |ac|>
             {{dump ac}}
           </World.LoadGltf>
         </Scene>

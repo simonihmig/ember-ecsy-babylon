@@ -1,4 +1,4 @@
-<EcsyBabylon::LoadGltfs @parent={{this}} @file={{@fileUrl}} as |ach|>
+<EcsyBabylon::LoadGltfs @parent={{this}} @files={{hash file=@file}} as |ach|>
   {{yield
     (get ach "file")
     this

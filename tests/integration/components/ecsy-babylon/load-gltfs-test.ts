@@ -21,7 +21,7 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function(hooks) {
     await render(hbs`
       <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
         <Scene as |World|>
-          <World.LoadGltfs @obj1="/gltf/object1" @obj2="/gltf/object2" as |ach|>
+          <World.LoadGltfs @files={{hash obj1="/gltf/object1" obj2="/gltf/object2"}} as |ach|>
             {{dump ach}}
           </World.LoadGltfs>
         </Scene>
