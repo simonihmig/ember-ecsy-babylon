@@ -16,7 +16,7 @@ import {
  * Any other arguments will be parsed as a fileUrl and added to the resulting assets hash
  */
 export interface EcsyBabylonLoadGltfsArgs extends EcsyBabylonDomlessGlimmerArgs {
-  [key: string]: any;
+  files: FileHash;
 }
 
 type FileHash = {
@@ -34,33 +34,31 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   // @todo fix typing when we have native classes in ecsy-babylon/components
   private core: any;
   private assetContainerHash?: AssetContainerHash;
+  private fileHash: FileHash;
 
   constructor(owner: unknown, args: EcsyBabylonLoadGltfsArgs) {
     super(owner, args);
-
-    const {
-      parent,
-      ...restArgs
-    } = args;
 
     assert('EcsyBabylon entity not found. Make sure to use the yielded version of <World.LoadGltfs>', !!(this.context && this.context.rootEntity));
     const core = this.context!.rootEntity.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
     this.core = core;
 
-    this.loadModels.perform(restArgs as FileHash);
+    this.fileHash = this.args.files;
+    this.loadModels.perform(this.args.files);
   }
 
   didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfsArgs>) {
-    if (Object.keys(changedArgs).length) {
-      const {
-        w,
-        parent,
-        ...restArgs
-      } = changedArgs;
+    if (changedArgs.files) {
+      // determine changed files to only load those
+      const { files } = this.args;
+      const filesDiff = Object.keys(files)
+        .filter((key) => files[key] !== this.fileHash[key])
+        .reduce((result, key) => ({...result, [key]: files[key]}), {});
 
-      if (Object.keys(restArgs).length) {
-        this.loadModels.perform(restArgs as FileHash);
+      this.fileHash = files;
+      if (Object.keys(filesDiff).length > 0) {
+        this.loadModels.perform(filesDiff);
       }
     }
   }
