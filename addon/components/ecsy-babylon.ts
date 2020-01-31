@@ -5,6 +5,7 @@ import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { DomlessGlimmerArgs } from 'ember-ecsy-babylon/components/domless-glimmer';
+import { components, systems } from 'ecsy-babylon';
 
 export interface EcsyBabylonContext extends EcsyContext {
   rootEntity: Entity;
@@ -21,7 +22,11 @@ export default class EcsyBabylon extends Ecsy {
   context: EcsyBabylonContext;
 
   constructor(owner: unknown, args: EcsyArgs) {
-    super(owner, args);
+    super(owner, {
+      ...args,
+      components: args.components ?? components,
+      systems: args.systems ?? systems,
+    });
     this.entity = this.world.createEntity();
     this.context = {
       world: this.world,

@@ -1,12 +1,9 @@
 import { getOwner, setOwner } from '@ember/application';
 import ApplicationInstance from '@ember/application/instance';
 import { capabilities } from '@ember/component';
-import DomlessGlimmerComponent, { DESTROYING, DESTROYED, ARGS_SET } from 'ember-ecsy-babylon/components/domless-glimmer';
+import DomlessGlimmerComponent, { DESTROYING, DESTROYED } from 'ember-ecsy-babylon/components/domless-glimmer';
 import Ember from 'ember';
 import { schedule } from '@ember/runloop';
-import { DEBUG } from '@glimmer/env';
-
-
 
 export interface ComponentManagerArgs {
   named: {
@@ -54,10 +51,6 @@ export default class GlimmerComponentManager {
     ComponentClass: Constructor<DomlessGlimmerComponent>,
     args: ComponentManagerArgs
   ): DomlessGlimmerStateBucket {
-    if (DEBUG) {
-      ARGS_SET.add(args.named);
-    }
-
     return {
       args: snapshot(args.named),
       instance: new ComponentClass(getOwner(this), args.named),
