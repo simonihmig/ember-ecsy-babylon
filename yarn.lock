@@ -846,20 +846,20 @@
   dependencies:
     tslib "^1.10.0"
 
-"@babylonjs/core@^4.1.0-beta.22", "@babylonjs/core@^4.1.0-beta.24":
+"@babylonjs/core@4.1.0-beta.24", "@babylonjs/core@^4.1.0-beta.22", "@babylonjs/core@^4.1.0-beta.24":
   version "4.1.0-beta.24"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.1.0-beta.24.tgz#e0e0971801de82b6473ad5354d1967fb21e1afa7"
   integrity sha512-L9SMDWWQ7+y+XA1Y2rk5y79NADfHQSPAVp404WG8PL07OvGE6rryPaINb0/c/pc4BpJq9ZCO2yjCyR8fVyZfiQ==
   dependencies:
     tslib "^1.10.0"
 
-"@babylonjs/loaders@^4.1.0-beta.22":
-  version "4.1.0-beta.22"
-  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-4.1.0-beta.22.tgz#451007a85db0002c6a5ded7cd71f47e906e6d6ab"
-  integrity sha512-JVhCkI44Z2XLcuMRsvi1xBJ6BRKd2o6UtbcGqRdZbMwtHNk+/U64z9LCCBb/DzVdKPLR+RvVLm5rIruSWz7Khw==
+"@babylonjs/loaders@^4.1.0-beta.24":
+  version "4.1.0-beta.24"
+  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-4.1.0-beta.24.tgz#437e52f91e72d0c926beabf095a6875812b269e9"
+  integrity sha512-FPsxV2ENy6xJhmqh1sV2NHYiThzXrH08UXK2GfOppz4oEQeiT9na4GnlNSmAL9pSqKI7bI6GNwoxpA0kQJzYrg==
   dependencies:
-    "@babylonjs/core" "4.1.0-beta.22"
-    babylonjs-gltf2interface "4.1.0-beta.22"
+    "@babylonjs/core" "4.1.0-beta.24"
+    babylonjs-gltf2interface "4.1.0-beta.24"
     tslib "^1.10.0"
 
 "@babylonjs/materials@^4.1.0-beta.22":
@@ -2499,10 +2499,10 @@ babylon@^6.18.0:
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
   integrity sha512-q/UEjfGJ2Cm3oKV71DJz9d25TPnq5rhBVL2Q4fA5wcC3jcrdn7+SssEybFIxwAvvP+YCsCYNKughoF33GxgycQ==
 
-babylonjs-gltf2interface@4.1.0-beta.22:
-  version "4.1.0-beta.22"
-  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-4.1.0-beta.22.tgz#c5f485f19f6e2280a48da6094afc15124ad78aaf"
-  integrity sha512-6aEuIsj5TeMMsy+ipw3PaTAjS49Nx+o/8KXx1cnj1ZdkUxGP9mpMerQ+2uz/YLgBRWCRCw4FI7+NafcLQu5FRg==
+babylonjs-gltf2interface@4.1.0-beta.24:
+  version "4.1.0-beta.24"
+  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-4.1.0-beta.24.tgz#218bf5623d52bc9b711ae9fe174c998d89992bf6"
+  integrity sha512-0V+TBq/cYAlBVekUlY5PvpdfdXLNuNSe/qLbyX3l6PbXMRLM6T27fEMUT7rMqWbyTvkkJHXdZ91Z8gav4o8NhQ==
 
 backbone@^1.1.2:
   version "1.4.0"
