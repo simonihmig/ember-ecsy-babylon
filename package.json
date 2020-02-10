@@ -24,7 +24,7 @@
     "postpublish": "ember ts:clean"
   },
   "dependencies": {
-    "@babylonjs/core": "^4.1.0-beta.22",
+    "@babylonjs/core": "^4.1.0-beta.24",
     "@babylonjs/loaders": "^4.1.0-beta.22",
     "@ember/render-modifiers": "^1.0.2",
     "@glimmer/env": "^0.1.7",

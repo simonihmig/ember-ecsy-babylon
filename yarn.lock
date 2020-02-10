@@ -809,10 +809,17 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@4.1.0-beta.22", "@babylonjs/core@^4.1.0-beta.22":
+"@babylonjs/core@4.1.0-beta.22":
   version "4.1.0-beta.22"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.1.0-beta.22.tgz#5498fcb72ad3ee5f7d186d19524f27860229f2a1"
   integrity sha512-QRuunJLvrvu2mAk+XjQ0tApL3+tcdWth7ev7uaQ3roUG6SKRGgjdUbLxuPhKMzaOEW4HoRTD2ewk5hEAA1yWvQ==
+  dependencies:
+    tslib "^1.10.0"
+
+"@babylonjs/core@^4.1.0-beta.22", "@babylonjs/core@^4.1.0-beta.24":
+  version "4.1.0-beta.24"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.1.0-beta.24.tgz#e0e0971801de82b6473ad5354d1967fb21e1afa7"
+  integrity sha512-L9SMDWWQ7+y+XA1Y2rk5y79NADfHQSPAVp404WG8PL07OvGE6rryPaINb0/c/pc4BpJq9ZCO2yjCyR8fVyZfiQ==
   dependencies:
     tslib "^1.10.0"
 
