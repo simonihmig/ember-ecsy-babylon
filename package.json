@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@babylonjs/core": "^4.1.0-rc.0",
-    "@babylonjs/loaders": "^4.1.0-rc.0",
+    "@babylonjs/loaders": "^4.1.0-rc.5",
     "@ember/render-modifiers": "^1.0.2",
     "@glimmer/env": "^0.1.7",
     "@glimmer/tracking": "^1.0.0",
