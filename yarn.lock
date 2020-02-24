@@ -846,10 +846,17 @@
   dependencies:
     tslib "^1.10.0"
 
-"@babylonjs/core@4.1.0-rc.0", "@babylonjs/core@^4.1.0-beta.22", "@babylonjs/core@^4.1.0-rc.0":
+"@babylonjs/core@4.1.0-rc.0":
   version "4.1.0-rc.0"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.1.0-rc.0.tgz#acf1b08bfcd01e818dea09e88a5659d945dfef9c"
   integrity sha512-6o9Jx5P72jQAlUHEo0pqfy9nXJgMzem/f6A/geuQ3aFI7jS0foH3RhoUCgx7fP6CJiUub7oPX8R8ygO5aUa6dA==
+  dependencies:
+    tslib "^1.10.0"
+
+"@babylonjs/core@^4.1.0-beta.22", "@babylonjs/core@^4.1.0-rc.5":
+  version "4.1.0-rc.5"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.1.0-rc.5.tgz#90b3b98b8f6aa63a3b89afad11d3ccaf4caecaee"
+  integrity sha512-UE+9aqYXAvUGuOB9tXoIa1347Gmyy8aM8L++3hgW31eUQzQIn0CH7DFQjv3hXznurFKWkTHTolI+eVovg6ftSQ==
   dependencies:
     tslib "^1.10.0"
 
