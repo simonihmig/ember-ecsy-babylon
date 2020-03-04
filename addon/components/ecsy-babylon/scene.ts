@@ -1,5 +1,5 @@
 import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
-import { Color3, CubeTexture } from '@babylonjs/core';
+import { Color3, CubeTexture, Matrix } from '@babylonjs/core';
 import { assert } from '@ember/debug';
 import { BabylonCore } from 'ecsy-babylon';
 import {
@@ -7,9 +7,10 @@ import {
 } from 'ember-ecsy-babylon/components/ecsy-babylon';
 
 export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
-  clearColor: Color3;
-  ambientColor: Color3;
-  environmentTexture: string;
+  clearColor?: Color3;
+  ambientColor?: Color3;
+  environmentTexture?: string;
+  environmentRotation?: number;
 }
 
 export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylonContext, EcsyBabylonSceneArgs> {
@@ -21,6 +22,7 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
 
     const {
       environmentTexture,
+      environmentRotation,
       ...restArgs
     } = args;
 
@@ -40,6 +42,7 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
     this.scene = core.scene;
     Object.assign(this.scene, restArgs);
     this.updateEnvironmentTexture(environmentTexture);
+    this.rotateEnvironmentTexture(environmentRotation);
   }
 
   didUpdate (changedArgs: Partial<EcsyBabylonSceneArgs>) {
@@ -47,6 +50,7 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
 
     const {
       environmentTexture,
+      environmentRotation,
       ...restArgs
     } = changedArgs;
 
@@ -57,9 +61,12 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
     if (environmentTexture) {
       this.updateEnvironmentTexture(environmentTexture);
     }
+    if (environmentRotation) {
+      this.rotateEnvironmentTexture(environmentRotation);
+    }
   }
 
-  updateEnvironmentTexture(environmentTexture: string) {
+  updateEnvironmentTexture(environmentTexture?: string) {
     const oldTexture = this.scene.environmentTexture;
 
     this.scene.environmentTexture = environmentTexture ? new CubeTexture(environmentTexture, this.scene) : null;
@@ -67,6 +74,15 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
     if (oldTexture) {
       oldTexture.dispose();
     }
+  }
+
+  rotateEnvironmentTexture(angle = 0) {
+    const texture = this.scene.environmentTexture;
+    texture.setReflectionTextureMatrix(
+      Matrix.RotationY(
+        angle
+      )
+    );
   }
 
   willDestroy() {
