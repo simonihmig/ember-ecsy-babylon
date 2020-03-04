@@ -33,7 +33,7 @@
     "ecsy-babylon": "^0.1.0",
     "ember-auto-import": "^1.5.3",
     "ember-cli-babel": "^7.18.0",
-    "ember-cli-htmlbars": "^4.2.0",
+    "ember-cli-htmlbars": "^4.2.3",
     "ember-cli-typescript": "^3.1.1",
     "ember-concurrency": "^1.1.6",
     "ember-concurrency-decorators": "^1.1.0-alpha.1"
