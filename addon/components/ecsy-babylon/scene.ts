@@ -78,11 +78,13 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
 
   rotateEnvironmentTexture(angle = 0) {
     const texture = this.scene.environmentTexture;
-    texture.setReflectionTextureMatrix(
-      Matrix.RotationY(
-        angle
-      )
-    );
+    if (texture) {
+      texture.setReflectionTextureMatrix(
+        Matrix.RotationY(
+          angle
+        )
+      );
+    }
   }
 
   willDestroy() {
