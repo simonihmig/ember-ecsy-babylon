@@ -839,7 +839,7 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@4.1.0", "@babylonjs/core@^4.1.0-beta.22", "@babylonjs/core@^4.1.0-rc.0":
+"@babylonjs/core@4.1.0", "@babylonjs/core@^4.1.0", "@babylonjs/core@^4.1.0-beta.22":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.1.0.tgz#63e390862debf81f8cf248496187029c42ea5eda"
   integrity sha512-4pEKPEu14qRdqH5qatfmns/iHFHmujDI22SXkHIlJhTT0WgJH4I8IN1fPw9sU6jSCH2ul76Lpbi2zREvfrEDQA==
