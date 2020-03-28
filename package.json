@@ -48,7 +48,7 @@
     "@types/ember__test-helpers": "^0.7.9",
     "@types/qunit": "^2.9.0",
     "@types/rsvp": "^4.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.23.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-cli": "~3.17.0",
