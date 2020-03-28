@@ -4526,10 +4526,10 @@ ecsy-babylon@^0.1.1:
     "@babylonjs/materials" "^4.1.0"
     ecsy "^0.2.1"
 
-ecsy@^0.2.1, ecsy@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/ecsy/-/ecsy-0.2.2.tgz#87e94b2b172f51d6aec7b54cb574395aabfc5c24"
-  integrity sha512-t4NoPA26OTSwl76ZwqdC1C3MD1Pst0bZzAPIyOQ9cLHrPFpsRiDtZtcXw5hA8OmdZHA6Wf4huKRop07hLn5IZA==
+ecsy@^0.2.1, ecsy@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/ecsy/-/ecsy-0.2.3.tgz#82bc7c0c2235a2afe62317048eea9c91c96858ee"
+  integrity sha512-OAQap3oGQhONBD6IaM0VWXLk8IwEkPu5zUWrW8oSNMfh3jzN4qzZJlDv24QlLgWnK6cYl3hUCn6yOdxRv2Ua3w==
 
 editions@^1.1.1:
   version "1.3.4"
