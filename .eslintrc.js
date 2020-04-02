@@ -23,6 +23,10 @@ module.exports = {
   },
   rules: {
     'ember/no-jquery': 'error',
+    'no-restricted-imports': ['error', {
+      name: '@babylonjs/core',
+      message: 'Don\'t import from @babylonjs/core, use a direct import instead! See https://doc.babylonjs.com/features/es6_support#tree-shaking'
+    }]
   },
   overrides: [
     // ts files

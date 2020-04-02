@@ -3,14 +3,18 @@ import {assert} from '@ember/debug';
 import { BabylonCore } from 'ecsy-babylon';
 import { hash } from 'ember-concurrency';
 import { restartableTask, task } from 'ember-concurrency-decorators';
-import { AssetContainer, SceneLoader } from '@babylonjs/core';
 import { tracked } from '@glimmer/tracking';
 
-import '@babylonjs/loaders/glTF';
+import { GLTFFileLoader } from '@babylonjs/loaders/glTF/glTFFileLoader';
+import '@babylonjs/loaders/glTF/2.0/glTFLoader';
 import {
   EcsyBabylonContext,
   EcsyBabylonDomlessGlimmerArgs
 } from 'ember-ecsy-babylon/components/ecsy-babylon';
+import { AssetContainer } from '@babylonjs/core/assetContainer';
+import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
+
+SceneLoader.RegisterPlugin(new GLTFFileLoader());
 
 /**
  * Any other arguments will be parsed as a fileUrl and added to the resulting assets hash
@@ -82,7 +86,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
     if (fileUrl) {
       try {
-        return yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene);
+        return yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene, undefined, '.gltf');
       } catch (e) {
         console.error(`Failed to load "${fileUrl}": ${e.message}`);
       }

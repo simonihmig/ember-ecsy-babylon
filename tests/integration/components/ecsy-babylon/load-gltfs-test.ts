@@ -24,9 +24,9 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function(hooks) {
 
     const data = getData();
     assert.deepEqual(Object.keys(data), ['obj1', 'obj2']);
-    assert.deepEqual(data.obj1.meshes, []);
-    assert.deepEqual(data.obj1.materials, []);
-    assert.deepEqual(data.obj2.meshes, []);
-    assert.deepEqual(data.obj2.materials, []);
+    assert.equal(data.obj1.meshes.length, 1);
+    assert.equal(data.obj1.materials.length, 1);
+    assert.equal(data.obj2.meshes.length, 1);
+    assert.equal(data.obj2.materials.length, 1);
   });
 });

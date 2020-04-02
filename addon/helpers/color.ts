@@ -1,5 +1,5 @@
 import { helper } from '@ember/component/helper';
-import { Color3, Color4 } from '@babylonjs/core';
+import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 
 export function color(params: number[]): Color3 | Color4 {
   switch (params.length) {

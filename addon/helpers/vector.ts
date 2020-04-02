@@ -1,5 +1,5 @@
 import { helper } from '@ember/component/helper';
-import { Vector2, Vector3, Vector4 } from '@babylonjs/core';
+import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 
 export function vector(params: number[]): Vector2 | Vector3 | Vector4 {
   const [x, y, z, w] = params;
