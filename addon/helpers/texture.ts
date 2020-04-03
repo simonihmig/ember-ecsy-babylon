@@ -1,6 +1,8 @@
 import Helper from '@ember/component/helper';
-import {Scene, Texture, ThinEngine} from '@babylonjs/core';
 import { Nullable } from "@babylonjs/core/types";
+import { Scene } from '@babylonjs/core/scene';
+import { ThinEngine } from '@babylonjs/core/Engines/thinEngine';
+import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 
 type TextureParams = [
   Nullable<string>,

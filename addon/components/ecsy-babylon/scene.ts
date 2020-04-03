@@ -1,10 +1,12 @@
 import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
-import { Color3, CubeTexture, Matrix } from '@babylonjs/core';
 import { assert } from '@ember/debug';
 import { BabylonCore } from 'ecsy-babylon';
 import {
   EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs
 } from 'ember-ecsy-babylon/components/ecsy-babylon';
+import { Color3 } from '@babylonjs/core/Maths/math.color';
+import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
+import { Matrix } from '@babylonjs/core/Maths/math.vector';
 
 export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
   clearColor?: Color3;

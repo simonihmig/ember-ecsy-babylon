@@ -23,7 +23,7 @@ module('Integration | Component | ecsy-babylon/load-gltf', function(hooks) {
     `);
 
     const data = getData();
-    assert.deepEqual(data.meshes, []);
-    assert.deepEqual(data.materials, []);
+    assert.equal(data.meshes.length, 1);
+    assert.equal(data.materials.length, 1);
   });
 });
