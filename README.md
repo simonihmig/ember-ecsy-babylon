@@ -1,7 +1,9 @@
 ember-ecsy-babylon
 ==============================================================================
 
-[Short description of the addon.]
+![CI](https://github.com/kaliber5/ember-ecsy-babylon/workflows/CI/badge.svg)
+
+*WIP*
 
 
 Compatibility
