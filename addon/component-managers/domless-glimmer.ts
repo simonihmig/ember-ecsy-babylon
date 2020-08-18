@@ -4,6 +4,7 @@ import { capabilities } from '@ember/component';
 import DomlessGlimmerComponent, { DESTROYING, DESTROYED } from 'ember-ecsy-babylon/components/domless-glimmer';
 import Ember from 'ember';
 import { schedule } from '@ember/runloop';
+import { destroy } from '@ember/destroyable';
 
 export interface ComponentManagerArgs {
   named: {
@@ -81,7 +82,7 @@ export default class GlimmerComponentManager {
       return;
     }
 
-    Ember.destroy(component);
+    destroy(component);
 
     meta.setSourceDestroyed();
     component[DESTROYED] = true;

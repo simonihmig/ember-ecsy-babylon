@@ -22,7 +22,6 @@ module.exports = {
     browser: true
   },
   rules: {
-    'ember/no-jquery': 'error',
     'no-restricted-imports': ['error', {
       name: '@babylonjs/core',
       message: 'Don\'t import from @babylonjs/core, use a direct import instead! See https://doc.babylonjs.com/features/es6_support#tree-shaking'
@@ -69,9 +68,7 @@ module.exports = {
         node: true
       },
       plugins: ['node'],
-      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        // add your custom rules and overrides for node files here
-      })
+      extends: ['plugin:node/recommended']
     }
   ]
 };
