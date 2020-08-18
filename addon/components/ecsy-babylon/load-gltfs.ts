@@ -35,8 +35,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
   @tracked assets?: object;
 
-  // @todo fix typing when we have native classes in ecsy-babylon/components
-  private core: any;
+  private core: BabylonCore;
   private assetContainerHash?: AssetContainerHash;
   private fileHash: FileHash;
 
@@ -143,14 +142,14 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
         };
       }, {});
 
-    // do the cleanup last to prevent flashing
-    this.cleanup(disposable);
+    // do the cleanup after the frame has rendered, to allow essy systems to do their cleanup first
+    // e.g. when adding child nodes to an asset mesh, `ac.dispose()` would also recursively dispose those nodes not owned by
+    // our asset container
+    this.core.engine.onEndFrameObservable.addOnce(() => this.cleanup(disposable))
   }
 
   cleanup(assetContainers: AssetContainer[]) {
     assetContainers.forEach(ac => {
-      // TODO: hotfix to prevent this component from disposing materials that are not part of the AC
-      ac.meshes.forEach(m => m.material = null);
       ac.dispose();
     });
   }
