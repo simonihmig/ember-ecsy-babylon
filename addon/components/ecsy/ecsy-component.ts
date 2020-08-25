@@ -31,7 +31,7 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyContext, 
     const components = this.context!.components;
 
     if (!components.has(name)) {
-      throw new Error(`Ecsy component "${name}" not found.`);
+      throw new Error(`Ecsy component "${name}" not found. Available component names: ${Array.from(components.keys()).join(', ')}`);
     }
 
     this._Component = components.get(name)!;

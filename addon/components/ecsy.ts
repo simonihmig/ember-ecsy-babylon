@@ -1,6 +1,7 @@
 import DomlessGlimmerComponent, { DomlessGlimmerArgs } from 'ember-ecsy-babylon/components/domless-glimmer';
 import { Component as EcsyComponent, ComponentConstructor, System as EcsySystem, SystemConstructor, World } from 'ecsy';
 import { assert } from '@ember/debug';
+import { Parent } from 'ecsy-babylon';
 
 export interface EcsyArgs<C extends EcsyContext> extends DomlessGlimmerArgs<C> {
   components: Map<string, ComponentConstructor<EcsyComponent<unknown>>>;
@@ -25,6 +26,11 @@ export default class Ecsy<C extends EcsyContext, A extends EcsyArgs<C>> extends 
     assert('A `systems` argument of type Array must be passed.', Array.isArray(systems));
 
     components.forEach(c => this.world.registerComponent(c));
+    // we always need a Parent component (at least for ecsy-babylon, could be refactored when supporting generic ecsy usage)
+    // @ts-ignore wrong typings
+    if (!this.world.hasRegisteredComponent(Parent)) {
+      this.world.registerComponent(Parent);
+    }
     systems.forEach(s => this.world.registerSystem(s));
 
     this.context = { world: this.world, components } as C;

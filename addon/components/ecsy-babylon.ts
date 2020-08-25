@@ -6,6 +6,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import * as components from 'ecsy-babylon/components';
 import { assert } from '@ember/debug';
+import { dasherize } from '@ember/string';
 
 export interface EcsyBabylonContext extends EcsyContext {
   rootEntity: Entity;
@@ -22,13 +23,12 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
   constructor(owner: unknown, args: EcsyBabylonDomlessGlimmerArgs) {
     super(owner, {
       ...args,
-      components: args.components ?? new Map(Object.entries(components).filter(([key]) => key !== 'default')),
+      components: args.components ?? new Map(Object.entries(components).filter(([key]) => key !== 'default').map(([key, value]) => [dasherize(key).toLowerCase(), value])),
       systems: args.systems ?? systems,
     });
     this.entity = this.world.createEntity();
     this.context!.rootEntity = this.entity;
   }
-
 
   @action
   onCanvasReady(): void {

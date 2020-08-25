@@ -3,6 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import setupDataDumper from 'dummy/tests/helpers/dump';
+import { Component, Types } from 'ecsy';
 
 module('Integration | Component | ecsy/component', function(hooks) {
   setupRenderingTest(hooks);
@@ -10,13 +11,15 @@ module('Integration | Component | ecsy/component', function(hooks) {
 
   test('it add component to entity', async function(assert) {
 
-    class DummyComponent {
-      reset() {}
+    class DummyComponent extends Component<DummyComponent> {
+      foo?: string;
+
+      static schema = {
+        foo: { type: Types.String }
+      }
     }
 
-    Object.defineProperty(DummyComponent, 'name', { value: 'Dummy' });
-
-    this.set('components', [DummyComponent]);
+    this.set('components', new Map([['dummy', DummyComponent]]));
 
     await render(hbs`
       <Ecsy @systems={{array}} @components={{this.components}} as |world|>
