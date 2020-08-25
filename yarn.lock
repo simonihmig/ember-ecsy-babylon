@@ -4989,10 +4989,10 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-ecsy-babylon@^0.3.0-2:
-  version "0.3.0-2"
-  resolved "https://registry.yarnpkg.com/ecsy-babylon/-/ecsy-babylon-0.3.0-2.tgz#622773d4e5932f4b05d2a5887c02f7c77c177d2a"
-  integrity sha512-QxXkK9ol+g8QnB34OvzsXMRyEGB8M1mVZGYcq8PivxhSvFuya7mFn4cpF8HayEuL9V4FOdpkS/rbfX2QUUoBhQ==
+ecsy-babylon@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/ecsy-babylon/-/ecsy-babylon-0.3.0.tgz#dff5a7ee7f577456cb5796806a19bc1c40b64cc0"
+  integrity sha512-89ulWE/CLI5LV8U/cc0SKUOHh9ZzoTsEKNEiY/zSWup9DbVXKhuNwITsr0w4nI+pabSV30U3gWeEzaxo/NedtQ==
   dependencies:
     "@babylonjs/core" "^4.1.0"
     "@babylonjs/materials" "^4.1.0"
