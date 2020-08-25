@@ -6,7 +6,9 @@ import {
 } from 'ember-ecsy-babylon/components/ecsy-babylon';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
+import { HDRCubeTexture } from '@babylonjs/core/Materials/Textures/hdrCubeTexture';
 import { Matrix } from '@babylonjs/core/Maths/math.vector';
+import { Scene } from '@babylonjs/core/scene';
 
 export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
   clearColor?: Color3;
@@ -16,8 +18,7 @@ export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
 }
 
 export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylonContext, EcsyBabylonSceneArgs> {
-  // @todo fix typing when we have native classes in ecsy-babylon/components
-  scene: any;
+  scene: Scene;
 
   constructor (owner: unknown, args: EcsyBabylonSceneArgs) {
     super(owner, args);
@@ -37,11 +38,12 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
 
     assert('EcsyBabylon entity not found. Make sure to use the yielded version of <Scene/>', !!rootEntity);
     assert('EcsyBabylon world not found. Make sure to use the yielded version of <Scene/>', !!world);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const core = rootEntity.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
-    assert('BabylonCore does not contain a scene', !!core.scene);
+    assert('BabylonCore does not contain a scene', !!core!.scene);
 
-    this.scene = core.scene;
+    this.scene = core!.scene;
     Object.assign(this.scene, restArgs);
     this.updateEnvironmentTexture(environmentTexture);
     this.rotateEnvironmentTexture(environmentRotation);
@@ -80,7 +82,7 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
 
   rotateEnvironmentTexture(angle = 0) {
     const texture = this.scene.environmentTexture;
-    if (texture) {
+    if (texture && (texture instanceof CubeTexture || texture instanceof HDRCubeTexture)) {
       texture.setReflectionTextureMatrix(
         Matrix.RotationY(
           angle

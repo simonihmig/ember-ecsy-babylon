@@ -1,17 +1,17 @@
-import { ComponentConstructor, World, Component as _Component } from 'ecsy';
+import { Component as _Component, ComponentConstructor } from 'ecsy';
 import { assert } from '@ember/debug';
 import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
 import EcsyEntity from 'ember-ecsy-babylon/components/ecsy/entity';
-import { EcsyArgs, EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
+import { EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
 
-interface EcsyComponentArgs extends EcsyArgs {
+interface EcsyComponentArgs {
   // private
   parent: EcsyEntity;
   name: string;
 }
 
 export default class EcsyComponent extends DomlessGlimmerComponent<EcsyContext, EcsyComponentArgs> {
-  _Component!: ComponentConstructor<_Component>;
+  _Component!: ComponentConstructor<_Component<unknown>>;
 
   constructor(owner: unknown, args: EcsyComponentArgs) {
     super(owner, args);
@@ -27,17 +27,14 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyContext, 
     assert('Component reference `parent` does not have a valid `entity` set. Please do not use this component directly.', parent.entity);
     assert('`name` is not passed. Please do not use this component directly.', !!name);
 
-    // @ts-ignore: private API
-    const world = parent.entity._world as World;
+    assert('Missing context for EcsyComponent', this.context);
+    const components = this.context!.components;
 
-    // @ts-ignore: private API
-    const components = world.componentsManager.Components;
-    this._Component = components[name];
-
-    if (!this._Component) {
-      throw new Error(`Component "${name}" not found.`);
+    if (!components.has(name)) {
+      throw new Error(`Ecsy component "${name}" not found.`);
     }
 
+    this._Component = components.get(name)!;
     parent.entity.addComponent(this._Component, restArgs);
   }
 

@@ -2,31 +2,31 @@ import DomlessGlimmerComponent, { DomlessGlimmerArgs } from 'ember-ecsy-babylon/
 import { Component as EcsyComponent, ComponentConstructor, System as EcsySystem, SystemConstructor, World } from 'ecsy';
 import { assert } from '@ember/debug';
 
-export interface EcsyArgs extends DomlessGlimmerArgs<EcsyContext> {
-  components: ComponentConstructor<EcsyComponent>[];
+export interface EcsyArgs<C extends EcsyContext> extends DomlessGlimmerArgs<C> {
+  components: Map<string, ComponentConstructor<EcsyComponent<unknown>>>;
   systems: SystemConstructor<EcsySystem>[];
 }
 
-
 export interface EcsyContext {
   world: World;
+  components: Map<string, ComponentConstructor<EcsyComponent<unknown>>>;
 }
 
-export default class Ecsy extends DomlessGlimmerComponent<EcsyContext, EcsyArgs> {
-  // private
-  world!: World;
+export default class Ecsy<C extends EcsyContext, A extends EcsyArgs<C>> extends DomlessGlimmerComponent<C, A> {
+  world: World;
 
-  constructor(owner: unknown, args: EcsyArgs) {
+  constructor(owner: unknown, args: A) {
     super(owner, args);
 
+    const { components, systems } = this.args;
     this.world = new World();
 
-    assert('A `components` argument of type Array must be passed.', Array.isArray(this.args.components));
-    assert('A `systems` argument of type Array must be passed.', Array.isArray(this.args.systems));
+    assert('A `components` argument of type Map must be passed.', components instanceof Map);
+    assert('A `systems` argument of type Array must be passed.', Array.isArray(systems));
 
-    this.args.components.forEach(c => this.world.registerComponent(c));
-    this.args.systems.forEach(s => this.world.registerSystem(s));
+    components.forEach(c => this.world.registerComponent(c));
+    systems.forEach(s => this.world.registerSystem(s));
 
-    this.context = { world: this.world };
+    this.context = { world: this.world, components } as C;
   }
 }

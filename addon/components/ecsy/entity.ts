@@ -24,7 +24,7 @@ export default class EcsyEntity extends DomlessGlimmerComponent<EcsyContext, Dom
     super(owner, args);
 
     const parentEntityComponent = findParentEntity(this);
-    const parentEntity = parentEntityComponent ? parentEntityComponent.entity : null;
+    const parentEntity = parentEntityComponent ? parentEntityComponent.entity : undefined;
 
     assert('Parent <Entity/> does not have a valid ECSY Entity component.', (!parentEntityComponent || !!parentEntity));
     assert('No ECSY context found.', this.context);
