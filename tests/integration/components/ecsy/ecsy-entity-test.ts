@@ -10,8 +10,9 @@ module('Integration | Component | ecsy/entity', function(hooks) {
 
   test('it adds entity', async function(assert) {
     this.set('show', false);
+    this.set('components', new Map());
     await render(hbs`
-      <Ecsy @systems={{array}} @components={{array}} as |world|>
+      <Ecsy @systems={{array}} @components={{this.components}} as |world|>
         {{dump world.world}}
         {{#if this.show}}
           <world.Entity />

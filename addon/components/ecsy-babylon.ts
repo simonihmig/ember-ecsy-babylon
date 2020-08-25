@@ -1,43 +1,39 @@
 import Ecsy, { EcsyArgs, EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
-import { BabylonCore } from 'ecsy-babylon';
+import { BabylonCore, systems } from 'ecsy-babylon';
 import { Entity } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { DomlessGlimmerArgs } from 'ember-ecsy-babylon/components/domless-glimmer';
-import { components, systems } from 'ecsy-babylon';
+import * as components from 'ecsy-babylon/components';
+import { assert } from '@ember/debug';
+import { dasherize } from '@ember/string';
 
 export interface EcsyBabylonContext extends EcsyContext {
   rootEntity: Entity;
 }
 
-export type EcsyBabylonDomlessGlimmerArgs = DomlessGlimmerArgs<EcsyBabylonContext>;
+export type EcsyBabylonDomlessGlimmerArgs = EcsyArgs<EcsyBabylonContext>;
 
-export default class EcsyBabylon extends Ecsy {
+export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs> {
   guid = guidFor(this);
 
   entity: Entity;
   @tracked ready = false;
 
-  context: EcsyBabylonContext;
-
-  constructor(owner: unknown, args: EcsyArgs) {
+  constructor(owner: unknown, args: EcsyBabylonDomlessGlimmerArgs) {
     super(owner, {
       ...args,
-      components: args.components ?? components,
+      components: args.components ?? new Map(Object.entries(components).filter(([key]) => key !== 'default').map(([key, value]) => [dasherize(key).toLowerCase(), value])),
       systems: args.systems ?? systems,
     });
     this.entity = this.world.createEntity();
-    this.context = {
-      world: this.world,
-      rootEntity: this.entity
-    };
+    this.context!.rootEntity = this.entity;
   }
 
-
   @action
-  onCanvasReady() {
-    const canvas = document.getElementById(`${this.guid}__canvas`);
+  onCanvasReady(): void {
+    const canvas = document.getElementById(`${this.guid}__canvas`) as HTMLCanvasElement;
+    assert('Canvas element needed', canvas);
 
     this.entity.addComponent(BabylonCore, {
       world: this.world,

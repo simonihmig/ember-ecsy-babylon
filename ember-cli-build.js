@@ -3,15 +3,7 @@
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
-  const app = new EmberAddon(defaults, {
-    autoImport: {
-      alias: {
-        // make sure that we use the ES module build, not UMD :/
-        // @todo can we enforce that for every app?
-        'ecsy-babylon': 'ecsy-babylon/dist/src/index.js'
-      }
-    }
-  });
+  const app = new EmberAddon(defaults, {});
 
   /*
     This build file specifies the options for the dummy test app of this
