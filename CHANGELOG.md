@@ -1,3 +1,15 @@
+## v0.3.0-0 (2020-08-25)
+
+#### :boom: Breaking Change
+* [#188](https://github.com/kaliber5/ember-ecsy-babylon/pull/188) Update ecsy ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#188](https://github.com/kaliber5/ember-ecsy-babylon/pull/188) Update ecsy ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.2.6 (2020-08-18)
 
 #### :bug: Bug Fix
