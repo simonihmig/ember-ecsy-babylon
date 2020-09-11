@@ -1,3 +1,12 @@
+## v0.3.1 (2020-09-11)
+
+#### :rocket: Enhancement
+* [#203](https://github.com/kaliber5/ember-ecsy-babylon/pull/203) Update ecsy-babylon to 0.4.0 ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.3.0 (2020-08-25)
 
 ## v0.3.0-0 (2020-08-25)
