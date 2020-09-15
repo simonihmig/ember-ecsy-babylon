@@ -44,13 +44,18 @@
         <World.Entity @name="node" {{rotation (vector 0 this.rotateValue 0)}}>
 
           <World.Entity
-            @name="leaf 1"
+            {{plane width=8 height=4.5}}
+            {{position (vector 0 -3 0)}}
+            {{rotation (vector 90 0 0)}}
+            {{pbr-material albedoTexture=(custom-texture this.VideoTexture "video" "https://vjs.zencdn.net/v/oceans.mp4" autoUpdateTexture=true posterImage="https://vjs.zencdn.net/v/oceans.png") metallic=0 roughness=0.5}}
+          />
+
+          <World.Entity
             {{box size=2 width=3}}
             {{pbr-material ambientColor=(color 0 1 0) albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
           />
 
           <World.Entity
-            @name="leaf 2"
             {{sphere diameter=3}}
             {{pbr-material ambientColor=(color 1 0 0) albedoColor=(color 1 0 0) metallic=0.5 roughness=0.5}}
             {{position (vector 1 2 1)}}
@@ -59,7 +64,6 @@
       {{/if}}
 
       <World.Entity
-        @name="controller"
         {{sphere diameter=0.5}}
         {{pbr-material albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
         {{position (vector 0 -2 0)}}
