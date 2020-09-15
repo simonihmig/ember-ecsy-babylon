@@ -1,3 +1,16 @@
+## v0.3.2 (2020-09-15)
+
+#### :rocket: Enhancement
+* [#212](https://github.com/kaliber5/ember-ecsy-babylon/pull/212) Yield Babylon scene from <Scene> component ([@simonihmig](https://github.com/simonihmig))
+* [#211](https://github.com/kaliber5/ember-ecsy-babylon/pull/211) Add custom-texture helper ([@simonihmig](https://github.com/simonihmig))
+
+#### :house: Internal
+* [#213](https://github.com/kaliber5/ember-ecsy-babylon/pull/213) Colocate templates ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.3.1 (2020-09-11)
 
 #### :rocket: Enhancement
