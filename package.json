@@ -30,7 +30,7 @@
     "@babylonjs/loaders": "^4.1.0",
     "@ember/render-modifiers": "^1.0.2",
     "@glimmer/env": "^0.1.7",
-    "@glimmer/tracking": "^1.0.1",
+    "@glimmer/tracking": "^1.0.2",
     "ecsy": "^0.4.2",
     "ecsy-babylon": "^0.5.0",
     "ember-auto-import": "^1.6.0",
@@ -44,7 +44,7 @@
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
     "@glimmer/component": "^1.0.2",
-    "@glimmer/tracking": "^1.0.1",
+    "@glimmer/tracking": "^1.0.2",
     "@types/ember": "^3.16.0",
     "@types/ember-qunit": "^3.4.9",
     "@types/ember__test-helpers": "^1.7.2",
