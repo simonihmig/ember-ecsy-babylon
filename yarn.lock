@@ -4969,16 +4969,16 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-ecsy-babylon@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/ecsy-babylon/-/ecsy-babylon-0.4.0.tgz#04400d1888c6b1a0f4a3d6320a71bb0988399f8a"
-  integrity sha512-Aq3YkLg90f3J8tpPD7psa7ZvgwLoOobZMd3ILLlhnTvFUMyr0bvgJib7PG604NXaFQJf4Hm3EU35VJoOQ7u3KQ==
+ecsy-babylon@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/ecsy-babylon/-/ecsy-babylon-0.5.0.tgz#ba4c2bd3d8d2118d616213d8ae9faa207d8c0cd4"
+  integrity sha512-+I7gF9+a5oeVkNSae/WcvLGOKvkFqwgEDtHka1FzdmYA7rPAXDF+6hl5MVh4rngjGBNw3TtTgo0Jx+wJHPd03A==
   dependencies:
     "@babylonjs/core" "^4.1.0"
     "@babylonjs/materials" "^4.1.0"
-    ecsy "^0.4.1"
+    ecsy "^0.4.2"
 
-ecsy@^0.4.1, ecsy@^0.4.2:
+ecsy@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/ecsy/-/ecsy-0.4.2.tgz#5d0c78fb248c81f587dfc05c01cb39e8bb2233ab"
   integrity sha512-dVKOkuz1IsRvS7GlHcWghUtMZzXr70h6b+SQEHlKy2RgsCRNDzdYr6a43Q6HafuquA/67YFZCQt8zqadq/jlLA==
