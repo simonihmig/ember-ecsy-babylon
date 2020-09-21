@@ -1,3 +1,14 @@
+## v0.4.0 (2020-09-21)
+
+#### :boom: Breaking Change
+* [#214](https://github.com/kaliber5/ember-ecsy-babylon/pull/214) Update ecsy-babylon to 0.5.0 ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#214](https://github.com/kaliber5/ember-ecsy-babylon/pull/214) Update ecsy-babylon to 0.5.0 ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.3.2 (2020-09-15)
 
 #### :rocket: Enhancement
