@@ -4,6 +4,13 @@ const EcsyModiferTransform = require('./lib/ast-transform');
 
 module.exports = {
   name: require('./package').name,
+
+  options: {
+    babel: {
+      plugins: [require.resolve('ember-auto-import/babel-plugin')],
+    },
+  },
+
   setupPreprocessorRegistry(type, registry) {
     const plugin = this._buildPlugin();
     plugin.parallelBabel = {
