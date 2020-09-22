@@ -1,4 +1,9 @@
-<canvas id="{{this.guid}}__canvas" {{did-insert this.onCanvasReady}} ...attributes></canvas>
+<canvas
+  id="{{this.guid}}__canvas"
+  {{did-insert this.onCanvasReady}}
+  {{on "keypress" this.toggleBabylonInspector}}
+  ...attributes>
+</canvas>
 
 {{#if this.ready}}
   {{yield
