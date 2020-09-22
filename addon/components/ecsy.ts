@@ -27,7 +27,6 @@ export default class Ecsy<C extends EcsyContext, A extends EcsyArgs<C>> extends 
 
     components.forEach(c => this.world.registerComponent(c));
     // we always need a Parent component (at least for ecsy-babylon, could be refactored when supporting generic ecsy usage)
-    // @ts-ignore wrong typings
     if (!this.world.hasRegisteredComponent(Parent)) {
       this.world.registerComponent(Parent);
     }
