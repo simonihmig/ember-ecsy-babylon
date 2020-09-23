@@ -1,3 +1,11 @@
+## v0.5.1 (2020-09-23)
+
+#### :bug: Bug Fix
+* [#222](https://github.com/kaliber5/ember-ecsy-babylon/pull/222) Use direct imports of ecsy-babylon to support tree shaking ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.5.0 (2020-09-23)
 
 #### :boom: Breaking Change
