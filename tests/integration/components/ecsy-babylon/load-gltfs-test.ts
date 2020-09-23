@@ -13,12 +13,10 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function(hooks) {
   test('it yields loaded asset hash', async function(assert) {
 
     await render(hbs`
-      <EcsyBabylon as |Scene|>
-        <Scene as |World|>
-          <World.LoadGltfs @files={{hash obj1="/gltf/object1" obj2="/gltf/object2"}} as |ach|>
-            {{dump ach}}
-          </World.LoadGltfs>
-        </Scene>
+      <EcsyBabylon as |World|>
+        <World.LoadGltfs @files={{hash obj1="/gltf/object1" obj2="/gltf/object2"}} as |ach|>
+          {{dump ach}}
+        </World.LoadGltfs>
       </EcsyBabylon>
     `);
 

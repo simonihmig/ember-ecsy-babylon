@@ -1,16 +1,22 @@
-import Ecsy, { EcsyArgs, EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
+import { EcsyArgs, EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
 import { BabylonCore, systems } from 'ecsy-babylon';
-import { Entity } from 'ecsy';
+import { Entity, World } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import * as components from 'ecsy-babylon/components';
 import { assert } from '@ember/debug';
-import { dasherize } from '@ember/string';
 import { DEBUG } from '@glimmer/env';
 import { Scene } from '@babylonjs/core/scene';
+import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
+import { mapComponentImports } from 'ember-ecsy-babylon';
+import EcsyEntity from 'ember-ecsy-babylon/components/ecsy/entity';
+import { scheduleOnce } from '@ember/runloop';
 
 export interface EcsyBabylonContext extends EcsyContext {
+
+  // @todo can we get rid of this? Is only available *after* ecsy has run, but context is already set. Mutating from outside is odd
+
   rootEntity: Entity;
 }
 
@@ -22,11 +28,16 @@ const DEBUG_KEY = {
   key: 'd'
 }
 
-export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs> {
+export default class EcsyBabylon extends DomlessGlimmerComponent<EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs> {
   guid = guidFor(this);
 
-  entity: Entity;
+  components = mapComponentImports(components);
+  systems = systems;
+  rootEntity?: Entity;
+
+  world?: World;
   scene?: Scene;
+  canvas?: HTMLCanvasElement;
 
   // use deliberately `any` here, as importing `DebugLayer` seems to also import all the code eagerly, which we obviously
   // don't want, although *here* it is only used as a type, but it is used as a *value* in toggleBabylonInspector below
@@ -35,28 +46,28 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
   @tracked ready = false;
 
   constructor(owner: unknown, args: EcsyBabylonDomlessGlimmerArgs) {
-    super(owner, {
-      ...args,
-      components: args.components ?? new Map(Object.entries(components).filter(([key]) => key !== 'default').map(([key, value]) => [dasherize(key).toLowerCase(), value])),
-      systems: args.systems ?? systems,
-    });
-    this.entity = this.world.createEntity();
-    this.context!.rootEntity = this.entity;
+    super(owner, args);
   }
 
   @action
   onCanvasReady(): void {
-    const canvas = document.getElementById(`${this.guid}__canvas`) as HTMLCanvasElement;
-    assert('Canvas element needed', canvas);
-
-    this.entity.addComponent(BabylonCore, {
-      world: this.world,
-      canvas
-    });
+    this.canvas = document.getElementById(`${this.guid}__canvas`) as HTMLCanvasElement;
+    assert('Canvas element needed', this.canvas);
 
     this.ready = true;
-    this.world.execute(0, 0);
-    const core = this.entity.getComponent(BabylonCore);
+  }
+
+  @action
+  onEcsyReady([world, entityComponent]: [World, EcsyEntity]): void {
+    this.world = world;
+    this.rootEntity = entityComponent.entity;
+    scheduleOnce('afterRender', this, this.startEcsy);
+  }
+
+  private startEcsy(): void {
+    this.world!.execute(0, 0);
+    assert('No root entity found', this.rootEntity);
+    const core = this.rootEntity.getComponent(BabylonCore);
     assert('Could not get BabylonCore component, something is broken!', core);
     this.scene = core.scene;
 
@@ -92,13 +103,9 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
   willDestroy(): void {
     super.willDestroy();
 
-    const entity = this.entity;
-
-    if (entity) {
-      entity.remove();
+    if (this.world) {
+      this.world.execute(0, 0);
+      this.world.stop();
     }
-
-    this.world.execute(0, 0);
-    this.world.stop();
   }
 }

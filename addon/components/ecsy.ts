@@ -6,6 +6,7 @@ import { Parent } from 'ecsy-babylon';
 export interface EcsyArgs<C extends EcsyContext> extends DomlessGlimmerArgs<C> {
   components: Map<string, ComponentConstructor<EcsyComponent<unknown>>>;
   systems: SystemConstructor<EcsySystem>[];
+  context?: Partial<C>;
 }
 
 export interface EcsyContext {
@@ -26,12 +27,13 @@ export default class Ecsy<C extends EcsyContext, A extends EcsyArgs<C>> extends 
     assert('A `systems` argument of type Array must be passed.', Array.isArray(systems));
 
     components.forEach(c => this.world.registerComponent(c));
+
     // we always need a Parent component (at least for ecsy-babylon, could be refactored when supporting generic ecsy usage)
     if (!this.world.hasRegisteredComponent(Parent)) {
       this.world.registerComponent(Parent);
     }
     systems.forEach(s => this.world.registerSystem(s));
 
-    this.context = { world: this.world, components } as C;
+    this.context = { world: this.world, components, ...args.context } as C;
   }
 }

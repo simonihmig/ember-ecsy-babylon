@@ -2,13 +2,30 @@
   id="{{this.guid}}__canvas"
   {{did-insert this.onCanvasReady}}
   {{on "keypress" this.toggleBabylonInspector}}
-  ...attributes>
+  ...attributes
+>
+  {{#if this.ready}}
+    <Ecsy
+      @components={{this.components}}
+      @systems={{this.systems}}
+      as |ecsy|
+    >
+      <ecsy.Entity
+        @skipParentComponent={{true}}
+        {{babylon-core world=ecsy.world canvas=this.canvas}}
+        as |parent|
+      >
+        {{yield
+          (hash
+            Entity=(component "ecsy/entity" parent=parent)
+            LoadGltf=(component "ecsy-babylon/load-gltf")
+            LoadGltfs=(component "ecsy-babylon/load-gltfs")
+            scene=this.scene
+          )
+          parent
+        }}
+        {{did-insert this.onEcsyReady ecsy.world parent}}
+      </ecsy.Entity>
+    </Ecsy>
+  {{/if}}
 </canvas>
-
-{{#if this.ready}}
-  {{yield
-    (component "ecsy-babylon/scene"
-      parent=this
-    )
-  }}
-{{/if}}

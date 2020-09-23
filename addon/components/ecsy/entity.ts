@@ -17,20 +17,27 @@ function findParentEntity(component: EcsyEntity): EcsyEntity | null {
   return null;
 }
 
-export default class EcsyEntity extends DomlessGlimmerComponent<EcsyContext, DomlessGlimmerArgs<EcsyContext>> {
+interface EcsyEntityArgs<C> extends DomlessGlimmerArgs<C> {
+  skipParentComponent?: boolean;
+}
+
+export default class EcsyEntity extends DomlessGlimmerComponent<EcsyContext, EcsyEntityArgs<EcsyContext>> {
   entity!: Entity;
 
-  constructor(owner: unknown, args: DomlessGlimmerArgs<EcsyContext>) {
+  constructor(owner: unknown, args: EcsyEntityArgs<EcsyContext>) {
     super(owner, args);
 
     const parentEntityComponent = findParentEntity(this);
     const parentEntity = parentEntityComponent ? parentEntityComponent.entity : undefined;
 
-    assert('Parent <Entity/> does not have a valid ECSY Entity component.', (!parentEntityComponent || !!parentEntity));
+    assert('Parent <Entity/> does not have a valid ECSY Entity.', (!parentEntityComponent || !!parentEntity));
     assert('No ECSY context found.', this.context);
 
     const entity = this.context!.world.createEntity();
-    entity.addComponent(Parent, { value: parentEntity });
+
+    if (!args.skipParentComponent) {
+      entity.addComponent(Parent, { value: parentEntity?.hasComponent(Parent) ? parentEntity : undefined });
+    }
 
     this.entity = entity;
   }
