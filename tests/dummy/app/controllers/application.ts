@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { VideoTexture } from '@babylonjs/core/Materials/Textures/videoTexture';
 import { tracked } from '@glimmer/tracking';
 import * as components from 'ecsy-babylon/components';
+// eslint-disable-next-line no-restricted-imports
 import { systems } from 'ecsy-babylon';
 import { mapComponentImports } from 'ember-ecsy-babylon';
 

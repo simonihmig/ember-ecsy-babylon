@@ -22,10 +22,22 @@ module.exports = {
     browser: true
   },
   rules: {
-    'no-restricted-imports': ['error', {
-      name: '@babylonjs/core',
-      message: 'Don\'t import from @babylonjs/core, use a direct import instead! See https://doc.babylonjs.com/features/es6_support#tree-shaking'
-    }]
+    'no-restricted-imports': ['error',
+      {
+        name: '@babylonjs/core',
+        message: 'Don\'t import from @babylonjs/core, use a direct import instead! See https://doc.babylonjs.com/features/es6_support#tree-shaking'
+      },
+      {
+        name: 'ecsy-babylon',
+        message:
+          "Don't import from index modules of ecsy-babylon, use a direct import instead to support tree shaking! See https://github.com/ef4/ember-auto-import/issues/121",
+      },
+      {
+        name: 'ecsy-babylon/systems',
+        message:
+          "Don't import from index modules of ecsy-babylon, use a direct import instead to support tree shaking! See https://github.com/ef4/ember-auto-import/issues/121",
+      },
+    ]
   },
   overrides: [
     // ts files

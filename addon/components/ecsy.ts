@@ -1,7 +1,7 @@
 import DomlessGlimmerComponent, { DomlessGlimmerArgs } from 'ember-ecsy-babylon/components/domless-glimmer';
 import { Component as EcsyComponent, ComponentConstructor, System as EcsySystem, SystemConstructor, World } from 'ecsy';
 import { assert } from '@ember/debug';
-import { Parent } from 'ecsy-babylon';
+import Parent from 'ecsy-babylon/components/parent';
 
 export interface EcsyArgs<C extends EcsyContext> extends DomlessGlimmerArgs<C> {
   components: Map<string, ComponentConstructor<EcsyComponent<unknown>>>;

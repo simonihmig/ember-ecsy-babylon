@@ -28,6 +28,25 @@ Usage
 [Longer description of how to use the addon in apps.]
 
 
+
+### Tree shaking
+
+Due to [this ember-auto-import bug](https://github.com/ef4/ember-auto-import/issues/121) 
+use direct imports of `ecsy-babylon` systems:
+
+```js
+// good
+import BabylonSystem from 'ecsy-babylon/systems/babylon';
+
+// bad
+import { BabylonSystem } from 'ecsy-babylon/systems';
+import { BabylonSystem } from 'ecsy-babylon';
+```
+
+Same applies when you import from `@babylonjs/core`, see [Tree Shaking of Babylon.js](https://doc.babylonjs.com/features/es6_support#tree-shaking)
+
+This will pull in only the needed systems, and as such also only the needed parts of `babylon.js`.
+
 Contributing
 ------------------------------------------------------------------------------
 

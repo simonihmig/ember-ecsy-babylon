@@ -1,6 +1,6 @@
 import { Entity } from 'ecsy';
 import { assert } from '@ember/debug';
-import { Parent } from 'ecsy-babylon';
+import Parent from 'ecsy-babylon/components/parent';
 import DomlessGlimmerComponent, { DomlessGlimmerArgs } from 'ember-ecsy-babylon/components/domless-glimmer';
 import { EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
 

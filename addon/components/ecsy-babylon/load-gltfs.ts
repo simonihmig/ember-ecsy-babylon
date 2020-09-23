@@ -1,6 +1,6 @@
 import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
 import {assert} from '@ember/debug';
-import { BabylonCore } from 'ecsy-babylon';
+import BabylonCore from 'ecsy-babylon/components/babylon-core';
 import { hash } from 'ember-concurrency';
 import { restartableTask, task } from 'ember-concurrency-decorators';
 import { tracked } from '@glimmer/tracking';
