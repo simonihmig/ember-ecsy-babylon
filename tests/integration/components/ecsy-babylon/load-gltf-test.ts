@@ -4,16 +4,18 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import setupServerMock from 'dummy/tests/helpers/server-mock';
 import setupDataDumper from 'dummy/tests/helpers/dump';
+import setupEcsyBabylon from 'dummy/tests/helpers/setup-ecsy-babylon';
 
 module('Integration | Component | ecsy-babylon/load-gltf', function(hooks) {
   setupRenderingTest(hooks);
   setupServerMock(hooks);
+  setupEcsyBabylon(hooks);
   const getData = setupDataDumper(hooks);
 
   test('it yields loaded asset', async function(assert) {
 
     await render(hbs`
-      <EcsyBabylon as |Scene|>
+      <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
         <Scene as |World|>
           <World.LoadGltf @file="/gltf/object1" as |ac|>
             {{dump ac}}
