@@ -1,3 +1,16 @@
+## v0.5.0 (2020-09-23)
+
+#### :boom: Breaking Change
+* [#221](https://github.com/kaliber5/ember-ecsy-babylon/pull/221) Force user to explicitly pass components and systems ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#221](https://github.com/kaliber5/ember-ecsy-babylon/pull/221) Force user to explicitly pass components and systems ([@simonihmig](https://github.com/simonihmig))
+* [#220](https://github.com/kaliber5/ember-ecsy-babylon/pull/220) Open Babylon Inspector on CTRL-D ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.4.0 (2020-09-21)
 
 #### :boom: Breaking Change
