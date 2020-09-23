@@ -1,12 +1,10 @@
 import Ecsy, { EcsyArgs, EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
-import { BabylonCore, systems } from 'ecsy-babylon';
+import { BabylonCore } from 'ecsy-babylon';
 import { Entity } from 'ecsy';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import * as components from 'ecsy-babylon/components';
 import { assert } from '@ember/debug';
-import { dasherize } from '@ember/string';
 import { DEBUG } from '@glimmer/env';
 import { Scene } from '@babylonjs/core/scene';
 
@@ -35,11 +33,7 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
   @tracked ready = false;
 
   constructor(owner: unknown, args: EcsyBabylonDomlessGlimmerArgs) {
-    super(owner, {
-      ...args,
-      components: args.components ?? new Map(Object.entries(components).filter(([key]) => key !== 'default').map(([key, value]) => [dasherize(key).toLowerCase(), value])),
-      systems: args.systems ?? systems,
-    });
+    super(owner, args);
     this.entity = this.world.createEntity();
     this.context!.rootEntity = this.entity;
   }

@@ -2,8 +2,14 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { VideoTexture } from '@babylonjs/core/Materials/Textures/videoTexture';
 import { tracked } from '@glimmer/tracking';
+import * as components from 'ecsy-babylon/components';
+import { systems } from 'ecsy-babylon';
+import { mapComponentImports } from 'ember-ecsy-babylon';
 
 export default class Application extends Controller {
+
+  components = mapComponentImports(components);
+  systems = systems;
 
   @tracked
   rotateValue = 45;
