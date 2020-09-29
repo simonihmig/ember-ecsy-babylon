@@ -7,12 +7,18 @@ import { tracked } from '@glimmer/tracking';
 import { assert } from '@ember/debug';
 import { DEBUG } from '@glimmer/env';
 import { Scene } from '@babylonjs/core/scene';
+import { EngineOptions } from '@babylonjs/core/Engines/thinEngine';
+import { Engine } from '@babylonjs/core/Engines/engine';
 
 export interface EcsyBabylonContext extends EcsyContext {
   rootEntity: Entity;
 }
 
-export type EcsyBabylonDomlessGlimmerArgs = EcsyArgs<EcsyBabylonContext>;
+export interface EcsyBabylonDomlessGlimmerArgs extends EcsyArgs<EcsyBabylonContext> {
+  engineOptions?: EngineOptions;
+  antialias?: boolean;
+  adaptToDeviceRatio?: boolean;
+}
 
 const DEBUG_KEY = {
   altKey: false,
@@ -43,9 +49,12 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
     const canvas = document.getElementById(`${this.guid}__canvas`) as HTMLCanvasElement;
     assert('Canvas element needed', canvas);
 
+    const engine = new Engine(canvas, this.args.antialias, this.args.engineOptions, this.args.adaptToDeviceRatio);
+
     this.entity.addComponent(BabylonCore, {
       world: this.world,
-      canvas
+      canvas,
+      engine
     });
 
     this.ready = true;

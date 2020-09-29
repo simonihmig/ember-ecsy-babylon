@@ -1,7 +1,12 @@
 {{#if this.showViewer}}
 
   {{!-- ECSY demo --}}
-  <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
+  <EcsyBabylon
+    @components={{this.components}}
+    @systems={{this.systems}}
+    @adaptToDeviceRatio={{true}}
+    as |Scene|
+  >
     <Scene @clearColor={{color 0.9 0.9 0.9}} @ambientColor={{color 0.9 0.9 0.9}} as |World|>
       {{#if this.arcRotateCamera}}
         <World.Entity
