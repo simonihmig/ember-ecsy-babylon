@@ -1,3 +1,12 @@
+## v0.5.2 (2020-09-29)
+
+#### :rocket: Enhancement
+* [#230](https://github.com/kaliber5/ember-ecsy-babylon/pull/230) Accept engine options as args of <EcsyBabylon> ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.5.1 (2020-09-23)
 
 #### :bug: Bug Fix
