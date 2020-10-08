@@ -33,7 +33,7 @@
     "@glimmer/env": "^0.1.7",
     "@glimmer/tracking": "^1.0.2",
     "ecsy": "^0.4.2",
-    "ecsy-babylon": "^0.5.0",
+    "ecsy-babylon": "^0.6.1",
     "ember-auto-import": "^1.6.0",
     "ember-cli-babel": "^7.22.1",
     "ember-cli-htmlbars": "^5.3.1",
