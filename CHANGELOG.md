@@ -1,3 +1,19 @@
+## v0.6.0 (2020-10-08)
+
+#### :boom: Breaking Change
+* [#234](https://github.com/kaliber5/ember-ecsy-babylon/pull/234) Update ecsy-babylon ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#234](https://github.com/kaliber5/ember-ecsy-babylon/pull/234) Update ecsy-babylon ([@simonihmig](https://github.com/simonihmig))
+* [#233](https://github.com/kaliber5/ember-ecsy-babylon/pull/233) Add degree to radians conversion for vector helper ([@simonihmig](https://github.com/simonihmig))
+
+#### :house: Internal
+* [#235](https://github.com/kaliber5/ember-ecsy-babylon/pull/235) Update ember-concurrency dependencies and typings ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.5.2 (2020-09-29)
 
 #### :rocket: Enhancement
