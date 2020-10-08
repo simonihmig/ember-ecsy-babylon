@@ -1,10 +1,10 @@
 import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
 import {assert} from '@ember/debug';
 import BabylonCore from 'ecsy-babylon/components/babylon-core';
-import { hash } from 'ember-concurrency';
+import { TaskGenerator, hash } from 'ember-concurrency';
 import { restartableTask, task } from 'ember-concurrency-decorators';
+import { perform, taskFor } from 'ember-concurrency-ts';
 import { tracked } from '@glimmer/tracking';
-
 import { GLTFFileLoader } from '@babylonjs/loaders/glTF/glTFFileLoader';
 import '@babylonjs/loaders/glTF/2.0/glTFLoader';
 import {
@@ -48,10 +48,10 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     this.core = core!;
 
     this.fileHash = this.args.files;
-    this.loadModels.perform(this.args.files);
+    perform(this.loadModels, this.args.files);
   }
 
-  didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfsArgs>) {
+  didUpdate(changedArgs: Partial<EcsyBabylonLoadGltfsArgs>): void {
     if (changedArgs.files) {
       // determine changed files to only load those
       const { files } = this.args;
@@ -61,15 +61,15 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
       this.fileHash = files;
       if (Object.keys(filesDiff).length > 0) {
-        this.loadModels.perform(filesDiff);
+        perform(this.loadModels, filesDiff);
       }
     }
   }
 
-  willDestroy() {
+  willDestroy(): void {
     super.willDestroy();
 
-    this.loadModels.cancelAll();
+    taskFor(this.loadModels).cancelAll();
 
     const disposable = Object.values(this.assetContainerHash || {});
     this.assets = undefined;
@@ -78,7 +78,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   }
 
   @task
-  loadModel = task(function* (this: EcsyBabylonLoadGltfs, fileUrl: string) {
+  *loadModel(this: EcsyBabylonLoadGltfs, fileUrl: string): TaskGenerator<AssetContainer | null> {
     const {
       scene
     } = this.core;
@@ -92,15 +92,15 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     }
 
     return null;
-  });
+  }
 
   @restartableTask
-  loadModels = task(function* (this: EcsyBabylonLoadGltfs, fileHash: FileHash) {
+  *loadModels(this: EcsyBabylonLoadGltfs, fileHash: FileHash): TaskGenerator<void> {
     const models = Object
       .entries(fileHash)
       .reduce((result, [key, fileUrl]) => ({
          ...result,
-        [key]: this.loadModel.perform(fileUrl)
+        [key]: perform(this.loadModel, fileUrl)
       }), {});
     const files = yield hash(models);
 
@@ -109,9 +109,9 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     }
 
     this.setup(files);
-  });
+  }
 
-  setup(ach: AssetContainerHash) {
+  setup(ach: AssetContainerHash): void {
     // cleanup old AssetContainers
     const disposable: AssetContainer[] = [];
     Object.entries(this.assetContainerHash || {})
@@ -148,7 +148,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
     this.core.engine.onEndFrameObservable.addOnce(() => this.cleanup(disposable))
   }
 
-  cleanup(assetContainers: AssetContainer[]) {
+  cleanup(assetContainers: AssetContainer[]): void {
     assetContainers.forEach(ac => {
       ac.dispose();
     });
