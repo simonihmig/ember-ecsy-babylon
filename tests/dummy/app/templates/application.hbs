@@ -44,12 +44,19 @@
       --}}
 
       {{#if this.showEntity}}
-        <World.Entity @name="node" {{rotation (vector 0 this.rotateValue 0)}}>
+        <World.Entity @name="node"
+          {{rotation (vector 0 this.rotateValue 0 deg=true)}}
+          {{transitions
+            (array
+              (hash property="transform.rotation" duration=200)
+            )
+          }}
+        >
 
           <World.Entity
             {{plane width=8 height=4.5}}
             {{position (vector 0 -3 0)}}
-            {{rotation (vector 90 0 0)}}
+            {{rotation (vector 90 0 0 deg=true)}}
             {{pbr-material albedoTexture=(custom-texture this.VideoTexture "video" "https://vjs.zencdn.net/v/oceans.mp4" autoUpdateTexture=true posterImage="https://vjs.zencdn.net/v/oceans.png") metallic=0 roughness=0.5}}
           />
 
@@ -83,8 +90,8 @@
   {{#if this.showViewer}}
     <button type="button" {{on "click" this.toggleCamera}}>Toggle Camera</button>
     <button type="button" {{on "click" this.toggleEntity}}>Toggle Box</button>
-    <button type="button" {{on "click" (fn this.rotate "left" 5)}}>Rotate left</button>
-    <button type="button" {{on "click" (fn this.rotate "right" 5)}}>Rotate right</button>
+    <button type="button" {{on "click" (fn this.rotate "left" 45)}}>Rotate left</button>
+    <button type="button" {{on "click" (fn this.rotate "right" 45)}}>Rotate right</button>
   {{/if}}
 </div>
 

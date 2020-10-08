@@ -5000,10 +5000,10 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-ecsy-babylon@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/ecsy-babylon/-/ecsy-babylon-0.5.0.tgz#ba4c2bd3d8d2118d616213d8ae9faa207d8c0cd4"
-  integrity sha512-+I7gF9+a5oeVkNSae/WcvLGOKvkFqwgEDtHka1FzdmYA7rPAXDF+6hl5MVh4rngjGBNw3TtTgo0Jx+wJHPd03A==
+ecsy-babylon@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/ecsy-babylon/-/ecsy-babylon-0.6.1.tgz#3324f6b2911af08d5315040612a2ae1bbb385f12"
+  integrity sha512-XvkQS4Vi9gUcW5UMf8mdj5am1c5IeqLpar/lh+chcC7FdJHOrY0Gjfrb2+reRE1dz/4tcsVKo2pHmRnIyKZ8oQ==
   dependencies:
     "@babylonjs/core" "^4.1.0"
     "@babylonjs/materials" "^4.1.0"
