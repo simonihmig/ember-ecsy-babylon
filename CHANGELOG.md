@@ -1,3 +1,12 @@
+## v0.6.1 (2020-11-05)
+
+#### :bug: Bug Fix
+* [#256](https://github.com/kaliber5/ember-ecsy-babylon/pull/256) Make AST transform idempotent ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.6.0 (2020-10-08)
 
 #### :boom: Breaking Change
