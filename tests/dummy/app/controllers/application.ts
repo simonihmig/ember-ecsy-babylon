@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { VideoTexture } from '@babylonjs/core/Materials/Textures/videoTexture';
 import { tracked } from '@glimmer/tracking';
 import * as components from 'ecsy-babylon/components';
 // eslint-disable-next-line no-restricted-imports
@@ -23,8 +22,6 @@ export default class Application extends Controller {
 
   @tracked
   showViewer = true;
-
-  VideoTexture = VideoTexture;
 
   @action
   rotate(direction: 'right' | 'left', degrees: number): void {
