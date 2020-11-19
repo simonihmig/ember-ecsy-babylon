@@ -5,75 +5,79 @@
     @components={{this.components}}
     @systems={{this.systems}}
     @adaptToDeviceRatio={{true}}
-    as |Scene|
   >
-    <Scene @clearColor={{color 0.9 0.9 0.9}} @ambientColor={{color 0.9 0.9 0.9}} as |World|>
-      {{#if this.arcRotateCamera}}
+    <:ecsy as |Scene|>
+      <Scene @clearColor={{color 0.9 0.9 0.9}} @ambientColor={{color 0.9 0.9 0.9}} as |World|>
+        {{#if this.arcRotateCamera}}
+          <World.Entity
+            {{arc-rotate-camera lowerRadiusLimit=5 upperRadiusLimit=20 radius=10}}
+          />
+        {{/if}}
+
         <World.Entity
-          {{arc-rotate-camera lowerRadiusLimit=5 upperRadiusLimit=20 radius=10}}
-        />
-      {{/if}}
-
-      <World.Entity
-        {{directional-light direction=(vector -1 -1 0) position=(vector 0 10 0) intensity=1 shadowMinZ = 0.1 shadowMaxZ=20}}
-        {{shadow-generator
-          size=512
-          useBlurCloseExponentialShadowMap=true
-          forceBackFacesOnly=false
-          blurKernel=8
-          useKernelBlur=true
-          bias=0
-          normalBias=0
-          darkness=0.2
-          transparencyShadow=true
-        }}
-      />
-
-      {{!-- GLTF mesh example --}}
-      {{!--
-      {{#if this.showEntity}}
-        <World.LoadGltf @fileUrl="test.gltf" as |ac|>
-
-          <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0)}}>
-            {{#each ac.meshes as |_mesh|}}
-              <World.Entity {{mesh _mesh}} {{scale (vector 0.05 0.05 0.05)}}/>
-            {{/each}}
-          </World.Entity>
-        </World.LoadGltf>
-      {{/if}}
-      --}}
-
-      {{#if this.showEntity}}
-        <World.Entity @name="node"
-          {{rotation (vector 0 this.rotateValue 0 deg=true)}}
-          {{transitions
-            (array
-              (hash property="transform.rotation" duration=200)
-            )
+          {{directional-light direction=(vector -1 -1 0) position=(vector 0 10 0) intensity=1 shadowMinZ = 0.1 shadowMaxZ=20}}
+          {{shadow-generator
+            size=512
+            useBlurCloseExponentialShadowMap=true
+            forceBackFacesOnly=false
+            blurKernel=8
+            useKernelBlur=true
+            bias=0
+            normalBias=0
+            darkness=0.2
+            transparencyShadow=true
           }}
-        >
+        />
 
-          <World.Entity
-            {{box size=2 width=3}}
-            {{pbr-material ambientColor=(color 0 1 0) albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
-          />
+        {{!-- GLTF mesh example --}}
+        {{!--
+        {{#if this.showEntity}}
+          <World.LoadGltf @fileUrl="test.gltf" as |ac|>
 
-          <World.Entity
-            {{sphere diameter=3}}
-            {{pbr-material ambientColor=(color 1 0 0) albedoColor=(color 1 0 0) metallic=0.5 roughness=0.5}}
-            {{position (vector 1 2 1)}}
-          />
-        </World.Entity>
-      {{/if}}
+            <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0)}}>
+              {{#each ac.meshes as |_mesh|}}
+                <World.Entity {{mesh _mesh}} {{scale (vector 0.05 0.05 0.05)}}/>
+              {{/each}}
+            </World.Entity>
+          </World.LoadGltf>
+        {{/if}}
+        --}}
 
-      <World.Entity
-        {{sphere diameter=0.5}}
-        {{pbr-material albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
-        {{position (vector 0 -2 0)}}
-        {{action pick=this.toggleEntity pointerOver=(if this.showEntity (fn this.rotate "left" 5) undefined) pointerOut=(if this.showEntity (fn this.rotate "right" 5) undefined)}}
-      />
+        {{#if this.showEntity}}
+          <World.Entity @name="node"
+            {{rotation (vector 0 this.rotateValue 0 deg=true)}}
+            {{transitions
+              (array
+                (hash property="transform.rotation" duration=200)
+              )
+            }}
+          >
 
-    </Scene>
+            <World.Entity
+              {{box size=2 width=3}}
+              {{pbr-material ambientColor=(color 0 1 0) albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
+            />
+
+            <World.Entity
+              {{sphere diameter=3}}
+              {{pbr-material ambientColor=(color 1 0 0) albedoColor=(color 1 0 0) metallic=0.5 roughness=0.5}}
+              {{position (vector 1 2 1)}}
+            />
+          </World.Entity>
+        {{/if}}
+
+        <World.Entity
+          {{sphere diameter=0.5}}
+          {{pbr-material albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
+          {{position (vector 0 -2 0)}}
+          {{action pick=this.toggleEntity pointerOver=(if this.showEntity (fn this.rotate "left" 5) undefined) pointerOut=(if this.showEntity (fn this.rotate "right" 5) undefined)}}
+        />
+
+      </Scene>
+    </:ecsy>
+    <:html>
+      <p>This is accessible fallback content.</p>
+    </:html>
   </EcsyBabylon>
 
 {{/if}}
