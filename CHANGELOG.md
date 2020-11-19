@@ -1,3 +1,12 @@
+## v0.6.2 (2020-11-19)
+
+#### :rocket: Enhancement
+* [#266](https://github.com/kaliber5/ember-ecsy-babylon/pull/266) Support named blocks for fallback HTML content of `<canvas>` ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.6.1 (2020-11-05)
 
 #### :bug: Bug Fix
