@@ -26,14 +26,14 @@
     "test:ember-compatibility": "ember try:each"
   },
   "dependencies": {
-    "@babylonjs/core": "^4.1.0",
-    "@babylonjs/inspector": "^4.1.0",
-    "@babylonjs/loaders": "^4.1.0",
+    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/inspector": "^4.2.0",
+    "@babylonjs/loaders": "^4.2.0",
     "@ember/render-modifiers": "^1.0.2",
     "@glimmer/env": "^0.1.7",
     "@glimmer/tracking": "^1.0.2",
     "ecsy": "^0.4.2",
-    "ecsy-babylon": "^0.6.1",
+    "ecsy-babylon": "^0.6.2",
     "ember-auto-import": "^1.7.0",
     "ember-cli-babel": "^7.23.0",
     "ember-cli-htmlbars": "^5.3.1",
