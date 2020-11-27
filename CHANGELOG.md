@@ -1,3 +1,12 @@
+## v0.6.3 (2020-11-27)
+
+#### :rocket: Enhancement
+* [#270](https://github.com/kaliber5/ember-ecsy-babylon/pull/270) Update to Babylon.js 4.2 ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.6.2 (2020-11-19)
 
 #### :rocket: Enhancement
