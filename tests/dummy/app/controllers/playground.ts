@@ -6,7 +6,7 @@ import * as components from 'ecsy-babylon/components';
 import { systems } from 'ecsy-babylon';
 import { mapComponentImports } from 'ember-ecsy-babylon';
 
-export default class Application extends Controller {
+export default class PlaygroundController extends Controller {
 
   components = mapComponentImports(components);
   systems = systems;
