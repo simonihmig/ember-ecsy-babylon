@@ -1,0 +1,36 @@
+<EcsyBabylon
+  @components={{this.components}}
+  @systems={{this.systems}}
+  @adaptToDeviceRatio={{true}}
+>
+  <:ecsy as |Scene|>
+    <Scene @clearColor={{color 0 0 0}} @ambientColor={{color 0.9 0.9 0.9}} as |World|>
+      <World.Entity
+        {{arc-rotate-camera alpha=0 beta=1.4 lowerRadiusLimit=1 upperRadiusLimit=10 radius=3}}
+      />
+
+      <World.Entity
+        {{directional-light direction=(vector -1 -1 0) position=(vector 0 10 0) intensity=1 shadowMinZ = 0.1 shadowMaxZ=20}}
+      />
+
+      <World.Entity
+        {{web-xr-default-experience uiOptions=(hash sessionMode=this.sessionMode)}}
+      />
+
+      <World.LoadGltf @file="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Embedded/DamagedHelmet.gltf" as |ac|>
+
+        <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0 deg=true)}}>
+          {{#each ac.meshes as |_mesh|}}
+            <World.Entity {{mesh _mesh}}/>
+          {{/each}}
+        </World.Entity>
+      </World.LoadGltf>
+
+    </Scene>
+  </:ecsy>
+  <:html>
+    <p>This is accessible fallback content.</p>
+  </:html>
+</EcsyBabylon>
+
+
