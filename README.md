@@ -5,6 +5,8 @@ ember-ecsy-babylon
 
 *WIP*
 
+[Demo](https://kaliber5.github.io/ember-ecsy-babylon/)
+
 
 Compatibility
 ------------------------------------------------------------------------------
@@ -25,7 +27,7 @@ ember install ember-ecsy-babylon
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+To Do
 
 
 

@@ -4,7 +4,7 @@ module.exports = function(environment) {
   const ENV = {
     modulePrefix: 'dummy',
     environment,
-    rootURL: '/',
+    rootURL: process.env.EMBER_ROOT_URL || '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
