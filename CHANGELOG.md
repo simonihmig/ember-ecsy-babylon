@@ -1,3 +1,13 @@
+## v0.6.4 (2020-12-11)
+
+#### :memo: Documentation
+* [#279](https://github.com/kaliber5/ember-ecsy-babylon/pull/279) Publish demo app to Github pages ([@simonihmig](https://github.com/simonihmig))
+* [#280](https://github.com/kaliber5/ember-ecsy-babylon/pull/280) Add WebXR demo ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.6.3 (2020-11-27)
 
 #### :rocket: Enhancement
