@@ -1,16 +1,12 @@
 import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
-import {assert} from '@ember/debug';
+import { assert } from '@ember/debug';
 import BabylonCore from 'ecsy-babylon/components/babylon-core';
-import { TaskGenerator, hash } from 'ember-concurrency';
-import { restartableTask, task } from 'ember-concurrency-decorators';
-import { perform, taskFor } from 'ember-concurrency-ts';
+import { hash, restartableTask, task } from 'ember-concurrency';
+import { taskFor, perform } from 'ember-concurrency-ts';
 import { tracked } from '@glimmer/tracking';
 import { GLTFFileLoader } from '@babylonjs/loaders/glTF/glTFFileLoader';
 import '@babylonjs/loaders/glTF/2.0/glTFLoader';
-import {
-  EcsyBabylonContext,
-  EcsyBabylonDomlessGlimmerArgs
-} from 'ember-ecsy-babylon/components/ecsy-babylon';
+import { EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs } from 'ember-ecsy-babylon/components/ecsy-babylon';
 import { AssetContainer } from '@babylonjs/core/assetContainer';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 
@@ -78,14 +74,14 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   }
 
   @task
-  *loadModel(this: EcsyBabylonLoadGltfs, fileUrl: string): TaskGenerator<AssetContainer | null> {
+  async loadModel(this: EcsyBabylonLoadGltfs, fileUrl: string): Promise<AssetContainer | null> {
     const {
       scene
     } = this.core;
 
     if (fileUrl) {
       try {
-        return yield SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene, undefined, '.gltf');
+        return await SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene, undefined, '.gltf');
       } catch (e) {
         console.error(`Failed to load "${fileUrl}": ${e.message}`);
       }
@@ -95,14 +91,14 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   }
 
   @restartableTask
-  *loadModels(this: EcsyBabylonLoadGltfs, fileHash: FileHash): TaskGenerator<void> {
+  async loadModels(this: EcsyBabylonLoadGltfs, fileHash: FileHash): Promise<void> {
     const models = Object
       .entries(fileHash)
       .reduce((result, [key, fileUrl]) => ({
          ...result,
         [key]: perform(this.loadModel, fileUrl)
       }), {});
-    const files = yield hash(models);
+    const files = await hash(models);
 
     if (!files) {
       throw new Error('Failed to load files');
