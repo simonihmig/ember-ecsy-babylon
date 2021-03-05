@@ -1,3 +1,12 @@
+## v0.6.5 (2021-03-05)
+
+#### :rocket: Enhancement
+* [#330](https://github.com/kaliber5/ember-ecsy-babylon/pull/330) Update to ember-concurrency 2.0 ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.6.4 (2020-12-11)
 
 #### :memo: Documentation
