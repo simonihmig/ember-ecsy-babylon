@@ -1,3 +1,4 @@
+import 'ember-concurrency-async';
 import 'ember-concurrency-ts/async';
 
 // Types for compiled templates
