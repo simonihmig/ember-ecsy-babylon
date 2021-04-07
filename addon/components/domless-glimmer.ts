@@ -1,15 +1,19 @@
-// @ts-ignore
-import { setComponentManager } from '@ember/component';
 import ApplicationInstance from '@ember/application/instance';
+
+declare module '@ember/component' {
+  export function setComponentManager<T extends object>(
+    factory: (owner: ApplicationInstance) => DomlessGlimmerComponentManager,
+    componentClass: T
+  ): T;
+}
+
+import { setComponentManager } from '@ember/component';
 import DomlessGlimmerComponentManager from 'ember-ecsy-babylon/component-managers/domless-glimmer';
 import { setOwner } from '@ember/application';
 import { DEBUG } from '@glimmer/env';
+import { isDestroying, isDestroyed } from '@ember/destroyable';
 
 const WILL_DESTROY = Symbol('will_destroy');
-const DESTROYING = Symbol('destroying');
-const DESTROYED = Symbol('destroyed');
-
-export { DESTROYING, DESTROYED };
 
 export interface DomlessGlimmerArgs<C> {
   parent?: DomlessGlimmerComponent<C, DomlessGlimmerArgs<C>>;
@@ -27,7 +31,7 @@ export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimme
 
     this.args = args;
     this.children = new Set();
-    setOwner(this, owner as any);
+    setOwner(this, owner);
 
     if (this.args.parent) {
       this.args.parent.registerChild(this);
@@ -39,15 +43,13 @@ export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimme
   _context?: C;
 
   [WILL_DESTROY] = false;
-  [DESTROYING] = false;
-  [DESTROYED] = false;
 
-  get isDestroying() {
-    return this[DESTROYING];
+  get isDestroying(): boolean {
+    return isDestroying(this);
   }
 
-  get isDestroyed() {
-    return this[DESTROYED];
+  get isDestroyed(): boolean {
+    return isDestroyed(this);
   }
 
   get context(): C | undefined {
@@ -60,12 +62,14 @@ export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimme
   /**
    * Called whenever arguments are updated
    */
-  didUpdate(_changedArgs: Partial<T>) {}
+  didUpdate(_changedArgs: Partial<T>): void {
+    // can be overridden by subclasses
+  }
 
   /**
    * Called before the component has been removed from the DOM.
    */
-  willDestroy() {
+  willDestroy(): void {
     Array.from(this.children).reverse().forEach(c => {
       if (!c[WILL_DESTROY]) {
         c[WILL_DESTROY] = true;
@@ -78,7 +82,7 @@ export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimme
    * Called by the component manager when the component will be destroyed.
    * @private
    */
-  _willDestroy() {
+  _willDestroy(): void {
     if (this.args.parent) {
       this.args.parent.unregisterChild(this);
     }
@@ -89,11 +93,11 @@ export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimme
     }
   }
 
-  registerChild(child: DomlessGlimmerComponent<C>) {
+  registerChild(child: DomlessGlimmerComponent<C>): void {
     this.children.add(child);
   }
 
-  unregisterChild(child: DomlessGlimmerComponent<C>) {
+  unregisterChild(child: DomlessGlimmerComponent<C>): void {
     this.children.delete(child);
   }
 }
