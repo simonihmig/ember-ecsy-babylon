@@ -8,9 +8,9 @@ import { destroy } from '@ember/destroyable';
 
 export interface ComponentManagerArgs {
   named: {
-    [index: string]: any;
+    [index: string]: unknown;
   };
-  positional: any[];
+  positional: unknown[];
 }
 
 export interface Constructor<T> {
@@ -28,24 +28,24 @@ interface DomlessGlimmerStateBucket {
   newArgs?:  ComponentManagerArgs['named'];
 }
 
-const CAPABILITIES = capabilities('3.4', {
+const CAPABILITIES = capabilities('3.13', {
   destructor: true,
   asyncLifecycleCallbacks: true,
+  updateHook: true
 });
 
-function snapshot(object: object): object {
+function snapshot<T>(object: T): T {
   return Object.freeze({...object});
 }
 
-export default class GlimmerComponentManager {
-  static create(attrs: any) {
+export default class DomlessGlimmerComponentManager {
+  static create(attrs: unknown): DomlessGlimmerComponentManager {
     const owner = getOwner(attrs);
     return new this(owner);
   }
-  capabilities: any;
+  capabilities = CAPABILITIES;
   constructor(owner: ApplicationInstance) {
     setOwner(this, owner);
-    this.capabilities = CAPABILITIES;
   }
 
   createComponent(
@@ -62,7 +62,7 @@ export default class GlimmerComponentManager {
     bucket.newArgs = snapshot(args.named);
   }
 
-  destroyComponent(bucket: DomlessGlimmerStateBucket) {
+  destroyComponent(bucket: DomlessGlimmerStateBucket): void {
     const { instance: component } = bucket;
     if (component.isDestroying) {
       return;
@@ -77,7 +77,7 @@ export default class GlimmerComponentManager {
     schedule('destroy', this, this.scheduledDestroyComponent, component, meta);
   }
 
-  scheduledDestroyComponent(component: DomlessGlimmerComponent, meta: EmberMeta) {
+  scheduledDestroyComponent(component: DomlessGlimmerComponent, meta: EmberMeta): void {
     if (component.isDestroyed) {
       return;
     }
@@ -88,9 +88,9 @@ export default class GlimmerComponentManager {
     component[DESTROYED] = true;
   }
 
-  didCreateComponent() {}
+  didCreateComponent(): void {}
 
-  didUpdateComponent(bucket: DomlessGlimmerStateBucket) {
+  didUpdateComponent(bucket: DomlessGlimmerStateBucket): void {
     const { instance: component, args, newArgs } = bucket;
 
     if (newArgs === undefined) {
@@ -101,13 +101,12 @@ export default class GlimmerComponentManager {
       .filter((key) => newArgs[key] !== args[key])
       .reduce((result, key) => ({...result, [key]: newArgs[key]}), {});
 
-    component.args = newArgs;
     component.didUpdate(argsDiff);
 
     bucket.args = newArgs;
   }
 
-  getContext(bucket: DomlessGlimmerStateBucket) {
+  getContext(bucket: DomlessGlimmerStateBucket): DomlessGlimmerComponent {
     return bucket.instance;
   }
 }
