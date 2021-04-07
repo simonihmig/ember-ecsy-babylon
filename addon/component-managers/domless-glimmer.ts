@@ -3,7 +3,6 @@ import ApplicationInstance from '@ember/application/instance';
 import { capabilities } from '@ember/component';
 import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimmer';
 import { destroy, registerDestructor } from '@ember/destroyable';
-import { Capabilities } from '@glimmer/interfaces/dist/types/lib/managers/capabilities';
 
 // Skipped importing the original types for now, see https://github.com/glimmerjs/glimmer-vm/issues/1294
 // import {
@@ -25,7 +24,7 @@ interface ComponentCapabilitiesVersions {
   };
 }
 
-interface ComponentCapabilities extends Capabilities {
+interface ComponentCapabilities {
   asyncLifeCycleCallbacks: boolean;
   destructor: boolean;
   updateHook: boolean;
@@ -45,13 +44,12 @@ export interface Constructor<T> {
 
 interface DomlessGlimmerStateBucket {
   instance: DomlessGlimmerComponent;
-  args: ComponentManagerArgs['named'];
-  newArgs?:  ComponentManagerArgs['named'];
+  previousArgs: ComponentManagerArgs['named'];
 }
 
 const CAPABILITIES = capabilities('3.13', {
   destructor: true,
-  asyncLifecycleCallbacks: true,
+  asyncLifecycleCallbacks: false,
   updateHook: true
 });
 
@@ -78,36 +76,31 @@ export default class DomlessGlimmerComponentManager
     registerDestructor(instance, (component) => component._willDestroy());
 
     return {
-      args: snapshot(args.named),
+      previousArgs: snapshot(args.named),
       instance,
     };
   }
 
   updateComponent(bucket: DomlessGlimmerStateBucket, args: ComponentManagerArgs) {
-    bucket.newArgs = snapshot(args.named);
-  }
-
-  destroyComponent(bucket: DomlessGlimmerStateBucket): void {
-    const { instance: component } = bucket;
-    destroy(component);
-  }
-
-  didCreateComponent(): void {}
-
-  didUpdateComponent(bucket: DomlessGlimmerStateBucket): void {
-    const { instance: component, args, newArgs } = bucket;
+    const newArgs = snapshot(args.named);
+    const { instance: component, previousArgs } = bucket;
 
     if (newArgs === undefined) {
       return;
     }
 
     const argsDiff = Object.keys(newArgs)
-      .filter((key) => newArgs[key] !== args[key])
+      .filter((key) => newArgs[key] !== previousArgs[key])
       .reduce((result, key) => ({...result, [key]: newArgs[key]}), {});
 
     component.didUpdate(argsDiff);
 
-    bucket.args = newArgs;
+    bucket.previousArgs = newArgs;
+  }
+
+  destroyComponent(bucket: DomlessGlimmerStateBucket): void {
+    const { instance: component } = bucket;
+    destroy(component);
   }
 
   getContext(bucket: DomlessGlimmerStateBucket): DomlessGlimmerComponent {
