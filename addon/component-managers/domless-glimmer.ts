@@ -93,7 +93,9 @@ export default class DomlessGlimmerComponentManager
       .filter((key) => newArgs[key] !== previousArgs[key])
       .reduce((result, key) => ({...result, [key]: newArgs[key]}), {});
 
-    component.didUpdate(argsDiff);
+    if (Object.keys(argsDiff).length > 0) {
+      component.didUpdate(argsDiff);
+    }
 
     bucket.previousArgs = newArgs;
   }

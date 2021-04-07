@@ -43,12 +43,10 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyContext, 
 
     const {
       parent,
-      name,
-      ...args
     } = this.args;
 
     const component = parent.entity.getMutableComponent(this._Component);
-    Object.assign(component, args);
+    Object.assign(component, changedArgs);
   }
 
   willDestroy(): void {
