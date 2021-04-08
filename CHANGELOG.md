@@ -1,3 +1,15 @@
+## v0.7.0 (2021-04-08)
+
+#### :boom: Breaking Change
+* [#356](https://github.com/kaliber5/ember-ecsy-babylon/pull/356) Refactor component manager ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#356](https://github.com/kaliber5/ember-ecsy-babylon/pull/356) Refactor component manager ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.6.5 (2021-03-05)
 
 #### :rocket: Enhancement
