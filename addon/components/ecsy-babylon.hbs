@@ -3,24 +3,23 @@
   {{did-insert this.onCanvasReady}}
   {{on "keypress" this.toggleBabylonInspector}}
   ...attributes>
-{{#if (has-block "ecsy")}}
-  {{#if this.ready}}
-    {{yield
-      (component "ecsy-babylon/scene"
-        parent=this
-      )
-      to="ecsy"
-    }}
+  {{#if (has-block "ecsy")}}
+    {{#if this.ready}}
+      {{yield
+        (component "ecsy-babylon/scene"
+          parent=this
+        )
+        to="ecsy"
+      }}
+    {{/if}}
+    {{yield to="html"}}
+  {{else}}
+    {{#if this.ready}}
+      {{yield
+        (component "ecsy-babylon/scene"
+          parent=this
+        )
+      }}
+    {{/if}}
   {{/if}}
-  {{yield to="html"}}
-{{else}}
-  {{#if this.ready}}
-    {{yield
-      (component "ecsy-babylon/scene"
-        parent=this
-      )
-    }}
-  {{/if}}
-{{/if}}
-
 </canvas>
