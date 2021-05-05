@@ -1,7 +1,6 @@
 import Ecsy, { EcsyArgs, EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
 import BabylonCore from 'ecsy-babylon/components/babylon-core';
 import { Entity } from 'ecsy';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { assert } from '@ember/debug';
@@ -27,8 +26,6 @@ const DEBUG_KEY = {
 }
 
 export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs> {
-  guid = guidFor(this);
-
   entity: Entity;
   scene?: Scene;
 
@@ -45,10 +42,7 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
   }
 
   @action
-  onCanvasReady(): void {
-    const canvas = document.getElementById(`${this.guid}__canvas`) as HTMLCanvasElement;
-    assert('Canvas element needed', canvas);
-
+  onCanvasReady(canvas: HTMLCanvasElement): void {
     const engine = new Engine(canvas, this.args.antialias, this.args.engineOptions, this.args.adaptToDeviceRatio);
 
     this.entity.addComponent(BabylonCore, {
