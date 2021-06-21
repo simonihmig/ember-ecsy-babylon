@@ -48,7 +48,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
       ],
       rules: {
-        '@typescript-eslint/ban-ts-ignore': 'warn',
+        '@typescript-eslint/ban-types': 'warn',
         '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/no-empty-function': 'warn'
       }
