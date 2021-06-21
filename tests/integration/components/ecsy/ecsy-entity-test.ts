@@ -20,7 +20,7 @@ module('Integration | Component | ecsy/entity', function(hooks) {
       </Ecsy>
     `);
 
-    const world = getData();
+    const world = getData() as any;
     assert.equal(world.entityManager._entities.length, 0);
     this.set('show', true);
     assert.equal(world.entityManager._entities.length, 1);
