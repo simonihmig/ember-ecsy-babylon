@@ -1,3 +1,15 @@
+## v0.8.0 (2021-06-21)
+
+#### :boom: Breaking Change
+* [#403](https://github.com/kaliber5/ember-ecsy-babylon/pull/403) Drop node 10 support ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#404](https://github.com/kaliber5/ember-ecsy-babylon/pull/404) Update ecsy-babylon, use own ResizeObserver for resize updates ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.7.1 (2021-05-10)
 
 #### :bug: Bug Fix
