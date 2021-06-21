@@ -1,4 +1,3 @@
-// @ts-ignore
 import Application from 'dummy/app';
 import config from '../config/environment';
 import { setApplication } from '@ember/test-helpers';
