@@ -5,6 +5,7 @@ import { hbs } from 'ember-cli-htmlbars';
 import setupServerMock from 'dummy/tests/helpers/server-mock';
 import setupDataDumper from 'dummy/tests/helpers/dump';
 import setupEcsyBabylon from 'dummy/tests/helpers/setup-ecsy-babylon';
+import { AssetContainer } from '@babylonjs/core/assetContainer';
 
 module('Integration | Component | ecsy-babylon/load-gltf', function(hooks) {
   setupRenderingTest(hooks);
@@ -24,7 +25,7 @@ module('Integration | Component | ecsy-babylon/load-gltf', function(hooks) {
       </EcsyBabylon>
     `);
 
-    const data = getData();
+    const data = getData() as AssetContainer;
     assert.equal(data.meshes.length, 1);
     assert.equal(data.materials.length, 1);
   });

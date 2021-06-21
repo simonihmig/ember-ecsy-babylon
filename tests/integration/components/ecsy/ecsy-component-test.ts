@@ -28,7 +28,7 @@ module('Integration | Component | ecsy/component', function(hooks) {
       </Ecsy>
     `);
 
-    const { entityManager } = getData();
+    const { entityManager } = getData() as any;
     assert.equal(entityManager._entities.length, 1);
     const entity = entityManager._entities[0];
     const component = entity.getComponent(DummyComponent);

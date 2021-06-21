@@ -28,6 +28,7 @@ const DEBUG_KEY = {
 export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs> {
   entity: Entity;
   scene?: Scene;
+  engine?: Engine;
 
   // use deliberately `any` here, as importing `DebugLayer` seems to also import all the code eagerly, which we obviously
   // don't want, although *here* it is only used as a type, but it is used as a *value* in toggleBabylonInspector below
@@ -56,10 +57,16 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
     const core = this.entity.getComponent(BabylonCore);
     assert('Could not get BabylonCore component, something is broken!', core);
     this.scene = core.scene;
+    this.engine = engine;
 
     if (DEBUG) {
       console.log('While focusing an ember-ecsy-babylon component, press CTRL-D to open the Babylon.js Inspector!');
     }
+  }
+
+  @action
+  resize() {
+    this.engine?.resize();
   }
 
   @action

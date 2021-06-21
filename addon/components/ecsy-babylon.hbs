@@ -2,6 +2,7 @@
   id="{{this.guid}}__canvas"
   {{did-insert this.onCanvasReady}}
   {{on "keypress" this.toggleBabylonInspector}}
+  {{on-resize this.resize}}
   ...attributes>
   {{#if (has-block "ecsy")}}
     {{#if this.ready}}

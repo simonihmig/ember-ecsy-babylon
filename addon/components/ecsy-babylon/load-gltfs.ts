@@ -23,7 +23,7 @@ type FileHash = {
   [index: string]: string;
 };
 
-type AssetContainerHash = {
+export type AssetContainerHash = {
   [index: string]: AssetContainer;
 }
 
