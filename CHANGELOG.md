@@ -1,3 +1,12 @@
+## v0.8.1 (2021-09-27)
+
+#### :bug: Bug Fix
+* [#434](https://github.com/kaliber5/ember-ecsy-babylon/pull/434) Apply `tabindex="0"` to canvas element ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 2
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.8.0 (2021-06-21)
 
 #### :boom: Breaking Change
