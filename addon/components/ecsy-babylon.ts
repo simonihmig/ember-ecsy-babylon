@@ -45,6 +45,7 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
   @action
   onCanvasReady(canvas: HTMLCanvasElement): void {
     const engine = new Engine(canvas, this.args.antialias, this.args.engineOptions, this.args.adaptToDeviceRatio);
+    engine.canvasTabIndex = 0;
 
     this.entity.addComponent(BabylonCore, {
       world: this.world,

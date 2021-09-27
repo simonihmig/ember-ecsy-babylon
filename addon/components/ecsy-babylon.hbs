@@ -3,6 +3,7 @@
   {{did-insert this.onCanvasReady}}
   {{on "keypress" this.toggleBabylonInspector}}
   {{on-resize this.resize}}
+  tabindex="0"
   ...attributes>
   {{#if (has-block "ecsy")}}
     {{#if this.ready}}

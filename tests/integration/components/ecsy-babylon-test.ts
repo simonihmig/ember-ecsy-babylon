@@ -29,6 +29,7 @@ module('Integration | Component | ecsy-babylon', function(hooks) {
     `);
 
     assert.dom('canvas').exists();
+    assert.dom('canvas').hasAttribute('tabindex', '0');
   });
 
   test('it supports named blocks for block HTML content', async function(assert) {
