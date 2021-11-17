@@ -2,14 +2,12 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import setupServerMock from 'dummy/tests/helpers/server-mock';
 import setupEcsyBabylon from 'dummy/tests/helpers/setup-ecsy-babylon';
 import setupDataDumper from 'dummy/tests/helpers/dump';
 import { Scene } from '@babylonjs/core/scene';
 
 module('Integration | Component | ecsy-babylon', function(hooks) {
   setupRenderingTest(hooks);
-  setupServerMock(hooks);
   setupEcsyBabylon(hooks);
   const getData = setupDataDumper(hooks);
 

@@ -81,7 +81,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
 
     if (fileUrl) {
       try {
-        return await SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene, undefined, '.gltf');
+        return await SceneLoader.LoadAssetContainerAsync(fileUrl, '', scene);
       } catch (e) {
         console.error(`Failed to load "${fileUrl}": ${e.message}`);
       }
