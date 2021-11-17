@@ -4900,7 +4900,7 @@ this.fileHash=n,Object.keys(r).length>0&&(0,i.perform)(this.loadModels,r)}}},{ke
 var e=Object.values(this.assetContainerHash||{})
 this.assets=void 0,this.assetContainerHash=void 0,this.cleanup(e)}},{key:"loadModel",value:regeneratorRuntime.mark((function e(t){var n
 return regeneratorRuntime.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(n=this.core.scene,!t){e.next=11
-break}return e.prev=2,e.next=5,s.SceneLoader.LoadAssetContainerAsync(t,"",n,void 0,".gltf")
+break}return e.prev=2,e.next=5,s.SceneLoader.LoadAssetContainerAsync(t,"",n)
 case 5:return e.abrupt("return",e.sent)
 case 8:e.prev=8,e.t0=e.catch(2),console.error('Failed to load "'.concat(t,'": ').concat(e.t0.message))
 case 11:return e.abrupt("return",null)
