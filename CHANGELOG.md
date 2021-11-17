@@ -1,3 +1,11 @@
+## v0.8.2 (2021-11-17)
+
+#### :bug: Bug Fix
+* [#435](https://github.com/kaliber5/ember-ecsy-babylon/pull/435) Fix loading of GLB files ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.8.1 (2021-09-27)
 
 #### :bug: Bug Fix
