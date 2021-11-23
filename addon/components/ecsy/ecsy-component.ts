@@ -45,8 +45,18 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyContext, 
       parent,
     } = this.args;
 
+    const schema = this._Component.schema;
     const component = parent.entity.getMutableComponent(this._Component);
-    Object.assign(component, changedArgs);
+    assert(`No component "${this.args.name}" found to update.`, component);
+
+    for (const [key, value] of Object.entries(changedArgs)) {
+      const prop = schema[key];
+      if (prop) {
+        component[key as keyof _Component<unknown>] = prop.type.copy(value, component[key as keyof _Component<unknown>]);
+      } else {
+        component[key as keyof _Component<unknown>] = value;
+      }
+    }
   }
 
   willDestroy(): void {
