@@ -1,7 +1,5 @@
 'use strict';
 
-const EcsyModiferTransform = require('./lib/ast-transform');
-
 module.exports = {
   name: require('./package').name,
 
@@ -22,15 +20,13 @@ module.exports = {
   },
 
   _buildPlugin() {
+    const ecsyModiferTransform = require('./lib/ast-transform');
+
     return {
       name: 'ember-ecsy-modifier',
-      plugin: EcsyModiferTransform,
-      baseDir() {
-        return __dirname;
-      },
-      cacheKey() {
-        return 'ember-ecsy-modifier';
-      },
+      plugin: ecsyModiferTransform,
+      baseDir: ecsyModiferTransform.baseDir,
+      cacheKey: ecsyModiferTransform.cacheKey,
     };
   },
 };
