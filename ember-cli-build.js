@@ -21,5 +21,18 @@ module.exports = function (defaults) {
         package: 'qunit',
       },
     ],
+    packageRules: [
+      {
+        package: 'dummy',
+        components: {
+          '{{dump}}': {
+            safeToIgnore: true,
+          },
+          '{{domless-glimmer}}': {
+            safeToIgnore: true,
+          },
+        },
+      },
+    ],
   });
 };
