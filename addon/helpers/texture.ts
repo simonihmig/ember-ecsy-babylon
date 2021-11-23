@@ -4,7 +4,10 @@ import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 export default class TextureHelper extends Helper {
   texture?: Texture;
 
-  compute(args: ConstructorParameters<typeof Texture>, textureOptions: Partial<Texture>): Texture {
+  compute(
+    args: ConstructorParameters<typeof Texture>,
+    textureOptions: Partial<Texture>
+  ): Texture {
     if (this.texture) {
       this.texture.dispose();
     }

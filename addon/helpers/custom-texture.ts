@@ -8,7 +8,13 @@ interface TextureConstructor<T> {
 export default class CustomTextureHelper<T extends BaseTexture> extends Helper {
   texture?: T;
 
-  compute([ clazz, ...args ]: [TextureConstructor<T>, ConstructorParameters<TextureConstructor<T>>], textureOptions: Partial<T>): T {
+  compute(
+    [clazz, ...args]: [
+      TextureConstructor<T>,
+      ConstructorParameters<TextureConstructor<T>>
+    ],
+    textureOptions: Partial<T>
+  ): T {
     if (this.texture) {
       this.texture.dispose();
     }

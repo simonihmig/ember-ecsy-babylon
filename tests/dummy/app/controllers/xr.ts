@@ -5,7 +5,6 @@ import { systems } from 'ecsy-babylon';
 import { mapComponentImports } from 'ember-ecsy-babylon';
 
 export default class XrController extends Controller {
-
   queryParams = ['mode'];
 
   mode: 'vr' | 'ar' = 'vr';
@@ -16,5 +15,4 @@ export default class XrController extends Controller {
 
   components = mapComponentImports(components);
   systems = systems;
-
 }

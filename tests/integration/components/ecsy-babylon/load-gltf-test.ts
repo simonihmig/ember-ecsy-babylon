@@ -6,13 +6,12 @@ import setupDataDumper from 'dummy/tests/helpers/dump';
 import setupEcsyBabylon from 'dummy/tests/helpers/setup-ecsy-babylon';
 import { AssetContainer } from '@babylonjs/core/assetContainer';
 
-module('Integration | Component | ecsy-babylon/load-gltf', function(hooks) {
+module('Integration | Component | ecsy-babylon/load-gltf', function (hooks) {
   setupRenderingTest(hooks);
   setupEcsyBabylon(hooks);
   const getData = setupDataDumper(hooks);
 
-  test('it yields loaded asset', async function(assert) {
-
+  test('it yields loaded asset', async function (assert) {
     await render(hbs`
       <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
         <Scene as |World|>
@@ -29,8 +28,7 @@ module('Integration | Component | ecsy-babylon/load-gltf', function(hooks) {
     assert.equal(data.materials.length, 1);
   });
 
-  test('it supports GLB', async function(assert) {
-
+  test('it supports GLB', async function (assert) {
     await render(hbs`
       <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
         <Scene as |World|>

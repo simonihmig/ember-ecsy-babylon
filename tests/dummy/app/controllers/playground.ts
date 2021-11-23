@@ -7,7 +7,6 @@ import { systems } from 'ecsy-babylon';
 import { mapComponentImports } from 'ember-ecsy-babylon';
 
 export default class PlaygroundController extends Controller {
-
   components = mapComponentImports(components);
   systems = systems;
 
@@ -25,7 +24,10 @@ export default class PlaygroundController extends Controller {
 
   @action
   rotate(direction: 'right' | 'left', degrees: number): void {
-    this.rotateValue = direction === 'left' ? this.rotateValue - degrees : this.rotateValue + degrees;
+    this.rotateValue =
+      direction === 'left'
+        ? this.rotateValue - degrees
+        : this.rotateValue + degrees;
   }
 
   @action

@@ -6,12 +6,12 @@ import setupEcsyBabylon from 'dummy/tests/helpers/setup-ecsy-babylon';
 import setupDataDumper from 'dummy/tests/helpers/dump';
 import { Scene } from '@babylonjs/core/scene';
 
-module('Integration | Component | ecsy-babylon', function(hooks) {
+module('Integration | Component | ecsy-babylon', function (hooks) {
   setupRenderingTest(hooks);
   setupEcsyBabylon(hooks);
   const getData = setupDataDumper(hooks);
 
-  test('it renders canvas', async function(assert) {
+  test('it renders canvas', async function (assert) {
     await render(hbs`
       <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
         <Scene as |World|>
@@ -30,7 +30,7 @@ module('Integration | Component | ecsy-babylon', function(hooks) {
     assert.dom('canvas').hasAttribute('tabindex', '0');
   });
 
-  test('it supports named blocks for block HTML content', async function(assert) {
+  test('it supports named blocks for block HTML content', async function (assert) {
     await render(hbs`
       <EcsyBabylon @components={{this.components}} @systems={{this.systems}}>
         <:ecsy as |Scene|>
@@ -55,7 +55,7 @@ module('Integration | Component | ecsy-babylon', function(hooks) {
     assert.dom('canvas #fallback').hasText('Fallback HTML content');
   });
 
-  test('it resizes engine when canvas is resized', async function(assert) {
+  test('it resizes engine when canvas is resized', async function (assert) {
     this.set('width', 300);
     this.set('height', 200);
 
@@ -69,7 +69,7 @@ module('Integration | Component | ecsy-babylon', function(hooks) {
       </div>
     `);
 
-    const engine = (getData() as { scene: Scene}).scene.getEngine();
+    const engine = (getData() as { scene: Scene }).scene.getEngine();
 
     assert.equal(engine.getRenderWidth(), 300);
     assert.equal(engine.getRenderHeight(), 200);

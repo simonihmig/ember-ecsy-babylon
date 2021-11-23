@@ -10,10 +10,7 @@ module.exports = {
       legacyDecorators: true,
     },
   },
-  plugins: [
-    'ember',
-    '@typescript-eslint'
-  ],
+  plugins: ['ember', '@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
@@ -23,10 +20,12 @@ module.exports = {
     browser: true,
   },
   rules: {
-    'no-restricted-imports': ['error',
+    'no-restricted-imports': [
+      'error',
       {
         name: '@babylonjs/core',
-        message: 'Don\'t import from @babylonjs/core, use a direct import instead! See https://doc.babylonjs.com/features/es6_support#tree-shaking'
+        message:
+          "Don't import from @babylonjs/core, use a direct import instead! See https://doc.babylonjs.com/features/es6_support#tree-shaking",
       },
       {
         name: 'ecsy-babylon',
@@ -38,7 +37,7 @@ module.exports = {
         message:
           "Don't import from index modules of ecsy-babylon, use a direct import instead to support tree shaking! See https://github.com/ef4/ember-auto-import/issues/121",
       },
-    ]
+    ],
   },
   overrides: [
     // ts files
@@ -51,8 +50,8 @@ module.exports = {
       rules: {
         '@typescript-eslint/ban-types': 'warn',
         '@typescript-eslint/no-explicit-any': 'warn',
-        '@typescript-eslint/no-empty-function': 'warn'
-      }
+        '@typescript-eslint/no-empty-function': 'warn',
+      },
     },
     // node files
     {
@@ -66,7 +65,7 @@ module.exports = {
         './blueprints/*/index.js',
         './config/**/*.js',
         './tests/dummy/config/**/*.js',
-        './lib/*.js'
+        './lib/*.js',
       ],
       parserOptions: {
         sourceType: 'script',

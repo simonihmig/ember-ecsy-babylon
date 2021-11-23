@@ -2,7 +2,8 @@ import DomlessGlimmerComponent from 'ember-ecsy-babylon/components/domless-glimm
 import { assert } from '@ember/debug';
 import BabylonCore from 'ecsy-babylon/components/babylon-core';
 import {
-  EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs
+  EcsyBabylonContext,
+  EcsyBabylonDomlessGlimmerArgs,
 } from 'ember-ecsy-babylon/components/ecsy-babylon';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
@@ -17,27 +18,29 @@ export interface EcsyBabylonSceneArgs extends EcsyBabylonDomlessGlimmerArgs {
   environmentRotation?: number;
 }
 
-export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylonContext, EcsyBabylonSceneArgs> {
+export default class EcsyBabylonScene extends DomlessGlimmerComponent<
+  EcsyBabylonContext,
+  EcsyBabylonSceneArgs
+> {
   scene: Scene;
 
-  constructor (owner: unknown, args: EcsyBabylonSceneArgs) {
+  constructor(owner: unknown, args: EcsyBabylonSceneArgs) {
     super(owner, args);
 
-    const {
-      environmentTexture,
-      environmentRotation,
-      ...restArgs
-    } = args;
+    const { environmentTexture, environmentRotation, ...restArgs } = args;
 
     assert('No ECSY context found.', this.context);
 
-    const {
-      world,
-      rootEntity
-    } = this.context!;
+    const { world, rootEntity } = this.context!;
 
-    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <Scene/>', !!rootEntity);
-    assert('EcsyBabylon world not found. Make sure to use the yielded version of <Scene/>', !!world);
+    assert(
+      'EcsyBabylon entity not found. Make sure to use the yielded version of <Scene/>',
+      !!rootEntity
+    );
+    assert(
+      'EcsyBabylon world not found. Make sure to use the yielded version of <Scene/>',
+      !!world
+    );
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const core = rootEntity.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
@@ -49,14 +52,11 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
     this.rotateEnvironmentTexture(environmentRotation);
   }
 
-  didUpdate (changedArgs: Partial<EcsyBabylonSceneArgs>) {
+  didUpdate(changedArgs: Partial<EcsyBabylonSceneArgs>) {
     super.didUpdate(changedArgs);
 
-    const {
-      environmentTexture,
-      environmentRotation,
-      ...restArgs
-    } = changedArgs;
+    const { environmentTexture, environmentRotation, ...restArgs } =
+      changedArgs;
 
     if (Object.keys(restArgs).length) {
       Object.assign(this.scene, changedArgs);
@@ -73,7 +73,9 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
   updateEnvironmentTexture(environmentTexture?: string) {
     const oldTexture = this.scene.environmentTexture;
 
-    this.scene.environmentTexture = environmentTexture ? new CubeTexture(environmentTexture, this.scene) : null;
+    this.scene.environmentTexture = environmentTexture
+      ? new CubeTexture(environmentTexture, this.scene)
+      : null;
 
     if (oldTexture) {
       oldTexture.dispose();
@@ -82,12 +84,11 @@ export default class EcsyBabylonScene extends DomlessGlimmerComponent<EcsyBabylo
 
   rotateEnvironmentTexture(angle = 0) {
     const texture = this.scene.environmentTexture;
-    if (texture && (texture instanceof CubeTexture || texture instanceof HDRCubeTexture)) {
-      texture.setReflectionTextureMatrix(
-        Matrix.RotationY(
-          angle
-        )
-      );
+    if (
+      texture &&
+      (texture instanceof CubeTexture || texture instanceof HDRCubeTexture)
+    ) {
+      texture.setReflectionTextureMatrix(Matrix.RotationY(angle));
     }
   }
 

@@ -7,7 +7,7 @@ export default class Router extends EmberRouter {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-Router.map(function() {
+Router.map(function () {
   this.route('playground');
   this.route('xr');
 });

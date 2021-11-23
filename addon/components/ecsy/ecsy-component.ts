@@ -10,28 +10,43 @@ interface EcsyComponentArgs {
   name: string;
 }
 
-export default class EcsyComponent extends DomlessGlimmerComponent<EcsyContext, EcsyComponentArgs> {
+export default class EcsyComponent extends DomlessGlimmerComponent<
+  EcsyContext,
+  EcsyComponentArgs
+> {
   _Component!: ComponentConstructor<_Component<unknown>>;
 
   constructor(owner: unknown, args: EcsyComponentArgs) {
     super(owner, args);
 
-    const {
-      parent,
-      name,
-      ...restArgs
-    } = args;
+    const { parent, name, ...restArgs } = args;
 
-    assert('Component reference `parent` is not passed. Please do not use this component directly.', !!parent);
-    assert('Component reference `parent` is not an <Ecsy::Entity/>. Please do not use this component directly.', parent instanceof EcsyEntity);
-    assert('Component reference `parent` does not have a valid `entity` set. Please do not use this component directly.', parent.entity);
-    assert('`name` is not passed. Please do not use this component directly.', !!name);
+    assert(
+      'Component reference `parent` is not passed. Please do not use this component directly.',
+      !!parent
+    );
+    assert(
+      'Component reference `parent` is not an <Ecsy::Entity/>. Please do not use this component directly.',
+      parent instanceof EcsyEntity
+    );
+    assert(
+      'Component reference `parent` does not have a valid `entity` set. Please do not use this component directly.',
+      parent.entity
+    );
+    assert(
+      '`name` is not passed. Please do not use this component directly.',
+      !!name
+    );
 
     assert('Missing context for EcsyComponent', this.context);
     const components = this.context!.components;
 
     if (!components.has(name)) {
-      throw new Error(`Ecsy component "${name}" not found. Available component names: ${Array.from(components.keys()).join(', ')}`);
+      throw new Error(
+        `Ecsy component "${name}" not found. Available component names: ${Array.from(
+          components.keys()
+        ).join(', ')}`
+      );
     }
 
     this._Component = components.get(name)!;
@@ -41,9 +56,7 @@ export default class EcsyComponent extends DomlessGlimmerComponent<EcsyContext, 
   didUpdate(changedArgs: object): void {
     super.didUpdate(changedArgs);
 
-    const {
-      parent,
-    } = this.args;
+    const { parent } = this.args;
 
     const schema = this._Component.schema;
     const component = parent.entity.getMutableComponent(this._Component);

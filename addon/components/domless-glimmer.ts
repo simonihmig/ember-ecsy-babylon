@@ -19,13 +19,22 @@ export interface DomlessGlimmerArgs<C> {
   parent?: DomlessGlimmerComponent<C, DomlessGlimmerArgs<C>>;
 }
 
-export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimmerArgs<C> = object> {
+export default class DomlessGlimmerComponent<
+  C = object,
+  T extends DomlessGlimmerArgs<C> = object
+> {
   constructor(owner: unknown, args: T) {
-    if (DEBUG && !(owner !== null && typeof owner === 'object' && args !== null && typeof args === 'object')) {
+    if (
+      DEBUG &&
+      !(
+        owner !== null &&
+        typeof owner === 'object' &&
+        args !== null &&
+        typeof args === 'object'
+      )
+    ) {
       throw new Error(
-        `You must pass both the owner and args to super() in your component: ${
-          this.constructor.name
-        }. You can pass them directly, or use ...arguments to pass all arguments through.`
+        `You must pass both the owner and args to super() in your component: ${this.constructor.name}. You can pass them directly, or use ...arguments to pass all arguments through.`
       );
     }
 
@@ -53,7 +62,9 @@ export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimme
   }
 
   get context(): C | undefined {
-    return this._context !== undefined ? this._context : (this.args.parent && this.args.parent.context);
+    return this._context !== undefined
+      ? this._context
+      : this.args.parent && this.args.parent.context;
   }
   set context(context: C | undefined) {
     this._context = context;
@@ -70,12 +81,14 @@ export default class DomlessGlimmerComponent<C = object, T extends DomlessGlimme
    * Called before the component has been removed from the DOM.
    */
   willDestroy(): void {
-    Array.from(this.children).reverse().forEach(c => {
-      if (!c[WILL_DESTROY]) {
-        c[WILL_DESTROY] = true;
-        c.willDestroy();
-      }
-    });
+    Array.from(this.children)
+      .reverse()
+      .forEach((c) => {
+        if (!c[WILL_DESTROY]) {
+          c[WILL_DESTROY] = true;
+          c.willDestroy();
+        }
+      });
   }
 
   /**

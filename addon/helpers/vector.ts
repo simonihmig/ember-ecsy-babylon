@@ -1,9 +1,12 @@
 import { helper } from '@ember/component/helper';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 
-export function vector(params: number[], { deg = false }: { deg?: boolean } = {}): Vector2 | Vector3 | Vector4 {
+export function vector(
+  params: number[],
+  { deg = false }: { deg?: boolean } = {}
+): Vector2 | Vector3 | Vector4 {
   if (deg) {
-    params = params.map((degree) => degree / 180 * Math.PI );
+    params = params.map((degree) => (degree / 180) * Math.PI);
   }
   const [x, y, z, w] = params;
 

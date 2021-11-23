@@ -5,18 +5,17 @@ import { hbs } from 'ember-cli-htmlbars';
 import setupDataDumper from 'dummy/tests/helpers/dump';
 import { Component, Types } from 'ecsy';
 
-module('Integration | Component | ecsy/component', function(hooks) {
+module('Integration | Component | ecsy/component', function (hooks) {
   setupRenderingTest(hooks);
   const getData = setupDataDumper(hooks);
 
-  test('it add component to entity', async function(assert) {
-
+  test('it add component to entity', async function (assert) {
     class DummyComponent extends Component<DummyComponent> {
       foo?: string;
 
       static schema = {
-        foo: { type: Types.String }
-      }
+        foo: { type: Types.String },
+      };
     }
 
     this.set('components', new Map([['dummy', DummyComponent]]));
