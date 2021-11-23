@@ -4,11 +4,11 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import setupDataDumper from 'dummy/tests/helpers/dump';
 
-module('Integration | Component | ecsy/entity', function(hooks) {
+module('Integration | Component | ecsy/entity', function (hooks) {
   setupRenderingTest(hooks);
   const getData = setupDataDumper(hooks);
 
-  test('it adds entity', async function(assert) {
+  test('it adds entity', async function (assert) {
     this.set('show', false);
     this.set('components', new Map());
     await render(hbs`

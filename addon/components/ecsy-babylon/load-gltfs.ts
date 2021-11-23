@@ -6,7 +6,10 @@ import { taskFor, perform } from 'ember-concurrency-ts';
 import { tracked } from '@glimmer/tracking';
 import { GLTFFileLoader } from '@babylonjs/loaders/glTF/glTFFileLoader';
 import '@babylonjs/loaders/glTF/2.0/glTFLoader';
-import { EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs } from 'ember-ecsy-babylon/components/ecsy-babylon';
+import {
+  EcsyBabylonContext,
+  EcsyBabylonDomlessGlimmerArgs,
+} from 'ember-ecsy-babylon/components/ecsy-babylon';
 import { AssetContainer } from '@babylonjs/core/assetContainer';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 
@@ -15,7 +18,8 @@ SceneLoader.RegisterPlugin(new GLTFFileLoader());
 /**
  * Any other arguments will be parsed as a fileUrl and added to the resulting assets hash
  */
-export interface EcsyBabylonLoadGltfsArgs extends EcsyBabylonDomlessGlimmerArgs {
+export interface EcsyBabylonLoadGltfsArgs
+  extends EcsyBabylonDomlessGlimmerArgs {
   files: FileHash;
 }
 
@@ -25,10 +29,12 @@ type FileHash = {
 
 export type AssetContainerHash = {
   [index: string]: AssetContainer;
-}
+};
 
-export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBabylonContext, EcsyBabylonLoadGltfsArgs> {
-
+export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<
+  EcsyBabylonContext,
+  EcsyBabylonLoadGltfsArgs
+> {
   @tracked assets?: object;
 
   private core: BabylonCore;
@@ -38,7 +44,10 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   constructor(owner: unknown, args: EcsyBabylonLoadGltfsArgs) {
     super(owner, args);
 
-    assert('EcsyBabylon entity not found. Make sure to use the yielded version of <World.LoadGltfs>', !!(this.context && this.context.rootEntity));
+    assert(
+      'EcsyBabylon entity not found. Make sure to use the yielded version of <World.LoadGltfs>',
+      !!(this.context && this.context.rootEntity)
+    );
     const core = this.context!.rootEntity.getComponent(BabylonCore);
     assert('BabylonCore could not be found', !!core);
     this.core = core!;
@@ -53,7 +62,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
       const { files } = this.args;
       const filesDiff = Object.keys(files)
         .filter((key) => files[key] !== this.fileHash[key])
-        .reduce((result, key) => ({...result, [key]: files[key]}), {});
+        .reduce((result, key) => ({ ...result, [key]: files[key] }), {});
 
       this.fileHash = files;
       if (Object.keys(filesDiff).length > 0) {
@@ -74,10 +83,11 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   }
 
   @task
-  async loadModel(this: EcsyBabylonLoadGltfs, fileUrl: string): Promise<AssetContainer | null> {
-    const {
-      scene
-    } = this.core;
+  async loadModel(
+    this: EcsyBabylonLoadGltfs,
+    fileUrl: string
+  ): Promise<AssetContainer | null> {
+    const { scene } = this.core;
 
     if (fileUrl) {
       try {
@@ -91,13 +101,17 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   }
 
   @restartableTask
-  async loadModels(this: EcsyBabylonLoadGltfs, fileHash: FileHash): Promise<void> {
-    const models = Object
-      .entries(fileHash)
-      .reduce((result, [key, fileUrl]) => ({
-         ...result,
-        [key]: perform(this.loadModel, fileUrl)
-      }), {});
+  async loadModels(
+    this: EcsyBabylonLoadGltfs,
+    fileHash: FileHash
+  ): Promise<void> {
+    const models = Object.entries(fileHash).reduce(
+      (result, [key, fileUrl]) => ({
+        ...result,
+        [key]: perform(this.loadModel, fileUrl),
+      }),
+      {}
+    );
     const files = await hash(models);
 
     if (!files) {
@@ -110,42 +124,45 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<EcsyBa
   setup(ach: AssetContainerHash): void {
     // cleanup old AssetContainers
     const disposable: AssetContainer[] = [];
-    Object.entries(this.assetContainerHash || {})
-      .forEach(([name, ac]) => {
-        if (Object.prototype.hasOwnProperty.call(ach, name) && ac) {
-          disposable.push(ac);
-        }
-      });
+    Object.entries(this.assetContainerHash || {}).forEach(([name, ac]) => {
+      if (Object.prototype.hasOwnProperty.call(ach, name) && ac) {
+        disposable.push(ac);
+      }
+    });
 
     this.assetContainerHash = {
       ...this.assetContainerHash,
-      ...ach
+      ...ach,
     };
 
-    this.assets = Object.entries(this.assetContainerHash)
-      .reduce((result, [name, ac]) => {
+    this.assets = Object.entries(this.assetContainerHash).reduce(
+      (result, [name, ac]) => {
         const assets = ac
           ? {
-            // we only yield meshes and materials for now
-            meshes: ac.meshes.filter((m) => m.getTotalVertices() > 0),
-            materials: ac.materials
-          }
+              // we only yield meshes and materials for now
+              meshes: ac.meshes.filter((m) => m.getTotalVertices() > 0),
+              materials: ac.materials,
+            }
           : null;
 
         return {
           ...result,
-          [name]: assets
+          [name]: assets,
         };
-      }, {});
+      },
+      {}
+    );
 
     // do the cleanup after the frame has rendered, to allow essy systems to do their cleanup first
     // e.g. when adding child nodes to an asset mesh, `ac.dispose()` would also recursively dispose those nodes not owned by
     // our asset container
-    this.core.engine.onEndFrameObservable.addOnce(() => this.cleanup(disposable))
+    this.core.engine.onEndFrameObservable.addOnce(() =>
+      this.cleanup(disposable)
+    );
   }
 
   cleanup(assetContainers: AssetContainer[]): void {
-    assetContainers.forEach(ac => {
+    assetContainers.forEach((ac) => {
       ac.dispose();
     });
   }

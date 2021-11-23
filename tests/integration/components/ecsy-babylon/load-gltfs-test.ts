@@ -6,13 +6,12 @@ import setupDataDumper from 'dummy/tests/helpers/dump';
 import setupEcsyBabylon from 'dummy/tests/helpers/setup-ecsy-babylon';
 import { AssetContainerHash } from 'ember-ecsy-babylon/components/ecsy-babylon/load-gltfs';
 
-module('Integration | Component | ecsy-babylon/load-gltfs', function(hooks) {
+module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
   setupRenderingTest(hooks);
   setupEcsyBabylon(hooks);
   const getData = setupDataDumper(hooks);
 
-  test('it yields loaded asset hash', async function(assert) {
-
+  test('it yields loaded asset hash', async function (assert) {
     await render(hbs`
       <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
         <Scene as |World|>
@@ -32,8 +31,7 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function(hooks) {
     assert.equal(data.obj2.materials.length, 1);
   });
 
-  test('it supports GLB', async function(assert) {
-
+  test('it supports GLB', async function (assert) {
     await render(hbs`
       <EcsyBabylon @components={{this.components}} @systems={{this.systems}} as |Scene|>
         <Scene as |World|>

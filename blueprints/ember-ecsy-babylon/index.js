@@ -3,13 +3,12 @@
 module.exports = {
   description: '',
 
-  normalizeEntityName() {
-  },
+  normalizeEntityName() {},
 
   async afterInstall(/*options*/) {
     // Ensure ecsy-babylon is a direct dependency, so ember-auto-import works
     await this.addPackagesToProject([
-      { name: 'ecsy-babylon', target: this.ownEcsyBabylonVersion }
+      { name: 'ecsy-babylon', target: this.ownEcsyBabylonVersion },
     ]);
   },
 
@@ -17,5 +16,5 @@ module.exports = {
     const pkg = require('../../package.json');
     const version = pkg.dependencies['ecsy-babylon'];
     return version;
-  }
+  },
 };

@@ -6,7 +6,9 @@ interface ComponentImport {
   [index: string]: ComponentConstructor<EcsyComponent<unknown>>;
 }
 
-export function mapComponentImports(components: ComponentImport): Map<string, ComponentConstructor<EcsyComponent<unknown>>> {
+export function mapComponentImports(
+  components: ComponentImport
+): Map<string, ComponentConstructor<EcsyComponent<unknown>>> {
   return new Map(
     Object.entries(components)
       .filter(([key]) => key !== 'default')

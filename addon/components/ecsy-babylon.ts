@@ -1,4 +1,7 @@
-import Ecsy, { EcsyArgs, EcsyContext } from 'ember-ecsy-babylon/components/ecsy';
+import Ecsy, {
+  EcsyArgs,
+  EcsyContext,
+} from 'ember-ecsy-babylon/components/ecsy';
 import BabylonCore from 'ecsy-babylon/components/babylon-core';
 import { Entity } from 'ecsy';
 import { action } from '@ember/object';
@@ -13,7 +16,8 @@ export interface EcsyBabylonContext extends EcsyContext {
   rootEntity: Entity;
 }
 
-export interface EcsyBabylonDomlessGlimmerArgs extends EcsyArgs<EcsyBabylonContext> {
+export interface EcsyBabylonDomlessGlimmerArgs
+  extends EcsyArgs<EcsyBabylonContext> {
   engineOptions?: EngineOptions;
   antialias?: boolean;
   adaptToDeviceRatio?: boolean;
@@ -22,10 +26,13 @@ export interface EcsyBabylonDomlessGlimmerArgs extends EcsyArgs<EcsyBabylonConte
 const DEBUG_KEY = {
   altKey: false,
   ctrlKey: true,
-  key: 'd'
-}
+  key: 'd',
+};
 
-export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDomlessGlimmerArgs> {
+export default class EcsyBabylon extends Ecsy<
+  EcsyBabylonContext,
+  EcsyBabylonDomlessGlimmerArgs
+> {
   entity: Entity;
   scene?: Scene;
   engine?: Engine;
@@ -44,13 +51,18 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
 
   @action
   onCanvasReady(canvas: HTMLCanvasElement): void {
-    const engine = new Engine(canvas, this.args.antialias, this.args.engineOptions, this.args.adaptToDeviceRatio);
+    const engine = new Engine(
+      canvas,
+      this.args.antialias,
+      this.args.engineOptions,
+      this.args.adaptToDeviceRatio
+    );
     engine.canvasTabIndex = 0;
 
     this.entity.addComponent(BabylonCore, {
       world: this.world,
       canvas,
-      engine
+      engine,
     });
 
     this.ready = true;
@@ -61,7 +73,9 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
     this.engine = engine;
 
     if (DEBUG) {
-      console.log('While focusing an ember-ecsy-babylon component, press CTRL-D to open the Babylon.js Inspector!');
+      console.log(
+        'While focusing an ember-ecsy-babylon component, press CTRL-D to open the Babylon.js Inspector!'
+      );
     }
   }
 
@@ -74,14 +88,16 @@ export default class EcsyBabylon extends Ecsy<EcsyBabylonContext, EcsyBabylonDom
   async toggleBabylonInspector(event: KeyboardEvent): Promise<void> {
     if (DEBUG) {
       if (
-        this.scene
-        && event.altKey === DEBUG_KEY.altKey
-        && event.ctrlKey === DEBUG_KEY.ctrlKey
-        && event.key === DEBUG_KEY.key
+        this.scene &&
+        event.altKey === DEBUG_KEY.altKey &&
+        event.ctrlKey === DEBUG_KEY.ctrlKey &&
+        event.key === DEBUG_KEY.key
       ) {
         if (!this.debugLayer) {
           await import('@babylonjs/inspector');
-          const { DebugLayer } = await import('@babylonjs/core/Debug/debugLayer');
+          const { DebugLayer } = await import(
+            '@babylonjs/core/Debug/debugLayer'
+          );
           this.debugLayer = new DebugLayer(this.scene);
         }
 

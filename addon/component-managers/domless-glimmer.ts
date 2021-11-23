@@ -41,7 +41,6 @@ export interface Constructor<T> {
   new (owner: unknown, args: {}): T;
 }
 
-
 interface DomlessGlimmerStateBucket {
   instance: DomlessGlimmerComponent;
   previousArgs: ComponentManagerArgs['named'];
@@ -50,16 +49,17 @@ interface DomlessGlimmerStateBucket {
 const CAPABILITIES = capabilities('3.13', {
   destructor: true,
   asyncLifecycleCallbacks: false,
-  updateHook: true
+  updateHook: true,
 });
 
 function snapshot<T>(object: T): T {
-  return Object.freeze({...object});
+  return Object.freeze({ ...object });
 }
 
-export default class DomlessGlimmerComponentManager
-  /*implements ComponentManagerWithAsyncLifeCycleCallbacks<DomlessGlimmerStateBucket>, ComponentManagerWithDestructors<DomlessGlimmerStateBucket>, ComponentManagerWithAsyncUpdateHook<DomlessGlimmerStateBucket>*/ {
-  static create(attrs: unknown): DomlessGlimmerComponentManager {
+export default class DomlessGlimmerComponentManager {
+  /*implements ComponentManagerWithAsyncLifeCycleCallbacks<DomlessGlimmerStateBucket>, ComponentManagerWithDestructors<DomlessGlimmerStateBucket>, ComponentManagerWithAsyncUpdateHook<DomlessGlimmerStateBucket>*/ static create(
+    attrs: unknown
+  ): DomlessGlimmerComponentManager {
     const owner = getOwner(attrs);
     return new this(owner);
   }
@@ -81,7 +81,10 @@ export default class DomlessGlimmerComponentManager
     };
   }
 
-  updateComponent(bucket: DomlessGlimmerStateBucket, args: ComponentManagerArgs) {
+  updateComponent(
+    bucket: DomlessGlimmerStateBucket,
+    args: ComponentManagerArgs
+  ) {
     const newArgs = snapshot(args.named);
     const { instance: component, previousArgs } = bucket;
 
@@ -91,7 +94,7 @@ export default class DomlessGlimmerComponentManager
 
     const argsDiff = Object.keys(newArgs)
       .filter((key) => newArgs[key] !== previousArgs[key])
-      .reduce((result, key) => ({...result, [key]: newArgs[key]}), {});
+      .reduce((result, key) => ({ ...result, [key]: newArgs[key] }), {});
 
     if (Object.keys(argsDiff).length > 0) {
       component.didUpdate(argsDiff);

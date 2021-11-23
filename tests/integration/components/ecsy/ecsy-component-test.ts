@@ -5,18 +5,17 @@ import { hbs } from 'ember-cli-htmlbars';
 import setupDataDumper from 'dummy/tests/helpers/dump';
 import { Component, Types } from 'ecsy';
 
-module('Integration | Component | ecsy/component', function(hooks) {
+module('Integration | Component | ecsy/component', function (hooks) {
   setupRenderingTest(hooks);
   const getData = setupDataDumper(hooks);
 
-  test('it add component to entity', async function(assert) {
-
+  test('it add component to entity', async function (assert) {
     class DummyComponent extends Component<DummyComponent> {
       foo?: string;
 
       static schema = {
-        foo: { type: Types.String }
-      }
+        foo: { type: Types.String },
+      };
     }
 
     this.set('components', new Map([['dummy', DummyComponent]]));
@@ -36,14 +35,13 @@ module('Integration | Component | ecsy/component', function(hooks) {
     assert.equal(component.foo, 'bar', 'component has passed arguments');
   });
 
-  test('it does not leak passed instances', async function(assert) {
-
+  test('it does not leak passed instances', async function (assert) {
     class DummyComponent extends Component<DummyComponent> {
       foo?: {};
 
       static schema = {
-        foo: { type: Types.JSON }
-      }
+        foo: { type: Types.JSON },
+      };
     }
 
     this.set('components', new Map([['dummy', DummyComponent]]));
@@ -64,8 +62,11 @@ module('Integration | Component | ecsy/component', function(hooks) {
     let component = entity.getComponent(DummyComponent);
     assert.ok(component, 'entity has component');
     assert.deepEqual(component.foo, instance, 'component has passed argument');
-    assert.notStrictEqual(component.foo, instance, 'component has different instance');
-
+    assert.notStrictEqual(
+      component.foo,
+      instance,
+      'component has different instance'
+    );
 
     instance = { bar: false };
     this.set('instance', instance);
@@ -74,6 +75,10 @@ module('Integration | Component | ecsy/component', function(hooks) {
     component = entity.getComponent(DummyComponent);
     assert.ok(component, 'entity has component');
     assert.deepEqual(component.foo, instance, 'component has passed argument');
-    assert.notStrictEqual(component.foo, instance, 'component has different instance');
+    assert.notStrictEqual(
+      component.foo,
+      instance,
+      'component has different instance'
+    );
   });
 });
