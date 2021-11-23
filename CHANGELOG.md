@@ -1,3 +1,22 @@
+## v0.9.0 (2021-11-23)
+
+#### :boom: Breaking Change
+* [#438](https://github.com/kaliber5/ember-ecsy-babylon/pull/438) Update to ember-auto-import v2 ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#438](https://github.com/kaliber5/ember-ecsy-babylon/pull/438) Update to ember-auto-import v2 ([@simonihmig](https://github.com/simonihmig))
+
+#### :bug: Bug Fix
+* [#440](https://github.com/kaliber5/ember-ecsy-babylon/pull/440) Convert AST transform to functional style, fixing Ember 4 ([@simonihmig](https://github.com/simonihmig))
+* [#437](https://github.com/kaliber5/ember-ecsy-babylon/pull/437) Fix leaking object instances when updating ecsy components ([@simonihmig](https://github.com/simonihmig))
+
+#### :house: Internal
+* [#441](https://github.com/kaliber5/ember-ecsy-babylon/pull/441) Fix tests for Embroider ([@simonihmig](https://github.com/simonihmig))
+* [#439](https://github.com/kaliber5/ember-ecsy-babylon/pull/439) Update to Ember 3.28 ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.8.2 (2021-11-17)
 
 #### :bug: Bug Fix
