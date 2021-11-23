@@ -65,7 +65,10 @@ export default class EcsyComponent extends DomlessGlimmerComponent<
     for (const [key, value] of Object.entries(changedArgs)) {
       const prop = schema[key];
       if (prop) {
-        component[key as keyof _Component<unknown>] = prop.type.copy(value, component[key as keyof _Component<unknown>]);
+        component[key as keyof _Component<unknown>] = prop.type.copy(
+          value,
+          component[key as keyof _Component<unknown>]
+        );
       } else {
         component[key as keyof _Component<unknown>] = value;
       }

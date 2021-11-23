@@ -35,14 +35,13 @@ module('Integration | Component | ecsy/component', function (hooks) {
     assert.equal(component.foo, 'bar', 'component has passed arguments');
   });
 
-  test('it does not leak passed instances', async function(assert) {
-
+  test('it does not leak passed instances', async function (assert) {
     class DummyComponent extends Component<DummyComponent> {
       foo?: {};
 
       static schema = {
-        foo: { type: Types.JSON }
-      }
+        foo: { type: Types.JSON },
+      };
     }
 
     this.set('components', new Map([['dummy', DummyComponent]]));
@@ -63,8 +62,11 @@ module('Integration | Component | ecsy/component', function (hooks) {
     let component = entity.getComponent(DummyComponent);
     assert.ok(component, 'entity has component');
     assert.deepEqual(component.foo, instance, 'component has passed argument');
-    assert.notStrictEqual(component.foo, instance, 'component has different instance');
-
+    assert.notStrictEqual(
+      component.foo,
+      instance,
+      'component has different instance'
+    );
 
     instance = { bar: false };
     this.set('instance', instance);
@@ -73,6 +75,10 @@ module('Integration | Component | ecsy/component', function (hooks) {
     component = entity.getComponent(DummyComponent);
     assert.ok(component, 'entity has component');
     assert.deepEqual(component.foo, instance, 'component has passed argument');
-    assert.notStrictEqual(component.foo, instance, 'component has different instance');
+    assert.notStrictEqual(
+      component.foo,
+      instance,
+      'component has different instance'
+    );
   });
 });
