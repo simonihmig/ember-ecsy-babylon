@@ -12,7 +12,7 @@ module('Integration | Component | ecsy/entity', function (hooks) {
     this.set('show', false);
     this.set('components', new Map());
     await render(hbs`
-      <Ecsy @systems={{array}} @components={{this.components}} as |world|>
+      <Ecsy @systems={{(array)}} @components={{this.components}} as |world|>
         {{dump world.world}}
         {{#if this.show}}
           <world.Entity />

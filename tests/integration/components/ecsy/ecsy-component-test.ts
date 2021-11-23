@@ -9,7 +9,7 @@ module('Integration | Component | ecsy/component', function (hooks) {
   setupRenderingTest(hooks);
   const getData = setupDataDumper(hooks);
 
-  test('it add component to entity', async function (assert) {
+  test('it adds component to entity', async function (assert) {
     class DummyComponent extends Component<DummyComponent> {
       foo?: string;
 
@@ -21,7 +21,7 @@ module('Integration | Component | ecsy/component', function (hooks) {
     this.set('components', new Map([['dummy', DummyComponent]]));
 
     await render(hbs`
-      <Ecsy @systems={{array}} @components={{this.components}} as |world|>
+      <Ecsy @systems={{(array)}} @components={{this.components}} as |world|>
         {{dump world.world}}
         <world.Entity {{dummy foo="bar"}}/>
       </Ecsy>
@@ -50,7 +50,7 @@ module('Integration | Component | ecsy/component', function (hooks) {
     this.set('instance', instance);
 
     await render(hbs`
-      <Ecsy @systems={{array}} @components={{this.components}} as |world|>
+      <Ecsy @systems={{(array)}} @components={{this.components}} as |world|>
         {{dump world.world}}
         <world.Entity {{dummy foo=this.instance}}/>
       </Ecsy>
