@@ -80,6 +80,7 @@ module('Integration | Component | ecsy-babylon', function (hooks) {
     this.set('height', 300);
 
     await settled();
+    await new Promise((r) => setTimeout(r, 50));
 
     assert.equal(engine.getRenderWidth(), 400);
     assert.equal(engine.getRenderHeight(), 300);
