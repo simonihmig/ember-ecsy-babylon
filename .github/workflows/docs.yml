@@ -19,7 +19,7 @@ jobs:
       - name: Build docs
         run: yarn run build
         env:
-          EMBER_ROOT_URL: ember-ecsy-babylon/
+          EMBER_ROOT_URL: /ember-ecsy-babylon/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
