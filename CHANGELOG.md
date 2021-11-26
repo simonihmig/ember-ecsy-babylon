@@ -1,3 +1,20 @@
+
+## v0.9.1 (2021-11-26)
+
+#### :rocket: Enhancement
+* [#467](https://github.com/kaliber5/ember-ecsy-babylon/pull/467) Support setting Entity name ([@simonihmig](https://github.com/simonihmig))
+
+#### :memo: Documentation
+* [#466](https://github.com/kaliber5/ember-ecsy-babylon/pull/466) Improve "playground" demo ([@simonihmig](https://github.com/simonihmig))
+* [#462](https://github.com/kaliber5/ember-ecsy-babylon/pull/462) Fix documentation deployment ([@simonihmig](https://github.com/simonihmig))
+* [#464](https://github.com/kaliber5/ember-ecsy-babylon/pull/464) Fix demo app CSS ([@simonihmig](https://github.com/simonihmig))
+
+#### :house: Internal
+* [#465](https://github.com/kaliber5/ember-ecsy-babylon/pull/465) Fix flaky resize test ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.9.0 (2021-11-23)
 
 #### :boom: Breaking Change
