@@ -19,9 +19,13 @@ function findParentEntity(component: EcsyEntity): EcsyEntity | null {
   return null;
 }
 
+interface EcsyEntityComponentsArgs extends DomlessGlimmerArgs<EcsyContext> {
+  name?: string;
+}
+
 export default class EcsyEntity extends DomlessGlimmerComponent<
   EcsyContext,
-  DomlessGlimmerArgs<EcsyContext>
+  EcsyEntityComponentsArgs
 > {
   entity!: Entity;
 
@@ -39,7 +43,7 @@ export default class EcsyEntity extends DomlessGlimmerComponent<
     );
     assert('No ECSY context found.', this.context);
 
-    const entity = this.context!.world.createEntity();
+    const entity = this.context!.world.createEntity(this.args.name);
     entity.addComponent(Parent, { value: parentEntity });
 
     this.entity = entity;
