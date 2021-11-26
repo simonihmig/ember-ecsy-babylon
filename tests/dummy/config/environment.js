@@ -45,6 +45,8 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    // For routing on GitHub pages
+    ENV.locationType = 'hash';
   }
 
   return ENV;
