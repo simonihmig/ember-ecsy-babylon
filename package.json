@@ -46,7 +46,7 @@
     "ember-concurrency-ts": "^0.3.1",
     "ember-destroyable-polyfill": "^2.0.3",
     "ember-named-blocks-polyfill": "^0.2.4",
-    "ember-on-resize-modifier": "^0.3.0"
+    "ember-on-resize-modifier": "^0.4.0"
   },
   "devDependencies": {
     "@ember/optional-features": "2.0.0",
