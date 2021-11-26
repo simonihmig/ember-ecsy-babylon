@@ -63,8 +63,7 @@ export default class PlaygroundController extends Controller {
   }
 
   @action
-  setValue(property: keyof this, value: unknown): void {
-    // @ts-ignore
+  setValue(property: keyof this, value: any): void {
     this[property] = value;
   }
 }
