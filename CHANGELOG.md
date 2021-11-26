@@ -1,4 +1,13 @@
 
+
+## v0.9.2 (2021-11-26)
+
+#### :memo: Documentation
+* [#468](https://github.com/kaliber5/ember-ecsy-babylon/pull/468) Fix routing of demo app on GitHub pages ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.9.1 (2021-11-26)
 
 #### :rocket: Enhancement
