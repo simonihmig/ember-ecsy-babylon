@@ -1,5 +1,5 @@
-/*! For license information please see chunk.944.bcd159d0d759640261af.js.LICENSE.txt */
-"use strict";(globalThis.webpackChunk_ember_auto_import_=globalThis.webpackChunk_ember_auto_import_||[]).push([[944],{6440:(e,t,n)=>{n.d(t,{O:()=>i})
+/*! For license information please see chunk.606.080cc4091fe7b5e3bb11.js.LICENSE.txt */
+"use strict";(globalThis.webpackChunk_ember_auto_import_=globalThis.webpackChunk_ember_auto_import_||[]).push([[606],{6440:(e,t,n)=>{n.d(t,{O:()=>i})
 var i=function(){function e(){this.hoverCursor="",this.actions=new Array,this.isRecursive=!1}return Object.defineProperty(e,"HasTriggers",{get:function(){for(var t in e.Triggers)if(e.Triggers.hasOwnProperty(t))return!0
 return!1},enumerable:!1,configurable:!0}),Object.defineProperty(e,"HasPickTriggers",{get:function(){for(var t in e.Triggers)if(e.Triggers.hasOwnProperty(t)){var n=parseInt(t)
 if(n>=1&&n<=7)return!0}return!1},enumerable:!1,configurable:!0}),e.HasSpecificTrigger=function(t){for(var n in e.Triggers)if(e.Triggers.hasOwnProperty(n)&&parseInt(n)===t)return!0
@@ -2243,7 +2243,10 @@ var h=Math.pow(2,(u-this._lodGenerationOffset)/this._lodGenerationScale)/t
 0===u&&(h=0),o.setFloat("alphaG",h),this._effectRenderer.draw()}}return this._effectRenderer.restoreStates(),this._engine.restoreDefaultFramebuffer(),this._engine._releaseFramebufferObjects(s),this._engine._releaseTexture(e._texture),s._swapAndDie(e._texture),e._prefiltered=!0,e},e.prototype._createEffect=function(e,t){var n=[]
 return e.gammaSpace&&n.push("#define GAMMA_INPUT"),n.push("#define NUM_SAMPLES "+this.quality+"u"),new o.H({engine:this._engine,name:"hdrFiltering",vertexShader:"hdrFiltering",fragmentShader:"hdrFiltering",samplerNames:["inputTexture"],uniformNames:["vSampleDirections","vWeights","up","right","front","vFilteringInfo","hdrScale","alphaG"],useShaderStore:!0,defines:n,onCompiled:t})},e.prototype.isReady=function(e){return e.isReady()&&this._effectWrapper.effect.isReady()},e.prototype.prefilter=function(e,t){var n=this
 if(void 0===t&&(t=null),1!==this._engine.webGLVersion)return new Promise((function(i){n._effectRenderer=new o.I(n._engine),n._effectWrapper=n._createEffect(e),n._effectWrapper.effect.executeWhenCompiled((function(){n._prefilterInternal(e),n._effectRenderer.dispose(),n._effectWrapper.dispose(),i(),t&&t()}))}))
-a.Y.Warn("HDR prefiltering is not available in WebGL 1., you can use real time filtering instead.")},e}()},4228:(e,t,n)=>{n.d(t,{V:()=>u})
+a.Y.Warn("HDR prefiltering is not available in WebGL 1., you can use real time filtering instead.")},e}()},5212:(e,t,n)=>{n.r(t),n.d(t,{_ENVTextureLoader:()=>s})
+var i=n(1953),r=n(8663),o=n(2859),s=function(){function e(){this.supportCascades=!1}return e.prototype.canLoad=function(e){return o.M.EndsWith(e,".env")},e.prototype.loadCubeData=function(e,t,n,r,o){if(!Array.isArray(e)){var s=i.q.GetEnvInfo(e)
+s?(t.width=s.width,t.height=s.width,i.q.UploadEnvSpherical(t,s),i.q.UploadEnvLevelsAsync(t,e,s).then((function(){t.isReady=!0,t.onLoadedObservable.notifyObservers(t),t.onLoadedObservable.clear(),r&&r()}))):o&&o("Can not parse the environment file",null)}},e.prototype.loadData=function(e,t,n){throw".env not supported in 2d."},e}()
+r.Engine._TextureLoaders.push(new s)},4228:(e,t,n)=>{n.d(t,{V:()=>u})
 var i=n(7480),r=n(4379),o=n(8649),s=n(7266),a=n(5960),l=n(3867),c=(n(6545),n(6962)),u=function(e){function t(n){var i=e.call(this,null)||this
 return i.metadata=null,i.reservedDataStore=null,i._hasAlpha=!1,i.getAlphaFromRGB=!1,i.level=1,i.coordinatesIndex=0,i._coordinatesMode=0,i.wrapR=1,i.anisotropicFilteringLevel=t.DEFAULT_ANISOTROPIC_FILTERING_LEVEL,i._isCube=!1,i._gammaSpace=!0,i.invertZ=!1,i.lodLevelInAlpha=!1,i.isRenderTarget=!1,i._prefiltered=!1,i.animations=new Array,i.onDisposeObservable=new o.y$,i._onDisposeObserver=null,i._scene=null,i._texture=null,i._uid=null,n?t._isScene(n)?i._scene=n:i._engine=n:i._scene=a.l.LastCreatedScene,i._scene&&(i.uniqueId=i._scene.getUniqueId(),i._scene.addTexture(i),i._engine=i._scene.getEngine()),i._uid=null,i}return(0,i.ZT)(t,e),Object.defineProperty(t.prototype,"hasAlpha",{get:function(){return this._hasAlpha},set:function(e){this._hasAlpha!==e&&(this._hasAlpha=e,this._scene&&this._scene.markAllMaterialsAsDirty(17))},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"coordinatesMode",{get:function(){return this._coordinatesMode},set:function(e){this._coordinatesMode!==e&&(this._coordinatesMode=e,this._scene&&this._scene.markAllMaterialsAsDirty(1))},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"wrapU",{get:function(){return this._wrapU},set:function(e){this._wrapU=e},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"wrapV",{get:function(){return this._wrapV},set:function(e){this._wrapV=e},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"isCube",{get:function(){return this._texture?this._texture.isCube:this._isCube},set:function(e){this._texture?this._texture.isCube=e:this._isCube=e},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"is3D",{get:function(){return!!this._texture&&this._texture.is3D},set:function(e){this._texture&&(this._texture.is3D=e)},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"is2DArray",{get:function(){return!!this._texture&&this._texture.is2DArray},set:function(e){this._texture&&(this._texture.is2DArray=e)},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"gammaSpace",{get:function(){return this._texture?(null===this._texture._gammaSpace&&(this._texture._gammaSpace=this._gammaSpace),this._texture._gammaSpace):this._gammaSpace},set:function(e){if(this._texture){if(this._texture._gammaSpace===e)return
 this._texture._gammaSpace=e}else{if(this._gammaSpace===e)return
@@ -4415,7 +4418,76 @@ this._depthRenderer&&(delete o._depthRenderer[this._depthRendererId],this._depth
 n&&delete n._depthRenderer[this._depthRendererId],this._depthRenderer.dispose(),this._depthRenderer=null}},t}(n(3923).d)},3253:(e,t,n)=>{n.d(t,{f:()=>i})
 var i=function(){function e(){}return e.WarnImport=function(e){return e+" needs to be imported before as it contains a side-effect required by your code."},e}()},2481:(e,t,n)=>{n.d(t,{M:()=>i})
 var i=function(){function e(){}return e.IsWindowObjectExist=function(){return"undefined"!=typeof window},e.IsNavigatorAvailable=function(){return"undefined"!=typeof navigator},e.IsDocumentAvailable=function(){return"undefined"!=typeof document},e.GetDOMTextContent=function(e){for(var t="",n=e.firstChild;n;)3===n.nodeType&&(t+=n.textContent),n=n.nextSibling
-return t},e}()},6545:(e,t,n)=>{n.d(t,{e0:()=>m,eh:()=>d,RC:()=>_,kK:()=>p})
+return t},e}()},1953:(e,t,n)=>{n.d(t,{q:()=>p})
+var i=n(5702),r=n(7266),o=n(1949),s=n(4607),a=n(6238),l=n(4228),c=n(171),u=n(7401),h=n(6866),f=(n(8220),n(6653),n(5021),n(2825)),d=(n(566),"\nvarying vec2 vUV;\nuniform sampler2D textureSampler;\n#include<helperFunctions>\nvoid main(void)\n{\ngl_FragColor=toRGBD(texture2D(textureSampler,vUV).rgb);\n}")
+f.Q.ShadersStore.rgbdEncodePixelShader=d,n(4891)
+var p=function(){function e(){}return e.GetEnvInfo=function(t){for(var n=new DataView(t.buffer,t.byteOffset,t.byteLength),i=0,r=0;r<e._MagicBytes.length;r++)if(n.getUint8(i++)!==e._MagicBytes[r])return h.Y.Error("Not a babylon environment map"),null
+for(var o="",s=0;s=n.getUint8(i++);)o+=String.fromCharCode(s)
+var a=JSON.parse(o)
+return a.specular&&(a.specular.specularDataPosition=i,a.specular.lodGenerationScale=a.specular.lodGenerationScale||.8),a},e.CreateEnvTextureAsync=function(t){var n=this,r=t.getInternalTexture()
+if(!r)return Promise.reject("The cube texture is invalid.")
+var s=r.getEngine()
+if(s&&s.premultipliedAlpha)return Promise.reject("Env texture can only be created when the engine is created with the premultipliedAlpha option set to false.")
+if(0===t.textureType)return Promise.reject("The cube texture should allow HDR (Full Float or Half Float).")
+var a=s.getRenderingCanvas()
+if(!a)return Promise.reject("Env texture can only be created when the engine is associated to a canvas.")
+var l=1
+if(!s.getCaps().textureFloatRender&&(l=2,!s.getCaps().textureHalfFloatRender))return Promise.reject("Env texture can only be created when the browser supports half float or full float rendering.")
+var h=r.width,f=new c.x(s),d={},p=[],_=o.R.Log2(r.width)
+_=Math.round(_)
+for(var m=function(e){for(var n=Math.pow(2,_-e),r=function(r){var o=t.readPixels(r,e),c=s.createRawTexture(o,n,n,5,!1,!1,1,null,l),h=new Promise((function(t,o){var l=new u.D("rgbdEncode","rgbdEncode",null,null,1,null,1,s,!1,void 0,0,void 0,null,!1)
+l.getEffect().executeWhenCompiled((function(){l.onApply=function(e){e._bindTexture("textureSampler",c)}
+var o=s.getRenderWidth(),u=s.getRenderHeight()
+s.setSize(n,n),f.postProcessManager.directRender([l],null),i.w1.ToBlob(a,(function(n){var i=new FileReader
+i.onload=function(n){var i=n.target.result
+d[6*e+r]=i,t()},i.readAsArrayBuffer(n)})),s.setSize(o,u)}))}))
+p.push(h)},o=0;o<6;o++)r(o)},g=0;g<=_;g++)m(g)
+return Promise.all(p).then((function(){f.dispose()
+for(var i={version:1,width:h,irradiance:n._CreateEnvTextureIrradiance(t),specular:{mipmaps:[],lodGenerationScale:t.lodGenerationScale}},r=0,o=0;o<=_;o++)for(var s=0;s<6;s++){var a=d[6*o+s].byteLength
+i.specular.mipmaps.push({length:a,position:r}),r+=a}for(var l=JSON.stringify(i),c=new ArrayBuffer(l.length+1),u=new Uint8Array(c),p=(o=0,l.length);o<p;o++)u[o]=l.charCodeAt(o)
+u[l.length]=0
+var m=e._MagicBytes.length+r+c.byteLength,g=new ArrayBuffer(m),v=new Uint8Array(g),y=new DataView(g),b=0
+for(o=0;o<e._MagicBytes.length;o++)y.setUint8(b++,e._MagicBytes[o])
+for(v.set(new Uint8Array(c),b),b+=c.byteLength,o=0;o<=_;o++)for(s=0;s<6;s++){var E=d[6*o+s]
+v.set(new Uint8Array(E),b),b+=E.byteLength}return g}))},e._CreateEnvTextureIrradiance=function(e){var t=e.sphericalPolynomial
+return null==t?null:{x:[t.x.x,t.x.y,t.x.z],y:[t.y.x,t.y.y,t.y.z],z:[t.z.x,t.z.y,t.z.z],xx:[t.xx.x,t.xx.y,t.xx.z],yy:[t.yy.x,t.yy.y,t.yy.z],zz:[t.zz.x,t.zz.y,t.zz.z],yz:[t.yz.x,t.yz.y,t.yz.z],zx:[t.zx.x,t.zx.y,t.zx.z],xy:[t.xy.x,t.xy.y,t.xy.z]}},e.CreateImageDataArrayBufferViews=function(e,t){if(1!==t.version)throw new Error('Unsupported babylon environment map version "'+t.version+'"')
+var n=t.specular,i=o.R.Log2(t.width)
+if(i=Math.round(i)+1,n.mipmaps.length!==6*i)throw new Error('Unsupported specular mipmaps number "'+n.mipmaps.length+'"')
+for(var r=new Array(i),s=0;s<i;s++){r[s]=new Array(6)
+for(var a=0;a<6;a++){var l=n.mipmaps[6*s+a]
+r[s][a]=new Uint8Array(e.buffer,e.byteOffset+n.specularDataPosition+l.position,l.length)}}return r},e.UploadEnvLevelsAsync=function(t,n,i){if(1!==i.version)throw new Error('Unsupported babylon environment map version "'+i.version+'"')
+var r=i.specular
+if(!r)return Promise.resolve()
+t._lodGenerationScale=r.lodGenerationScale
+var o=e.CreateImageDataArrayBufferViews(n,i)
+return e.UploadLevelsAsync(t,o)},e._OnImageReadyAsync=function(e,t,n,i,r,o,s,a,l,c,u){return new Promise((function(h,f){if(n){var d=t.createTexture(null,!0,!0,null,1,null,(function(e){f(e)}),e)
+i.getEffect().executeWhenCompiled((function(){i.onApply=function(e){e._bindTexture("textureSampler",d),e.setFloat2("scale",1,1)},t.scenes[0].postProcessManager.directRender([i],c,!0,o,s),t.restoreDefaultFramebuffer(),d.dispose(),URL.revokeObjectURL(r),h()}))}else{if(t._uploadImageToTexture(u,e,o,s),a){var p=l[s]
+p&&t._uploadImageToTexture(p._texture,e,o,0)}h()}}))},e.UploadLevelsAsync=function(e,t){var n=this
+if(!i.w1.IsExponentOfTwo(e.width))throw new Error("Texture size must be a power of two")
+var r=Math.round(o.R.Log2(e.width))+1,s=e.getEngine(),c=!1,h=!1,f=null,d=null,p=null,_=s.getCaps()
+if(e.format=5,e.type=0,e.generateMipMaps=!0,e._cachedAnisotropicFilteringLevel=null,s.updateTextureSamplingMode(3,e),_.textureLOD?s.webGLVersion<2?c=!1:_.textureHalfFloatRender&&_.textureHalfFloatLinearFiltering?(c=!0,e.type=2):_.textureFloatRender&&_.textureFloatLinearFiltering&&(c=!0,e.type=1):(c=!1,h=!0,p={}),c)f=new u.D("rgbdDecode","rgbdDecode",null,null,1,null,3,s,!1,void 0,e.type,void 0,null,!1),e._isRGBD=!1,e.invertY=!1,d=s.createRenderTargetCubeTexture(e.width,{generateDepthBuffer:!1,generateMipMaps:!0,generateStencilBuffer:!1,samplingMode:3,type:e.type,format:5})
+else if(e._isRGBD=!0,e.invertY=!0,h)for(var m=e._lodGenerationScale,g=e._lodGenerationOffset,v=0;v<3;v++){var y=(r-1)*m+g,b=g+(y-g)*(1-v/2),E=Math.round(Math.min(Math.max(b,0),y)),T=new a.l(s,a.S.Temp)
+T.isCube=!0,T.invertY=!0,T.generateMipMaps=!1,s.updateTextureSamplingMode(2,T)
+var A=new l.V(null)
+switch(A.isCube=!0,A._texture=T,p[E]=A,v){case 0:e._lodTextureLow=A
+break
+case 1:e._lodTextureMid=A
+break
+case 2:e._lodTextureHigh=A}}var C=[],S=function(i){for(var r=function(r){var o=t[i][r],a=new Blob([o],{type:"image/png"}),l=URL.createObjectURL(a),u=void 0
+if("undefined"==typeof Image)u=createImageBitmap(a).then((function(t){return n._OnImageReadyAsync(t,s,c,f,l,r,i,h,p,d,e)}))
+else{var _=new Image
+_.src=l,u=new Promise((function(t,o){_.onload=function(){n._OnImageReadyAsync(_,s,c,f,l,r,i,h,p,d,e).then((function(){return t()})).catch((function(e){o(e)}))},_.onerror=function(e){o(e)}}))}C.push(u)},o=0;o<6;o++)r(o)}
+for(v=0;v<t.length;v++)S(v)
+if(t.length<r){var R=void 0,x=Math.pow(2,r-1-t.length),M=x*x*4
+switch(e.type){case 0:R=new Uint8Array(M)
+break
+case 2:R=new Uint16Array(M)
+break
+case 1:R=new Float32Array(M)}for(v=t.length;v<r;v++)for(var P=0;P<6;P++)s._uploadArrayBufferViewToTexture(e,R,P,v)}return Promise.all(C).then((function(){d&&(s._releaseFramebufferObjects(d),s._releaseTexture(e),d._swapAndDie(e)),f&&f.dispose(),h&&(e._lodTextureHigh&&e._lodTextureHigh._texture&&(e._lodTextureHigh._texture.isReady=!0),e._lodTextureMid&&e._lodTextureMid._texture&&(e._lodTextureMid._texture.isReady=!0),e._lodTextureLow&&e._lodTextureLow._texture&&(e._lodTextureLow._texture.isReady=!0))}))},e.UploadEnvSpherical=function(e,t){1!==t.version&&h.Y.Warn('Unsupported babylon environment map version "'+t.version+'"')
+var n=t.irradiance
+if(n){var i=new s.i
+r.Vector3.FromArrayToRef(n.x,0,i.x),r.Vector3.FromArrayToRef(n.y,0,i.y),r.Vector3.FromArrayToRef(n.z,0,i.z),r.Vector3.FromArrayToRef(n.xx,0,i.xx),r.Vector3.FromArrayToRef(n.yy,0,i.yy),r.Vector3.FromArrayToRef(n.zz,0,i.zz),r.Vector3.FromArrayToRef(n.yz,0,i.yz),r.Vector3.FromArrayToRef(n.zx,0,i.zx),r.Vector3.FromArrayToRef(n.xy,0,i.xy),e._sphericalPolynomial=i}},e._UpdateRGBDAsync=function(t,n,i,r,o){return t._source=a.S.CubeRawRGBD,t._bufferViewArrayArray=n,t._lodGenerationScale=r,t._lodGenerationOffset=o,t._sphericalPolynomial=i,e.UploadLevelsAsync(t,n).then((function(){t.isReady=!0}))},e._MagicBytes=[134,22,135,150,246,214,150,54],e}()
+a.l._UpdateRGBDAsync=p._UpdateRGBDAsync},6545:(e,t,n)=>{n.d(t,{e0:()=>m,eh:()=>d,RC:()=>_,kK:()=>p})
 var i=n(7480),r=n(3768),o=n(2481),s=n(8649),a=n(9007),l=n(4699),c=function(e){function t(){return null!==e&&e.apply(this,arguments)||this}return(0,i.ZT)(t,e),t._setPrototypeOf=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e},t}(Error),u=n(2859),h=n(5630),f=n(974),d=function(e){function t(n,i){var o=e.call(this,n)||this
 return o.name="LoadFileError",c._setPrototypeOf(o,t.prototype),i instanceof r.g?o.request=i:o.file=i,o}return(0,i.ZT)(t,e),t}(c),p=function(e){function t(n,i){var r=e.call(this,n)||this
 return r.request=i,r.name="RequestFileError",c._setPrototypeOf(r,t.prototype),r}return(0,i.ZT)(t,e),t}(c),_=function(e){function t(n,i){var r=e.call(this,n)||this
@@ -6154,7 +6226,7 @@ function s(e,t){return e?t?t.copyFrom(e):e.clone():e}function a(e){return e&&e.c
 var i=n(7266),r=n(7341),o=n(4573)
 function s(e,t,n){if(void 0===n)return
 const s=e[t],a=`set${t[0].toUpperCase()+t.slice(1)}`
-"function"==typeof e[a]?e[a](n):s instanceof i.Vector4?((0,o.h)(`Expected Vector4, got: ${n}`,n instanceof i.Vector4),s.copyFrom(n)):s instanceof i.Vector3?((0,o.h)(`Expected Vector3, got: ${n}`,n instanceof i.Vector3),s.copyFrom(n)):s instanceof i.Vector2?((0,o.h)(`Expected Vector2, got: ${n}`,n instanceof i.Vector2),s.copyFrom(n)):s instanceof i.Matrix?((0,o.h)(`Expected Matrix, got: ${n}`,n instanceof i.Matrix),s.copyFrom(n)):s instanceof i.Quaternion?((0,o.h)(`Expected Quaternion, got: ${n}`,n instanceof i.Quaternion),s.copyFrom(n)):s instanceof r.Color3?((0,o.h)(`Expected Color3, got: ${n}`,n instanceof r.Color3),s.copyFrom(n)):s instanceof r.Color4?((0,o.h)(`Expected Color4, got: ${n}`,n instanceof r.Color4),s.copyFrom(n)):e[t]=n}function a(e,t){if(t)for(const[n,i]of Object.entries(t))s(e,n,i)}},4573:(e,t,n)=>{function i(e,t){if(!t)throw new Error("Assertion failed: "+e)}n.d(t,{h:()=>i})},5470:(e,t,n)=>{n.d(t,{Z:()=>o})
+"function"==typeof e[a]?e[a](n):s instanceof i.Vector4?((0,o.h)(`Expected Vector4, got: ${String(n)}`,n instanceof i.Vector4),s.copyFrom(n)):s instanceof i.Vector3?((0,o.h)(`Expected Vector3, got: ${String(n)}`,n instanceof i.Vector3),s.copyFrom(n)):s instanceof i.Vector2?((0,o.h)(`Expected Vector2, got: ${String(n)}`,n instanceof i.Vector2),s.copyFrom(n)):s instanceof i.Matrix?((0,o.h)(`Expected Matrix, got: ${String(n)}`,n instanceof i.Matrix),s.copyFrom(n)):s instanceof i.Quaternion?((0,o.h)(`Expected Quaternion, got: ${String(n)}`,n instanceof i.Quaternion),s.copyFrom(n)):s instanceof r.Color3?((0,o.h)(`Expected Color3, got: ${String(n)}`,n instanceof r.Color3),s.copyFrom(n)):s instanceof r.Color4?((0,o.h)(`Expected Color4, got: ${String(n)}`,n instanceof r.Color4),s.copyFrom(n)):e[t]=n}function a(e,t){if(t)for(const[n,i]of Object.entries(t))s(e,n,i)}},4573:(e,t,n)=>{function i(e,t){if(!t)throw new Error("Assertion failed: "+e)}n.d(t,{h:()=>i})},5470:(e,t,n)=>{n.d(t,{Z:()=>o})
 var i=n(296),r=n(2600)
 class o extends r.Z{}o.schema={value:{type:i.Yk.Array},overrides:{type:i.Yk.JSON,default:{}}}},2600:(e,t,n)=>{n.d(t,{Z:()=>r})
 var i=n(296)
@@ -6258,8 +6330,8 @@ function v(e){return e.toString()}var y=n(4573),b=n(4015),E=n(7266)
 class T extends r.xP{execute(){var e,t,n,i,r,o,s,a,l,c,u,h,f,d,p,_
 null===(e=this.queries.parent.added)||void 0===e||e.forEach((e=>this.setup(e))),null===(t=this.queries.transformNode.added)||void 0===t||t.forEach((e=>this.setupTransformNode(e))),null===(n=this.queries.position.added)||void 0===n||n.forEach((e=>this.setPosition(e))),null===(i=this.queries.position.changed)||void 0===i||i.forEach((e=>this.updatePosition(e))),null===(r=this.queries.position.removed)||void 0===r||r.forEach((e=>this.removePosition(e))),null===(o=this.queries.rotation.added)||void 0===o||o.forEach((e=>this.setRotation(e))),null===(s=this.queries.rotation.changed)||void 0===s||s.forEach((e=>this.updateRotation(e))),null===(a=this.queries.rotation.removed)||void 0===a||a.forEach((e=>this.removeRotation(e))),null===(l=this.queries.scale.added)||void 0===l||l.forEach((e=>this.setScale(e))),null===(c=this.queries.scale.changed)||void 0===c||c.forEach((e=>this.updateScale(e))),null===(u=this.queries.scale.removed)||void 0===u||u.forEach((e=>this.removeScale(e))),null===(h=this.queries.pivot.added)||void 0===h||h.forEach((e=>this.setPivot(e))),null===(f=this.queries.pivot.changed)||void 0===f||f.forEach((e=>this.updatePivot(e))),null===(d=this.queries.pivot.removed)||void 0===d||d.forEach((e=>this.removePivot(e))),null===(p=this.queries.parent.removed)||void 0===p||p.forEach((e=>this.remove(e))),null===(_=this.queries.transformNode.removed)||void 0===_||_.forEach((e=>this.removeTransformNode(e)))}setup(e){if(e.hasComponent(f.Z))return
 const t=new b.Y(`${v(e)}__TransformNode`)
-e.addComponent(f.Z,{value:t})}remove(e){e.removeComponent(f.Z)}getTransformNode(e,t=!1){const n=t?e.getComponent(f.Z)||e.getRemovedComponent(f.Z):e.getComponent(f.Z)
-return(0,y.h)("No valid ECSY TransformNode component found on this Entity.",n&&n.value),n.value}setupTransformNode(e){const t=e.getComponent(d.default);(0,y.h)("No Parent component found",t)
+e.addComponent(f.Z,{value:t})}remove(e){e.removeComponent(f.Z)}getTransformNode(e){const t=arguments.length>1&&void 0!==arguments[1]&&arguments[1]?e.getComponent(f.Z)||e.getRemovedComponent(f.Z):e.getComponent(f.Z)
+return(0,y.h)("No valid ECSY TransformNode component found on this Entity.",t&&t.value),t.value}setupTransformNode(e){const t=e.getComponent(d.default);(0,y.h)("No Parent component found",t)
 const n=e.getMutableComponent(f.Z),i=t.value,r=n.value
 if(r&&(n.cloneNode&&(n.value=r.clone(`${v(e)}__TransformNode__cloned`,null,!0)),i)){const e=i.getComponent(f.Z);(0,y.h)("The parent Entity does not have a valid TransformNode component",null==e?void 0:e.value),r.parent=e.value,r.computeWorldMatrix(!0)}}removeTransformNode(e){const t=e.getRemovedComponent(f.Z);(0,y.h)("TransformNode Component does not have a valid TransformNode instance.",t.value),t.value.getChildren().forEach((e=>e.parent=null)),t.value.dispose()}setPosition(e){this.world.babylonManager.setProperty(e,this.getTransformNode(e),"position",e.getComponent(p.Z).value)}updatePosition(e){this.world.babylonManager.updateProperty(e,this.getTransformNode(e),"transform","position",e.getComponent(p.Z).value)}removePosition(e){this.getTransformNode(e,!0).position.setAll(0)}setRotation(e){this.world.babylonManager.setProperty(e,this.getTransformNode(e),"rotation",e.getComponent(_.Z).value)}updateRotation(e){this.world.babylonManager.updateProperty(e,this.getTransformNode(e),"transform","rotation",e.getComponent(_.Z).value)}removeRotation(e){this.getTransformNode(e,!0).rotation.setAll(0)}setScale(e){this.world.babylonManager.setProperty(e,this.getTransformNode(e),"scaling",e.getComponent(m.Z).value)}updateScale(e){this.world.babylonManager.updateProperty(e,this.getTransformNode(e),"transform","scaling",e.getComponent(m.Z).value)}removeScale(e){this.getTransformNode(e,!0).scaling.setAll(1)}setPivot(e){this.world.babylonManager.setProperty(e,this.getTransformNode(e),"pivotPoint",e.getComponent(g.Z).value)}updatePivot(e){this.world.babylonManager.updateProperty(e,this.getTransformNode(e),"transform","pivotPoint",e.getComponent(g.Z).value)}removePivot(e){this.getTransformNode(e,!0).setPivotPoint(E.Vector3.Zero())}}T.queries={parent:{components:[d.default],listen:{added:!0,removed:!0}},transformNode:{components:[f.Z],listen:{added:!0,removed:!0}},position:{components:[p.Z],listen:{added:!0,changed:!0,removed:!0}},rotation:{components:[_.Z],listen:{added:!0,changed:!0,removed:!0}},scale:{components:[m.Z],listen:{added:!0,changed:!0,removed:!0}},pivot:{components:[g.Z],listen:{added:!0,changed:!0,removed:!0}}}
 var A=n(5865),C=n(3036),S=n(3542)
@@ -6332,9 +6404,10 @@ class ae extends M{constructor(){super(...arguments),this.instanceComponentConst
 const t=new se.O(oe.Z.name,this.core.scene)
 return(0,P.f)(t,e),t}}ae.queries=Object.assign(Object.assign({},x),{factory:{components:[oe.Z],listen:{added:!0,changed:!0,removed:!0}}})
 class le extends R{execute(){var e,t,n
-super.execute(),null===(e=this.queries.Material.removed)||void 0===e||e.forEach((e=>this.remove(e))),null===(t=this.queries.Material.added)||void 0===t||t.forEach((e=>this.setup(e))),null===(n=this.queries.Material.changed)||void 0===n||n.forEach((e=>this.setup(e))),super.afterExecute()}hasMesh(e,t=!1){const n=e.getComponent(N.Z,t)
-return!!(null==n?void 0:n.value)}getMesh(e,t=!1){const n=t?e.getComponent(N.Z)||e.getRemovedComponent(N.Z):e.getComponent(N.Z)
-return(0,y.h)("No valid ECSY Mesh component found on this Entity.",n&&n.value),n.value}setup(e){const t=this.getMesh(e),n=e.getComponent(K.Z)
+super.execute(),null===(e=this.queries.Material.removed)||void 0===e||e.forEach((e=>this.remove(e))),null===(t=this.queries.Material.added)||void 0===t||t.forEach((e=>this.setup(e))),null===(n=this.queries.Material.changed)||void 0===n||n.forEach((e=>this.setup(e))),super.afterExecute()}hasMesh(e){let t=arguments.length>1&&void 0!==arguments[1]&&arguments[1]
+const n=e.getComponent(N.Z,t)
+return!!(null==n?void 0:n.value)}getMesh(e){const t=arguments.length>1&&void 0!==arguments[1]&&arguments[1]?e.getComponent(N.Z)||e.getRemovedComponent(N.Z):e.getComponent(N.Z)
+return(0,y.h)("No valid ECSY Mesh component found on this Entity.",t&&t.value),t.value}setup(e){const t=this.getMesh(e),n=e.getComponent(K.Z)
 if(n.value){const{value:e,overrides:i}=n;(0,P.f)(e,i),t.material=e}else console.warn(`No material was applied to mesh "${t.name}".`)}remove(e){if(this.hasMesh(e,!0)){const t=this.getMesh(e,!0)
 t.material&&(t.material=null)}}}le.queries=Object.assign(Object.assign({},x),{Material:{components:[N.Z,K.Z],listen:{added:!0,changed:[K.Z],removed:!0}}})
 var ce=n(218),ue=n(4790),he=n(6956)
@@ -6406,7 +6479,7 @@ super.execute(),null===(e=this.queries.factory.added)||void 0===e||e.forEach((e=
 this.addInstance(e,n)}update(e){const t=e.getComponent(this.factoryComponentConstructor),n=e.getComponent(this.instanceComponentConstructor);(0,y.h)("No instance component found",n)
 const i=n;(0,y.h)("Existing instance array component has invalid value",i.value)
 const r=i.value.find((e=>e instanceof this.instanceConstructor));(0,y.h)("No instance found",r),this.updateInstance(e,r,t)}remove(e){this.removeInstance(e)}updateInstance(e,t,n){this.world.babylonManager.setProperties(e,t,n)}addInstance(e,t){const n=e.getMutableComponent(this.instanceComponentConstructor)
-if(n){const e=n;(0,y.h)("Existing instance array component has invalid value",e.value),e.value=[...e.value,t]}else e.addComponent(this.instanceComponentConstructor,{value:[t]})}removeInstance(e){const t=e.getComponent(this.instanceComponentConstructor);(0,y.h)("No instance component found",null==t?void 0:t.value)
+if(n){const e=n;(0,y.h)("Existing instance array component has invalid value",e.value),e.value=[...e.value,t]}else e.addComponent(this.instanceComponentConstructor,{value:[t]})}removeInstance(e){const t=e.getComponent(this.instanceComponentConstructor,!0);(0,y.h)("No instance component found",null==t?void 0:t.value)
 const n=t;(0,y.h)("Existing instance array component has invalid value",n.value)
 const i=n.value.find((e=>e instanceof this.instanceConstructor));(0,y.h)("No instance found to remove",i)
 const r=n.value.filter((e=>e!==i))
@@ -6424,7 +6497,7 @@ return new We.O(e.name,e.options,null,e.samplingMode,null===(t=this.core)||void 
 class Xe extends R{execute(){var e,t,n
 super.execute(),null===(e=this.queries.postprocess.added)||void 0===e||e.forEach((e=>this.setup(e))),null===(t=this.queries.postprocess.changed)||void 0===t||t.forEach((e=>this.update(e))),null===(n=this.queries.postprocess.removed)||void 0===n||n.forEach((e=>this.remove(e))),super.afterExecute()}setup(e){const t=e.getComponent(Fe.Z);(0,y.h)("Failed to add PostProcess Component. No valid PostProcess found.",!!(null==t?void 0:t.value))
 const n=t.value,i=this.getCamera(e)
-n.forEach((e=>this.addPostProcess(i,e)))}getCamera(e){const t=e.getComponent(A.Z)
+n.forEach((e=>this.addPostProcess(i,e)))}getCamera(e){const t=e.getComponent(A.Z,!0)
 return(0,y.h)("No Camera found for post processing",null==t?void 0:t.value),t.value}addPostProcess(e,t){const n=e.getScene()
 e.attachPostProcess(t),n.postProcesses.includes(t)||n.postProcesses.push(t)}removePostProcess(e,t){const n=e.getScene(),i=n.postProcesses.indexOf(t)
 e.detachPostProcess(t),-1!==i&&n.postProcesses.splice(i,1)}update(e){const t=e.getMutableComponent(Fe.Z);(0,y.h)("Failed to add PostProcess Component. No valid PostProcess found.",!!(null==t?void 0:t.value))
@@ -6452,7 +6525,7 @@ return(0,P.f)(o,r),o}}$e.queries=Object.assign(Object.assign({},x),{factory:{com
 class et extends R{execute(){var e,t,n
 super.execute(),null===(e=this.queries.postprocess.added)||void 0===e||e.forEach((e=>this.setup(e))),null===(t=this.queries.postprocess.changed)||void 0===t||t.forEach((e=>this.update(e))),null===(n=this.queries.postprocess.removed)||void 0===n||n.forEach((e=>this.remove(e))),super.afterExecute()}setup(e){const t=e.getComponent(je.Z);(0,y.h)("Failed to add PostProcess Component. No valid PostProcess found.",!!(null==t?void 0:t.value))
 const n=t.value,i=this.getCamera(e)
-n.forEach((e=>this.addPostProcess(i,e)))}getCamera(e){const t=e.getComponent(A.Z)
+n.forEach((e=>this.addPostProcess(i,e)))}getCamera(e){const t=e.getComponent(A.Z,!0)
 return(0,y.h)("No Camera found for post processing",null==t?void 0:t.value),t.value}addPostProcess(e,t){const{postProcessRenderPipelineManager:n}=e.getScene()
 n.supportedPipelines.includes(t)||(n.addPipeline(t),n.attachCamerasToRenderPipeline(t.name,e))}removePostProcess(e,t){const{postProcessRenderPipelineManager:n}=e.getScene()
 n.detachCamerasFromRenderPipeline(t.name,e)}update(e){const t=e.getMutableComponent(je.Z);(0,y.h)("Failed to add PostProcessRenderPipeline Component. No valid PostProcessRenderPipeline found.",!!(null==t?void 0:t.value))
@@ -6474,7 +6547,8 @@ var ot=n(7245)
 const st=Object.values(i),at=[l,h,T,I,L,F,U,G,H,Y,q,J,te,re,ae,le,fe,_e,ve,Ee,Te,Me,Le,Ue,Ge,He,Xe,Qe,$e,et,rt]},7245:(e,t,n)=>{n.r(t),n.d(t,{default:()=>u})
 var i=n(296),r=n(3185),o=n(4573),s=n(7266),a=n(7341)
 const l=60
-class c{constructor(){this.transitionRegistry=new WeakMap}injectAnimationDependencies(e){this.Animation=e}setProperties(e,t,n){(0,r.f)(t,n)}setProperty(e,t,n,i){(0,r.c)(t,n,i)}updateProperties(e,t,n,i){Object.entries(i).forEach((([i,r])=>this.updateProperty(e,t,n,i,r)))}updateProperty(e,t,n,i,o){const s=n+"."+i,a=this.getTransition(e,s)
+class c{constructor(){this.transitionRegistry=new WeakMap}injectAnimationDependencies(e){this.Animation=e}setProperties(e,t,n){(0,r.f)(t,n)}setProperty(e,t,n,i){(0,r.c)(t,n,i)}updateProperties(e,t,n,i){Object.entries(i).forEach((i=>{let[r,o]=i
+return this.updateProperty(e,t,n,r,o)}))}updateProperty(e,t,n,i,o){const s=n+"."+i,a=this.getTransition(e,s)
 this.hasAnimationSupport&&a&&a.duration>0?this.transitionProperty(t,a,i,o):(0,r.c)(t,i,o)}registerTransition(e,t){this.transitionRegistry.has(e)||this.transitionRegistry.set(e,new Map),this.transitionRegistry.get(e).set(t.property,t)}unregisterTransition(e,t){if(t){const n=this.transitionRegistry.get(e)
 n&&n.delete(t.property)}else this.transitionRegistry.delete(e)}transitionProperty(e,t,n,i){const r=e.getScene(),{frameRate:s=l,duration:a,easingFunction:c}=t,{Animation:u}=this;(0,o.h)("Cannot transition property without Animation support",u)
 const h=e[n].clone?e[n].clone():e[n],f=new u(`${n}Transition`,n,s,this.getAnimationType(i),u.ANIMATIONLOOPMODE_CONSTANT)
@@ -6488,10 +6562,11 @@ if(e instanceof a.Color4)return t.ANIMATIONTYPE_COLOR4
 if(e instanceof s.Matrix)return t.ANIMATIONTYPE_MATRIX
 if(e instanceof s.Quaternion)return t.ANIMATIONTYPE_QUATERNION
 if("number"==typeof e)return t.ANIMATIONTYPE_FLOAT
-throw new Error(`Could not determine animation type for value ${e}`)}getTransition(e,t){const n=this.transitionRegistry.get(e)
+throw new Error(`Could not determine animation type for value ${String(e)}`)}getTransition(e,t){const n=this.transitionRegistry.get(e)
 if(n)return n.get(t)}get hasAnimationSupport(){return!!this.Animation}}class u extends i.q3{constructor(e){super(e),this.babylonManager=new c}}},2172:(__unused_webpack_module,__webpack_exports__,__webpack_require__)=>{var _utils_js__WEBPACK_IMPORTED_MODULE_1__=__webpack_require__(2795),_Utils_js__WEBPACK_IMPORTED_MODULE_0__=__webpack_require__(228)
 function hookConsoleAndErrors(e){["error","warning","log"].forEach((t=>{if("function"==typeof console[t]){var n=console[t].bind(console)
-console[t]=(...i)=>(e.send({method:"console",type:t,args:JSON.stringify(i)}),n.apply(null,i))}})),window.addEventListener("error",(t=>{e.send({method:"error",error:JSON.stringify({message:t.error.message,stack:t.error.stack})})}))}function includeRemoteIdHTML(e){let t=document.createElement("div")
+console[t]=function(){for(var i=arguments.length,r=new Array(i),o=0;o<i;o++)r[o]=arguments[o]
+return e.send({method:"console",type:t,args:JSON.stringify(r)}),n.apply(null,r)}}})),window.addEventListener("error",(t=>{e.send({method:"error",error:JSON.stringify({message:t.error.message,stack:t.error.stack})})}))}function includeRemoteIdHTML(e){let t=document.createElement("div")
 return t.style.cssText="\n    align-items: center;\n    background-color: #333;\n    color: #aaa;\n    display:flex;\n    font-family: Arial;\n    font-size: 1.1em;\n    height: 40px;\n    justify-content: center;\n    left: 0;\n    opacity: 0.9;\n    position: absolute;\n    right: 0;\n    text-align: center;\n    top: 0;\n  ",t.innerHTML=`Open ECSY devtools to connect to this page using the code:&nbsp;<b style="color: #fff">${e}</b>&nbsp;<button onClick="generateNewCode()">Generate new code</button>`,document.body.appendChild(t),t}function enableRemoteDevtools(remoteId){if(!_Utils_js__WEBPACK_IMPORTED_MODULE_0__.Ym)return void console.warn("Remote devtools not available outside the browser")
 window.generateNewCode=()=>{window.localStorage.clear(),remoteId=(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.O)(6),window.localStorage.setItem("ecsyRemoteId",remoteId),window.location.reload(!1)},remoteId=remoteId||window.localStorage.getItem("ecsyRemoteId"),remoteId||(remoteId=(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.O)(6),window.localStorage.setItem("ecsyRemoteId",remoteId))
 let infoDiv=includeRemoteIdHTML(remoteId)
@@ -6580,7 +6655,8 @@ i.reactive&&-1!==i.Components.indexOf(e)&&i.eventDispatcher.dispatchEvent(a.prot
 return!0}hasAnyComponents(e){for(var t=0;t<e.length;t++)if(this.hasComponent(e[t]))return!0
 return!1}removeAllComponents(e){return this._entityManager.entityRemoveAllComponents(this,e)}copy(e){for(var t in e._components){var n=e._components[t]
 this.addComponent(n.constructor),this.getComponent(n.constructor).copy(n)}return this}clone(){return new v(this._entityManager).copy(this)}reset(){for(var e in this.id=this._entityManager._nextEntityId++,this._ComponentTypes.length=0,this.queries.length=0,this._components)delete this._components[e]}remove(e){return this._entityManager.removeEntity(this,e)}}const y={entityPoolSize:0,entityClass:v}
-class b{constructor(e={}){if(this.options=Object.assign({},y,e),this.componentsManager=new g(this),this.entityManager=new f(this),this.systemManager=new r(this),this.enabled=!0,this.eventQueues={},i.Ym&&"undefined"!=typeof CustomEvent){var t=new CustomEvent("ecsy-world-created",{detail:{world:this,version:"0.3.1"}})
+class b{constructor(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{}
+if(this.options=Object.assign({},y,e),this.componentsManager=new g(this),this.entityManager=new f(this),this.systemManager=new r(this),this.enabled=!0,this.eventQueues={},i.Ym&&"undefined"!=typeof CustomEvent){var t=new CustomEvent("ecsy-world-created",{detail:{world:this,version:"0.3.1"}})
 window.dispatchEvent(t)}this.lastTime=(0,i.zO)()/1e3}registerComponent(e,t){return this.componentsManager.registerComponent(e,t),this}registerSystem(e,t){return this.systemManager.registerSystem(e,t),this}hasRegisteredComponent(e){return this.componentsManager.hasComponent(e)}unregisterSystem(e){return this.systemManager.unregisterSystem(e),this}getSystem(e){return this.systemManager.getSystem(e)}getSystems(){return this.systemManager.getSystems()}execute(e,t){e||(e=(t=(0,i.zO)()/1e3)-this.lastTime,this.lastTime=t),this.enabled&&(this.systemManager.execute(e,t),this.entityManager.processDeferredRemoval())}stop(){this.enabled=!1}play(){this.enabled=!0}createEntity(e){return this.entityManager.createEntity(e)}stats(){return{entities:this.entityManager.stats(),system:this.systemManager.stats()}}}class E{canExecute(){if(0===this._mandatoryQueries.length)return!0
 for(let e=0;e<this._mandatoryQueries.length;e++)if(0===this._mandatoryQueries[e].entities.length)return!1
 return!0}getName(){return this.constructor.getName()}constructor(e,t){if(this.world=e,this.enabled=!0,this._queries={},this.queries={},this.priority=0,this.executeTime=0,t&&t.priority&&(this.priority=t.priority),this._mandatoryQueries=[],this.initialized=!0,this.constructor.queries)for(var n in this.constructor.queries){var r=this.constructor.queries[n],o=r.components
