@@ -1,6 +1,5 @@
-.buttons {
+a.source {
   position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 10px;
+  right: 10px;
 }
