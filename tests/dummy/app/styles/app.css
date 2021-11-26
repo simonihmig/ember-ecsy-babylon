@@ -8,9 +8,19 @@ canvas {
   height: 100%;
 }
 
-.buttons {
+button {
+  display: inline-block;
+  width: auto;
+}
+
+header {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }

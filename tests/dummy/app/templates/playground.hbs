@@ -1,4 +1,4 @@
-{{#if this.showViewer}}
+{{#if this.showView}}
 
 {{!-- ECSY demo --}}
   <EcsyBabylon
@@ -7,88 +7,140 @@
     @adaptToDeviceRatio={{true}}
   >
     <:ecsy as |Scene|>
-      <Scene @clearColor={{color 0.9 0.9 0.9}} @ambientColor={{color 0.9 0.9 0.9}} as |World|>
-        {{#if this.arcRotateCamera}}
-          <World.Entity
-            {{arc-rotate-camera lowerRadiusLimit=5 upperRadiusLimit=20 radius=10}}
-          />
-        {{/if}}
-
+      <Scene @clearColor={{color 0.8 0.8 0.8}} @environmentTexture="https://playground.babylonjs.com/textures/Studio_Softbox_2Umbrellas_cube_specular.env" as |World|>
         <World.Entity
-          {{directional-light direction=(vector -1 -1 0) position=(vector 0 10 0) intensity=1 shadowMinZ = 0.1 shadowMaxZ=20}}
-          {{shadow-generator
-            size=512
-            useBlurCloseExponentialShadowMap=true
-            forceBackFacesOnly=false
-            blurKernel=8
-            useKernelBlur=true
-            bias=0
-            normalBias=0
-            darkness=0.2
-            transparencyShadow=true
+          {{arc-rotate-camera
+            alpha=-1.57
+            beta=1.4
+            radius=10
+            lowerRadiusLimit=5
+            upperRadiusLimit=20
+          }}
+          {{default-rendering-pipeline
+            depthOfFieldEnabled=this.dof
+            depthOfField=(hash
+              focusDistance=this.focusDistance
+              focalLength=1000
+              fStop=1.8
+            )
           }}
         />
 
-        {{!-- GLTF mesh example --}}
-        {{!--
-        {{#if this.showEntity}}
-          <World.LoadGltf @fileUrl="test.gltf" as |ac|>
-
-            <World.Entity @name="mesh wrapper" {{rotation (vector 0 45 0)}}>
-              {{#each ac.meshes as |_mesh|}}
-                <World.Entity {{mesh _mesh}} {{scale (vector 0.05 0.05 0.05)}}/>
-              {{/each}}
-            </World.Entity>
-          </World.LoadGltf>
+        {{#if this.showLight}}
+          <World.Entity
+            {{directional-light direction=(vector -1 -1 0) position=(vector 0 10 0) intensity=1 shadowMinZ=0.1 shadowMaxZ=20}}
+            {{shadow-generator
+              size=1024
+              useBlurCloseExponentialShadowMap=true
+              blurKernel=8
+              useKernelBlur=true
+              bias=0
+              normalBias=0.05
+              darkness=0.6
+              transparencyShadow=true
+            }}
+          />
         {{/if}}
-        --}}
 
-        {{#if this.showEntity}}
-          <World.Entity @name="node"
-            {{rotation (vector 0 this.rotateValue 0 deg=true)}}
+        <World.Entity @name="node"
+          {{rotation (vector 0 this.rotateValue 0 deg=true)}}
+          {{transitions
+            (array
+              (hash property="transform.rotation" duration=200)
+            )
+          }}
+        >
+
+          <World.Entity
+            {{box size=1 width=2}}
+            {{position (vector -1 0 0)}}
+            {{pbr-material albedoColor=(color 0 1 1) metallic=0 roughness=0.5}}
+          />
+
+          <World.Entity
+            {{sphere diameter=1.5}}
+            {{position (vector 1 1 0)}}
+            {{pbr-material albedoColor=this.color metallic=this.metallic roughness=this.roughness}}
+          />
+        </World.Entity>
+
+
+        {{#each this.colors as |selectableColor index|}}
+          <World.Entity
+            {{sphere diameter=0.5}}
+            {{pbr-material albedoColor=selectableColor metallic=0 roughness=0.5}}
+            {{position (vector index (if (eq this.color selectableColor) -1.8 -2) 0)}}
+            {{scale (if (eq this.hover index) (vector 1.2 1.2 1.2) (vector 1 1 1))}}
+            {{action pick=(fn this.setValue "color" selectableColor) pointerOver=(fn this.setValue "hover" index) pointerOut=(fn this.setValue "hover" null)}}
             {{transitions
               (array
-                (hash property="transform.rotation" duration=200)
+                (hash property="transform.position" duration=200)
+                (hash property="transform.scaling" duration=100)
               )
             }}
-          >
+          />
+        {{/each}}
 
-            <World.Entity
-              {{box size=2 width=3}}
-              {{pbr-material ambientColor=(color 0 1 0) albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
-            />
 
-            <World.Entity
-              {{sphere diameter=3}}
-              {{pbr-material ambientColor=(color 1 0 0) albedoColor=(color 1 0 0) metallic=0.5 roughness=0.5}}
-              {{position (vector 1 2 1)}}
-            />
-          </World.Entity>
-        {{/if}}
 
         <World.Entity
-          {{sphere diameter=0.5}}
-          {{pbr-material albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
-          {{position (vector 0 -2 0)}}
-          {{action pick=this.toggleEntity pointerOver=(if this.showEntity (fn this.rotate "left" 5) undefined) pointerOut=(if this.showEntity (fn this.rotate "right" 5) undefined)}}
+          {{plane size=20}}
+          {{position (vector 0 -3 0)}}
+          {{rotation (vector 90 0 0 deg=true)}}
+          {{shadow-only-material}}
         />
 
       </Scene>
     </:ecsy>
     <:html>
-      <p>This is accessible fallback content.</p>
+      <p>Put accessible fallback content here.</p>
     </:html>
   </EcsyBabylon>
 
 {{/if}}
 
-<div class="buttons">
-  <button type="button" {{on "click" this.toggleViewer}}>Toggle View</button>
-  {{#if this.showViewer}}
-    <button type="button" {{on "click" this.toggleCamera}}>Toggle Camera</button>
-    <button type="button" {{on "click" this.toggleEntity}}>Toggle Box</button>
-    <button type="button" {{on "click" (fn this.rotate "left" 45)}}>Rotate left</button>
-    <button type="button" {{on "click" (fn this.rotate "right" 45)}}>Rotate right</button>
+<header>
+  <fieldset>
+    <label for="showView">
+      <input type="checkbox" id="showView" name="switch" role="switch" checked={{this.showView}} {{on "change" (fn this.setCheck "showView")}}>
+      Toggle View
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <label for="showLight">
+      <input type="checkbox" id="showLight" name="switch" role="switch" checked={{this.showLight}} {{on "change" (fn this.setCheck "showLight")}}>
+      Directional Light
+    </label>
+  </fieldset>
+
+  <label for="metallic">Metallic
+    <input type="range" min="0" max="1" step="0.01" value={{this.metallic}} id="metallic" name="metallic" {{on "input" (fn this.setInput "metallic")}}>
+  </label>
+
+  <label for="roughness">Roughness
+    <input type="range" min="0" max="1" step="0.01" value={{this.roughness}} id="roughness" name="roughness" {{on "input" (fn this.setInput "roughness")}}>
+  </label>
+
+  <fieldset>
+    <label for="dof">
+      <input type="checkbox" id="dof" name="switch" role="switch" checked={{this.dof}} {{on "change" (fn this.setCheck "dof")}}>
+      DoF
+    </label>
+  </fieldset>
+
+  {{#if this.dof}}
+    <label for="focusDistance">Distance
+      <input type="range" min="1000" max="20000" step="1" value={{this.focusDistance}} id="focusDistance" name="focusDistance" {{on "input" (fn this.setInput "focusDistance")}}>
+    </label>
   {{/if}}
-</div>
+
+  <fieldset>
+    <legend>Rotate</legend>
+    <button type="button" {{on "click" (fn this.rotate "left" 45)}}>&lt;</button>
+    <button type="button" {{on "click" (fn this.rotate "right" 45)}}>&gt;</button>
+  </fieldset>
+
+
+</header>
 

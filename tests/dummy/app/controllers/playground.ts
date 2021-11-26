@@ -5,6 +5,9 @@ import * as components from 'ecsy-babylon/components';
 // eslint-disable-next-line no-restricted-imports
 import { systems } from 'ecsy-babylon';
 import { mapComponentImports } from 'ember-ecsy-babylon';
+// we use an .env texture, so make sure we have the loader in our (tree-shaken) bundle!
+import '@babylonjs/core/Materials/Textures/Loaders/envTextureLoader';
+import { Color3 } from '@babylonjs/core/Maths/math.color';
 
 export default class PlaygroundController extends Controller {
   components = mapComponentImports(components);
@@ -14,13 +17,30 @@ export default class PlaygroundController extends Controller {
   rotateValue = 45;
 
   @tracked
-  showEntity = true;
+  showView = true;
 
   @tracked
-  arcRotateCamera = true;
+  showLight = true;
 
   @tracked
-  showViewer = true;
+  metallic = 0.5;
+
+  @tracked
+  roughness = 0.5;
+
+  colors = [Color3.Red(), Color3.Green(), Color3.Blue()];
+
+  @tracked
+  color = this.colors[0];
+
+  @tracked
+  dof = false;
+
+  @tracked
+  focusDistance = 10000;
+
+  @tracked
+  hover: number | null = null;
 
   @action
   rotate(direction: 'right' | 'left', degrees: number): void {
@@ -31,17 +51,20 @@ export default class PlaygroundController extends Controller {
   }
 
   @action
-  toggleCamera(): void {
-    this.arcRotateCamera = !this.arcRotateCamera;
+  setCheck(property: keyof this, event: Event): void {
+    this[property] = (event.target as HTMLInputElement).checked as any;
   }
 
   @action
-  toggleEntity(): void {
-    this.showEntity = !this.showEntity;
+  setInput(property: keyof this, event: Event): void {
+    this[property] = parseFloat(
+      (event.target as HTMLInputElement).value
+    ) as any;
   }
 
   @action
-  toggleViewer(): void {
-    this.showViewer = !this.showViewer;
+  setValue(property: keyof this, value: unknown): void {
+    // @ts-ignore
+    this[property] = value;
   }
 }
