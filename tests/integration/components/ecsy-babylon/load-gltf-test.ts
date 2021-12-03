@@ -24,7 +24,7 @@ module('Integration | Component | ecsy-babylon/load-gltf', function (hooks) {
 
     await waitUntil(getData);
     const data = getData() as AssetContainer;
-    assert.equal(data.meshes.length, 1);
+    assert.equal(data.meshes.length, 2);
     assert.equal(data.materials.length, 1);
   });
 
@@ -41,7 +41,7 @@ module('Integration | Component | ecsy-babylon/load-gltf', function (hooks) {
 
     await waitUntil(getData);
     const data = getData() as AssetContainer;
-    assert.equal(data.meshes.length, 1);
+    assert.equal(data.meshes.length, 2);
     assert.equal(data.materials.length, 1);
   });
 });
