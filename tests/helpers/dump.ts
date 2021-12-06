@@ -1,9 +1,11 @@
 import { TestContext } from 'ember-test-helpers';
 import { helper } from '@ember/component/helper';
 
-export default function setupDataDumper(hooks: NestedHooks): () => unknown {
-  let data: unknown;
-  const dumpHelper = helper(function dump([argument]: unknown[]) {
+export default function setupDataDumper<T = unknown>(
+  hooks: NestedHooks
+): () => T | undefined {
+  let data: T | undefined;
+  const dumpHelper = helper(function dump([argument]: T[]) {
     data = argument;
   });
 

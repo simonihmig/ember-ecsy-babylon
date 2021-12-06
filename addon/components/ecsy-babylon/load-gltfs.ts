@@ -28,17 +28,16 @@ type FileHash = {
 };
 
 export type AssetContainerHash = {
-  [index: string]: AssetContainer;
+  [index: string]: AssetContainer | null;
 };
 
 export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<
   EcsyBabylonContext,
   EcsyBabylonLoadGltfsArgs
 > {
-  @tracked assets?: object;
+  @tracked assetContainerHash: AssetContainerHash = {};
 
   private core: BabylonCore;
-  private assetContainerHash?: AssetContainerHash;
   private fileHash: FileHash;
 
   constructor(owner: unknown, args: EcsyBabylonLoadGltfsArgs) {
@@ -76,9 +75,7 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<
 
     taskFor(this.loadModels).cancelAll();
 
-    const disposable = Object.values(this.assetContainerHash || {});
-    this.assets = undefined;
-    this.assetContainerHash = undefined;
+    const disposable = Object.values(this.assetContainerHash);
     this.cleanup(disposable);
   }
 
@@ -123,47 +120,26 @@ export default class EcsyBabylonLoadGltfs extends DomlessGlimmerComponent<
 
   setup(ach: AssetContainerHash): void {
     // cleanup old AssetContainers
-    const disposable: AssetContainer[] = [];
-    Object.entries(this.assetContainerHash || {}).forEach(([name, ac]) => {
-      if (Object.prototype.hasOwnProperty.call(ach, name) && ac) {
-        disposable.push(ac);
-      }
-    });
-
-    this.assetContainerHash = {
-      ...this.assetContainerHash,
-      ...ach,
-    };
-
-    this.assets = Object.entries(this.assetContainerHash).reduce(
-      (result, [name, ac]) => {
-        const assets = ac
-          ? {
-              // we only yield meshes and materials for now
-              meshes: ac.meshes.filter((m) => m.getTotalVertices() > 0),
-              materials: ac.materials,
-            }
-          : null;
-
-        return {
-          ...result,
-          [name]: assets,
-        };
-      },
-      {}
+    const disposableEntries = Object.entries(this.assetContainerHash).filter(
+      ([name]) => ach[name] || !this.args.files[name]
     );
+
+    this.assetContainerHash = Object.fromEntries([
+      ...Object.entries(this.assetContainerHash).filter(
+        ([name]) => !disposableEntries.some(([otherName]) => name === otherName)
+      ),
+      ...Object.entries(ach),
+    ]);
 
     // do the cleanup after the frame has rendered, to allow essy systems to do their cleanup first
     // e.g. when adding child nodes to an asset mesh, `ac.dispose()` would also recursively dispose those nodes not owned by
     // our asset container
     this.core.engine.onEndFrameObservable.addOnce(() =>
-      this.cleanup(disposable)
+      this.cleanup(disposableEntries.map(([, ac]) => ac))
     );
   }
 
-  cleanup(assetContainers: AssetContainer[]): void {
-    assetContainers.forEach((ac) => {
-      ac.dispose();
-    });
+  cleanup(assetContainers: (AssetContainer | null)[]): void {
+    assetContainers.forEach((ac) => ac?.dispose());
   }
 }
