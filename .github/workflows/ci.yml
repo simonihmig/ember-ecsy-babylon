@@ -63,8 +63,10 @@ jobs:
           - ember-canary
           - ember-default-with-jquery
           - ember-classic
-          - embroider-safe
-          - embroider-optimized
+# blocked on ember-resources and https://github.com/embroider-build/embroider/issues/1020
+#          - embroider-safe
+#          - embroider-optimized
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
