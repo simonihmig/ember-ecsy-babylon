@@ -30,10 +30,10 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
     });
     const data = getData()!;
     assert.deepEqual(Object.keys(data), ['obj1', 'obj2']);
-    assert.equal(data.obj1.meshes.length, 2);
-    assert.equal(data.obj1.materials.length, 1);
-    assert.equal(data.obj2.meshes.length, 2);
-    assert.equal(data.obj2.materials.length, 1);
+    assert.equal(data.obj1?.meshes.length, 2);
+    assert.equal(data.obj1?.materials.length, 1);
+    assert.equal(data.obj2?.meshes.length, 2);
+    assert.equal(data.obj2?.materials.length, 1);
   });
 
   test('it supports GLB', async function (assert) {
@@ -53,10 +53,10 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
     });
     const data = getData()!;
     assert.deepEqual(Object.keys(data), ['obj1', 'obj2']);
-    assert.equal(data.obj1.meshes.length, 2);
-    assert.equal(data.obj1.materials.length, 1);
-    assert.equal(data.obj2.meshes.length, 2);
-    assert.equal(data.obj2.materials.length, 1);
+    assert.equal(data.obj1?.meshes.length, 2);
+    assert.equal(data.obj1?.materials.length, 1);
+    assert.equal(data.obj2?.meshes.length, 2);
+    assert.equal(data.obj2?.materials.length, 1);
   });
 
   test('it can update', async function (assert) {
@@ -80,8 +80,8 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
       return data && Object.keys(data).length;
     });
     const data1 = getData()!;
-    const data1obj1Mesh = data1.obj1.meshes[1];
-    const data1obj2Mesh = data1.obj2.meshes[1];
+    const data1obj1Mesh = data1.obj1?.meshes[1];
+    const data1obj2Mesh = data1.obj2?.meshes[1];
 
     this.set('files', {
       obj1: '/gltf/object1.gltf',
@@ -104,15 +104,15 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
       'Unchanged assets have the same container'
     );
 
-    assert.equal(data2.obj1.meshes.length, 2);
-    assert.notOk(data2.obj1.meshes[1].isDisposed());
-    assert.equal(data2.obj1.materials.length, 1);
-    assert.equal(data2.obj3.meshes.length, 2);
-    assert.notOk(data2.obj3.meshes[1].isDisposed());
-    assert.equal(data2.obj3.materials.length, 1);
+    assert.equal(data2.obj1?.meshes.length, 2);
+    assert.notOk(data2.obj1?.meshes[1].isDisposed());
+    assert.equal(data2.obj1?.materials.length, 1);
+    assert.equal(data2.obj3?.meshes.length, 2);
+    assert.notOk(data2.obj3?.meshes[1].isDisposed());
+    assert.equal(data2.obj3?.materials.length, 1);
 
-    assert.equal(data1.obj2.meshes.length, 0);
-    assert.ok(data1obj2Mesh.isDisposed());
+    assert.equal(data1.obj2?.meshes.length, 0);
+    assert.ok(data1obj2Mesh?.isDisposed());
 
     this.set('files', {
       obj1: '/gltf/object2.gltf',
@@ -134,12 +134,12 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
       'Changed assets have different container'
     );
 
-    assert.equal(data3.obj1.meshes.length, 2);
-    assert.notOk(data3.obj1.meshes[1].isDisposed());
-    assert.equal(data3.obj1.materials.length, 1);
+    assert.equal(data3.obj1?.meshes.length, 2);
+    assert.notOk(data3.obj1?.meshes[1].isDisposed());
+    assert.equal(data3.obj1?.materials.length, 1);
 
-    assert.equal(data1.obj1.meshes.length, 0);
-    assert.ok(data1obj1Mesh.isDisposed());
+    assert.equal(data1.obj1?.meshes.length, 0);
+    assert.ok(data1obj1Mesh?.isDisposed());
   });
 
   test('it disposes after teardown', async function (assert) {
@@ -161,17 +161,17 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
       return data && Object.keys(data).length;
     });
     const data = getData()!;
-    const mesh = data.obj1.meshes[1];
+    const mesh = data.obj1?.meshes[1];
 
     this.set('show', false);
     await settled();
     await timeout(50);
 
-    assert.equal(data.obj1.meshes.length, 0);
-    assert.equal(data.obj1.materials.length, 0);
-    assert.equal(data.obj2.meshes.length, 0);
-    assert.equal(data.obj2.materials.length, 0);
-    assert.ok(mesh.isDisposed());
+    assert.equal(data.obj1?.meshes.length, 0);
+    assert.equal(data.obj1?.materials.length, 0);
+    assert.equal(data.obj2?.meshes.length, 0);
+    assert.equal(data.obj2?.materials.length, 0);
+    assert.ok(mesh?.isDisposed());
   });
 
   test('it ignores non-loading assets', async function (assert) {
@@ -191,8 +191,8 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
     });
     const data = getData()!;
     assert.deepEqual(Object.keys(data), ['obj1', 'obj2']);
-    assert.equal(data.obj1.meshes.length, 2);
-    assert.equal(data.obj1.materials.length, 1);
+    assert.equal(data.obj1?.meshes.length, 2);
+    assert.equal(data.obj1?.materials.length, 1);
     assert.equal(data.obj2, null);
   });
 });
