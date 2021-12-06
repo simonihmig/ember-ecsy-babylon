@@ -29,7 +29,7 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
       return data && Object.keys(data).length;
     });
     const data = getData()!;
-    assert.deepEqual(Object.keys(data), ['obj1', 'obj2']);
+    assert.deepEqual(Object.keys(data).sort(), ['obj1', 'obj2']);
     assert.equal(data.obj1?.meshes.length, 2);
     assert.equal(data.obj1?.materials.length, 1);
     assert.equal(data.obj2?.meshes.length, 2);
@@ -52,7 +52,7 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
       return data && Object.keys(data).length;
     });
     const data = getData()!;
-    assert.deepEqual(Object.keys(data), ['obj1', 'obj2']);
+    assert.deepEqual(Object.keys(data).sort(), ['obj1', 'obj2']);
     assert.equal(data.obj1?.meshes.length, 2);
     assert.equal(data.obj1?.materials.length, 1);
     assert.equal(data.obj2?.meshes.length, 2);
@@ -95,8 +95,8 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
     await timeout(50);
 
     const data2 = getData()!;
-    assert.deepEqual(Object.keys(data1), ['obj1', 'obj2']);
-    assert.deepEqual(Object.keys(data2), ['obj1', 'obj3']);
+    assert.deepEqual(Object.keys(data1).sort(), ['obj1', 'obj2']);
+    assert.deepEqual(Object.keys(data2).sort(), ['obj1', 'obj3']);
 
     assert.strictEqual(
       data1.obj1,
@@ -126,7 +126,7 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
     await timeout(50);
 
     const data3 = getData()!;
-    assert.deepEqual(Object.keys(data3), ['obj1', 'dummy']);
+    assert.deepEqual(Object.keys(data3).sort(), ['dummy', 'obj1']);
 
     assert.notStrictEqual(
       data1.obj1,
@@ -190,7 +190,7 @@ module('Integration | Component | ecsy-babylon/load-gltfs', function (hooks) {
       return data && Object.keys(data).length;
     });
     const data = getData()!;
-    assert.deepEqual(Object.keys(data), ['obj1', 'obj2']);
+    assert.deepEqual(Object.keys(data).sort(), ['obj1', 'obj2']);
     assert.equal(data.obj1?.meshes.length, 2);
     assert.equal(data.obj1?.materials.length, 1);
     assert.equal(data.obj2, null);
