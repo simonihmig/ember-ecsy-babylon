@@ -1,5 +1,5 @@
-/*! For license information please see chunk.606.080cc4091fe7b5e3bb11.js.LICENSE.txt */
-"use strict";(globalThis.webpackChunk_ember_auto_import_=globalThis.webpackChunk_ember_auto_import_||[]).push([[606],{6440:(e,t,n)=>{n.d(t,{O:()=>i})
+/*! For license information please see chunk.473.11c9a7697965ad2fe5c4.js.LICENSE.txt */
+"use strict";(globalThis.webpackChunk_ember_auto_import_=globalThis.webpackChunk_ember_auto_import_||[]).push([[473],{6440:(e,t,n)=>{n.d(t,{O:()=>i})
 var i=function(){function e(){this.hoverCursor="",this.actions=new Array,this.isRecursive=!1}return Object.defineProperty(e,"HasTriggers",{get:function(){for(var t in e.Triggers)if(e.Triggers.hasOwnProperty(t))return!0
 return!1},enumerable:!1,configurable:!0}),Object.defineProperty(e,"HasPickTriggers",{get:function(){for(var t in e.Triggers)if(e.Triggers.hasOwnProperty(t)){var n=parseInt(t)
 if(n>=1&&n<=7)return!0}return!1},enumerable:!1,configurable:!0}),e.HasSpecificTrigger=function(t){for(var n in e.Triggers)if(e.Triggers.hasOwnProperty(n)&&parseInt(n)===t)return!0
@@ -6715,4 +6715,42 @@ continue}o=t.call(e,s)}catch(e){o=[6,e],i=0}finally{n=r=0}if(5&o[0])throw o[1]
 return{value:o[0]?o[1]:void 0,done:!0}}([o,a])}}}function c(){for(var e=0,t=0,n=arguments.length;t<n;t++)e+=arguments[t].length
 var i=Array(e),r=0
 for(t=0;t<n;t++)for(var o=arguments[t],s=0,a=o.length;s<a;s++,r++)i[r]=o[s]
-return i}Object.create,Object.create}}])
+return i}Object.create,Object.create},3432:(e,t,n)=>{n.r(t),n.d(t,{LifecycleResource:()=>h,Resource:()=>d,trackedFunction:()=>P,useFunction:()=>L,useHelper:()=>B,useResource:()=>U,useTask:()=>b})
+var i=n(6173),r=n(1292),o=n(9341),s=n(6283),a=n(3353),l=n(7219),c=n(8773),u=n(7456)
+class h{constructor(e,t){this.args=t,(0,r.setOwner)(this,e)}}class f{constructor(e){this.capabilities=(0,s.capabilities)("3.23",{hasValue:!0,hasDestroyable:!0}),this.owner=e}createHelper(e,t){let n,r=this.owner,s=(0,i.createCache)((()=>(void 0===n?n=function(e,t,n,i){let r=new t(n,i)
+return(0,o.associateDestroyableChild)(e,r),"setup"in r&&r.setup(),"teardown"in r&&(0,o.registerDestructor)(r,(()=>r.teardown())),r}(s,e,r,t):n.update(),n)))
+return s}getValue(e){return(0,i.getValue)(e)}getDestroyable(e){return e}}(0,s.setHelperManager)((e=>new f(e)),h)
+class d{static next(e,t){return new this((0,r.getOwner)(e),t,e)}constructor(e,t,n){this.args=t,(0,r.setOwner)(this,e)}}class p{constructor(e){this.capabilities=(0,s.capabilities)("3.23",{hasValue:!0,hasDestroyable:!0}),this.owner=e}createHelper(e,t){let n,r=this.owner,s=(0,i.createCache)((()=>{let i=new e(r,t,n)
+return(0,o.associateDestroyableChild)(s,i),n&&(0,o.destroy)(n),n=i,n}))
+return s}getValue(e){return(0,i.getValue)(e)}getDestroyable(e){return e}}(0,s.setHelperManager)((e=>new p(e)),d)
+const _=Symbol("TASK")
+class m extends h{get taskArgs(){return this.args.positional}get value(){return(0,l.get)(this.currentTask,"isRunning"),this.currentTask.value??this.lastTask?.value}setup(){this.update()}update(){this.currentTask&&(this.lastTask=this.currentTask),this.currentTask=this[_].perform(...this.taskArgs)}teardown(){this[_].cancelAll()}}const g=()=>[]
+function v(e){let t=e()
+return Array.isArray(t)?{named:{},positional:t}:t?"positional"in t||"named"in t?t:{named:t,positional:[]}:{named:{},positional:[]}}function y(e){return new Proxy(e,{get(e,t){const n=e.value,i=Reflect.get(n,t,n)
+return"function"==typeof i?i.bind(n):i},ownKeys:e=>Reflect.ownKeys(e.value),getOwnPropertyDescriptor:(e,t)=>Reflect.getOwnPropertyDescriptor(e.value,t)})}function b(e,t,n){(0,a.assert)("Task does not have a perform method. Is it actually a task?","perform"in t)
+let r=function(e,t,n){let r,o,a=E.get(t)
+return a?o=a:(o=class extends m{constructor(){super(...arguments),this[_]=t}},E.set(t,o)),{get value(){return r||(r=(0,s.invokeHelper)(e,o,(()=>v(n)))),(0,i.getValue)(r)}}}(e,t,n||g)
+return function(e){return new Proxy(e,{get(e,t){const n=e.value
+if("value"===t)return n.value
+const i=n.currentTask,r=Reflect.get(i,t,i)
+return"function"==typeof r?r.bind(i):r},ownKeys:e=>Reflect.ownKeys(e.value),getOwnPropertyDescriptor:(e,t)=>Reflect.getOwnPropertyDescriptor(e.value,t)})}(r)}const E=new WeakMap,T=Symbol("FUNCTION TO RUN"),A=Symbol("INITIAL VALUE"),C=Symbol("HAS RUN"),S=Symbol("RUNNER"),R="___ Secret Value ___"
+class x extends h{get value(){return(0,l.get)(this,R)}setup(){(0,u.waitForPromise)(this[S]())}update(){(0,u.waitForPromise)(this[S]())}async[S](){const{[T]:e}=this
+if(void 0===e)return
+let t=e(this[R])
+await Promise.resolve(),(0,o.isDestroying)(this)||(0,o.isDestroyed)(this)||"object"==typeof t&&"then"in t&&(t=await t,(0,o.isDestroying)(this)||(0,o.isDestroyed)(this))||(this[R]=t,(0,l.notifyPropertyChange)(this,R))}}class M extends h{constructor(){super(...arguments),this[C]=!1}get value(){return(0,l.get)(this,R),!this[C]&&this[A]?this[A]:this[R]}get funArgs(){return this.args.positional}setup(){this.update()}update(){for(let n=0;n<this.funArgs.length;n++)this.funArgs[n]
+const e=this[T],t=this[R];(0,u.waitForPromise)((async()=>{if(await new Promise((e=>(0,c.schedule)("afterRender",e))),(0,o.isDestroying)(this)||(0,o.isDestroyed)(this))return
+const n=await e(t,...this.funArgs);(0,o.isDestroying)(this)||(0,o.isDestroyed)(this)||(this[R]=n,this[C]=!0,(0,l.notifyPropertyChange)(this,R))})())}}function P(){for(var e=arguments.length,t=new Array(e),n=0;n<e;n++)t[n]=arguments[n]
+let i,r,[o]=t;(0,a.assert)("Expected second argument to useFunction to either be an initialValue or the function to run",void 0!==t[1]),I(t)?r=t[1]:(i=t[1],r=t[2])
+let s=D(o,i,r)
+return y(s)}function I(e){return 2===e.length}const O=new WeakMap
+function D(e,t,n){let r,o,a=O.get(n)
+return a?o=a:(o=class extends x{constructor(){super(...arguments),this[R]=t,this[T]=n}},O.set(n,o)),{get value(){return r||(r=(0,s.invokeHelper)(e,o,(()=>{}))),(0,i.getValue)(r)}}}function L(){for(var e=arguments.length,t=new Array(e),n=0;n<e;n++)t[n]=arguments[n]
+let i,r,o,[s]=t;(0,a.assert)("Expected second argument to useFunction to either be an initialValue or the function to run",void 0!==t[1]),F(t)?(r=t[1],o=t[2]):(i=t[1],r=t[2],o=t[3])
+let l=w(s,i,r,o||g)
+return y(l)}function F(e){return"function"==typeof e[1]}const N=new WeakMap
+function w(e,t,n,r){let o,a,l=N.get(n)
+return l?a=l:(a=class extends M{constructor(){super(...arguments),this[A]=t,this[T]=n}},N.set(n,a)),{get value(){return o||(o=(0,s.invokeHelper)(e,a,(()=>v(r)))),(0,i.getValue)(o)}}}function B(e,t){let n,r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:g
+return{get value(){return n||(n=(0,s.invokeHelper)(e,t,(()=>v(r)))),(0,i.getValue)(n)}}}function U(e,t,n){(0,a.assert)("Expected second argument, klass, to be a Resource. This is different from the v1 series where useResource could be used for both functions and class-based Resources. If you intended to pass a function, you'll now (since v2) want to use useFunction instead",t.prototype instanceof h||t.prototype instanceof d)
+let r=function(e,t,n){let r
+return{get value(){return r||(r=(0,s.invokeHelper)(e,t,(()=>v(n)))),(0,i.getValue)(r)}}}(e,t,n||g)
+return y(r)}}}])
