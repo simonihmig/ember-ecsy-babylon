@@ -1,5 +1,22 @@
 
 
+
+## v0.10.0 (2021-12-07)
+
+#### :boom: Breaking Change
+* [#473](https://github.com/kaliber5/ember-ecsy-babylon/pull/473) Drop Ember 3.20 support ([@simonihmig](https://github.com/simonihmig))
+* [#469](https://github.com/kaliber5/ember-ecsy-babylon/pull/469) Expose AssetContainer directly in `<LoadGltfs>` ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#470](https://github.com/kaliber5/ember-ecsy-babylon/pull/470) Add `loadAssetContainer` resource ([@simonihmig](https://github.com/simonihmig))
+* [#469](https://github.com/kaliber5/ember-ecsy-babylon/pull/469) Expose AssetContainer directly in `<LoadGltfs>` ([@simonihmig](https://github.com/simonihmig))
+
+#### :house: Internal
+* [#472](https://github.com/kaliber5/ember-ecsy-babylon/pull/472) Fix flaky test ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.9.2 (2021-11-26)
 
 #### :memo: Documentation
