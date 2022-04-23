@@ -978,6 +978,13 @@
   dependencies:
     tslib ">=1.10.0"
 
+"@babylonjs/core@^5.0.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.3.0.tgz#1a83829cb85add3d9c59c4b38f825834c7acc0ab"
+  integrity sha512-MSvYdnsSbrZmmh2lJUQx/DMpxjXpj8EkbT/jeKYoK+LlFVjxy5LZZDEh6GIe8PFysui6i/6X40EDhJ+C0qfRng==
+  dependencies:
+    tslib "^2.3.1"
+
 "@babylonjs/gui@4.2.1":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-4.2.1.tgz#e22e0ddfc456cc816500dd72ad034e1b41a53218"

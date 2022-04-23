@@ -29,7 +29,7 @@
     "test:ember-compatibility": "ember try:each"
   },
   "dependencies": {
-    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/core": "^5.0.0",
     "@babylonjs/inspector": "^4.2.0",
     "@babylonjs/loaders": "^4.2.0",
     "@ember/render-modifiers": "^2.0.0",
