@@ -30,8 +30,8 @@ module('Unit | Resource | AssetContainer', function () {
     const container = test.ac.assets!;
     assert.ok(container, 'asset container exists');
 
-    assert.equal(container.meshes.length, 2);
-    assert.equal(container.materials.length, 1);
+    assert.strictEqual(container.meshes.length, 2);
+    assert.strictEqual(container.materials.length, 1);
   });
 
   test('it supports GLB', async function (assert) {
@@ -48,8 +48,8 @@ module('Unit | Resource | AssetContainer', function () {
     const container = test.ac.assets!;
     assert.ok(container, 'asset container exists');
 
-    assert.equal(container.meshes.length, 2);
-    assert.equal(container.materials.length, 1);
+    assert.strictEqual(container.meshes.length, 2);
+    assert.strictEqual(container.materials.length, 1);
   });
 
   test('it exposes derived loading state', async function (assert) {
@@ -66,8 +66,8 @@ module('Unit | Resource | AssetContainer', function () {
     const container = test.ac.assets!;
     assert.ok(container, 'asset container exists');
 
-    assert.equal(container.meshes.length, 2);
-    assert.equal(container.materials.length, 1);
+    assert.strictEqual(container.meshes.length, 2);
+    assert.strictEqual(container.materials.length, 1);
   });
 
   test('it can update', async function (assert) {
@@ -97,8 +97,8 @@ module('Unit | Resource | AssetContainer', function () {
     const container2 = test.ac.assets!;
     assert.ok(container2, 'asset container exists');
 
-    assert.equal(container2.meshes.length, 2);
-    assert.equal(container2.materials.length, 1);
+    assert.strictEqual(container2.meshes.length, 2);
+    assert.strictEqual(container2.materials.length, 1);
     assert.notOk(container2.meshes[1].isDisposed(), 'new mesh is not disposed');
 
     assert.ok(mesh1.isDisposed(), 'previous mesh is disposed');
@@ -122,8 +122,8 @@ module('Unit | Resource | AssetContainer', function () {
     destroy(test);
     await settled();
 
-    assert.equal(container.meshes.length, 0);
-    assert.equal(container.materials.length, 0);
+    assert.strictEqual(container.meshes.length, 0);
+    assert.strictEqual(container.materials.length, 0);
     assert.ok(mesh.isDisposed(), 'mesh is disposed');
   });
 

@@ -71,8 +71,8 @@ module('Integration | Component | ecsy-babylon', function (hooks) {
 
     const engine = (getData() as { scene: Scene }).scene.getEngine();
 
-    assert.equal(engine.getRenderWidth(), 300);
-    assert.equal(engine.getRenderHeight(), 200);
+    assert.strictEqual(engine.getRenderWidth(), 300);
+    assert.strictEqual(engine.getRenderHeight(), 200);
     assert.dom('canvas').hasAttribute('width', '300');
     assert.dom('canvas').hasAttribute('height', '200');
 
@@ -82,8 +82,8 @@ module('Integration | Component | ecsy-babylon', function (hooks) {
     await settled();
     await new Promise((r) => setTimeout(r, 50));
 
-    assert.equal(engine.getRenderWidth(), 400);
-    assert.equal(engine.getRenderHeight(), 300);
+    assert.strictEqual(engine.getRenderWidth(), 400);
+    assert.strictEqual(engine.getRenderHeight(), 300);
     assert.dom('canvas').hasAttribute('width', '400');
     assert.dom('canvas').hasAttribute('height', '300');
   });

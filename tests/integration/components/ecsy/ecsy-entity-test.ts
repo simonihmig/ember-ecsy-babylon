@@ -25,8 +25,8 @@ module('Integration | Component | ecsy/entity', function (hooks) {
     `);
 
     const world = getData() as any;
-    assert.equal(world.entityManager._entities.length, 0);
+    assert.strictEqual(world.entityManager._entities.length, 0);
     this.set('show', true);
-    assert.equal(world.entityManager._entities.length, 1);
+    assert.strictEqual(world.entityManager._entities.length, 1);
   });
 });
