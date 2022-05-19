@@ -20,6 +20,7 @@ module('Integration | Component | domless-glimmer', function () {
         super(owner, args);
         // Using Object.assign to "bake" the Proxy which args is, which does not work well with assertions
         receivedCreateArgs = Object.assign({}, args);
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
         instance = this;
       }
 
