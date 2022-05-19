@@ -1,6 +1,23 @@
 
 
 
+
+## v0.11.0 (2022-05-19)
+
+#### :boom: Breaking Change
+* [#500](https://github.com/kaliber5/ember-ecsy-babylon/pull/500) Drop node 12 support ([@simonihmig](https://github.com/simonihmig))
+* [#498](https://github.com/kaliber5/ember-ecsy-babylon/pull/498) Update Babylon.js to v5 ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#498](https://github.com/kaliber5/ember-ecsy-babylon/pull/498) Update Babylon.js to v5 ([@simonihmig](https://github.com/simonihmig))
+
+#### :house: Internal
+* [#499](https://github.com/kaliber5/ember-ecsy-babylon/pull/499) Update to Ember 4.3 ([@simonihmig](https://github.com/simonihmig))
+* [#492](https://github.com/kaliber5/ember-ecsy-babylon/pull/492) Fix flaky acceptance test ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.10.0 (2021-12-07)
 
 #### :boom: Breaking Change
