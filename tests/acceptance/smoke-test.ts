@@ -8,12 +8,12 @@ module('Acceptance | smoke-test', function (hooks) {
 
   test('index works', async function (assert) {
     await visit('/');
-    assert.equal(currentURL(), '/');
+    assert.strictEqual(currentURL(), '/');
   });
 
   test('playground works', async function (assert) {
     await visit('/playground');
-    assert.equal(currentURL(), '/playground');
+    assert.strictEqual(currentURL(), '/playground');
 
     // BJS can cause some errors here when the scene is disposed before an environment image has loaded
     // That's a bug we cannot fix here
@@ -22,6 +22,6 @@ module('Acceptance | smoke-test', function (hooks) {
 
   test('xr works', async function (assert) {
     await visit('/xr');
-    assert.equal(currentURL(), '/xr');
+    assert.strictEqual(currentURL(), '/xr');
   });
 });

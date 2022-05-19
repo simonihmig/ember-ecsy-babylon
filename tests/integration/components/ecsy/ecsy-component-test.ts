@@ -32,11 +32,11 @@ module('Integration | Component | ecsy/component', function (hooks) {
     `);
 
     const { entityManager } = getData() as any;
-    assert.equal(entityManager._entities.length, 1);
+    assert.strictEqual(entityManager._entities.length, 1);
     const entity = entityManager._entities[0];
     const component = entity.getComponent(DummyComponent);
     assert.ok(component, 'entity has component');
-    assert.equal(component.foo, 'bar', 'component has passed arguments');
+    assert.strictEqual(component.foo, 'bar', 'component has passed arguments');
   });
 
   test('it does not leak passed instances', async function (assert) {
@@ -61,7 +61,7 @@ module('Integration | Component | ecsy/component', function (hooks) {
     `);
 
     const { entityManager } = getData() as any;
-    assert.equal(entityManager._entities.length, 1);
+    assert.strictEqual(entityManager._entities.length, 1);
     const entity = entityManager._entities[0];
     let component = entity.getComponent(DummyComponent);
     assert.ok(component, 'entity has component');

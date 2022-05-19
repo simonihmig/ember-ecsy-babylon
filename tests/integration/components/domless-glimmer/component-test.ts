@@ -70,7 +70,7 @@ module('Integration | Component | domless-glimmer', function () {
       this.set('foo', 'xxx');
       await settled();
 
-      assert.equal(receivedUpdateArgs, undefined);
+      assert.strictEqual(receivedUpdateArgs, undefined);
     });
 
     test('it receives diff of updated arguments', async function (assert) {
