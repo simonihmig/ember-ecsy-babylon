@@ -2,6 +2,15 @@
 
 
 
+
+## v0.11.1 (2022-06-09)
+
+#### :rocket: Enhancement
+* [#503](https://github.com/kaliber5/ember-ecsy-babylon/pull/503) Add `@onReady` action to `<EcsyBabylon>` ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.11.0 (2022-05-19)
 
 #### :boom: Breaking Change
