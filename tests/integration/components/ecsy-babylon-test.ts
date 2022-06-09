@@ -5,6 +5,7 @@ import { hbs } from 'ember-cli-htmlbars';
 import setupEcsyBabylon from 'dummy/tests/helpers/setup-ecsy-babylon';
 import setupDataDumper from 'dummy/tests/helpers/dump';
 import { Scene } from '@babylonjs/core/scene';
+import { Engine } from '@babylonjs/core/Engines/engine';
 
 module('Integration | Component | ecsy-babylon', function (hooks) {
   setupRenderingTest(hooks);
@@ -86,5 +87,28 @@ module('Integration | Component | ecsy-babylon', function (hooks) {
     assert.strictEqual(engine.getRenderHeight(), 300);
     assert.dom('canvas').hasAttribute('width', '400');
     assert.dom('canvas').hasAttribute('height', '300');
+  });
+
+  test('it calls onReady', async function (assert) {
+    assert.expect(3);
+    const onReady = (engine: Engine, scene: Scene) => {
+      assert.true(engine instanceof Engine, 'engine is passed to onReady');
+      assert.ok(scene, 'scene is passed to onReady');
+      assert.strictEqual(scene.getEngine(), engine);
+    };
+    this.set('onReady', onReady);
+    await render(hbs`
+      <EcsyBabylon @components={{this.components}} @systems={{this.systems}} @onReady={{this.onReady}} as |Scene|>
+        <Scene as |World|>
+          <World.Entity
+            {{arc-rotate-camera lowerRadiusLimit=5 upperRadiusLimit=20 radius=10}}
+          />
+          <World.Entity
+            {{box size=2 width=3}}
+            {{pbr-material ambientColor=(color 0 1 0) albedoColor=(color 0 1 0) metallic=0.5 roughness=0.5}}
+          />
+        </Scene>
+      </EcsyBabylon>
+    `);
   });
 });
