@@ -21,6 +21,7 @@ export interface EcsyBabylonDomlessGlimmerArgs
   engineOptions?: EngineOptions;
   antialias?: boolean;
   adaptToDeviceRatio?: boolean;
+  onReady?: (engine: Engine, scene: Scene) => void;
 }
 
 const DEBUG_KEY = {
@@ -77,6 +78,8 @@ export default class EcsyBabylon extends Ecsy<
         'While focusing an ember-ecsy-babylon component, press CTRL-D to open the Babylon.js Inspector!'
       );
     }
+
+    this.args.onReady?.(this.engine, this.scene);
   }
 
   @action
