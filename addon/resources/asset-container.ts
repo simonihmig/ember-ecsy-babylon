@@ -18,7 +18,7 @@ interface Args {
 export class AssetContainerResource extends Resource<Args> {
   @tracked assets?: AssetContainer | null;
   private _assets?: AssetContainer | null;
-  private promise?: Promise<AssetContainer | null>;
+  promise?: Promise<AssetContainer | null>;
 
   constructor(owner: unknown) {
     super(owner);
