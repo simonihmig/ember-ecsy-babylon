@@ -4,6 +4,15 @@
 
 
 
+
+## v0.12.1 (2022-07-04)
+
+#### :bug: Bug Fix
+* [#512](https://github.com/kaliber5/ember-ecsy-babylon/pull/512) Fix `AssetContainerResource#promise` to be public again ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.12.0 (2022-07-04)
 
 #### :boom: Breaking Change
