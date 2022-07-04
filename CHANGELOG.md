@@ -3,6 +3,18 @@
 
 
 
+
+## v0.12.0 (2022-07-04)
+
+#### :boom: Breaking Change
+* [#511](https://github.com/kaliber5/ember-ecsy-babylon/pull/511) Move `@babylonjs/*` packages to peerDependencies ([@simonihmig](https://github.com/simonihmig))
+
+#### :rocket: Enhancement
+* [#510](https://github.com/kaliber5/ember-ecsy-babylon/pull/510) Update to ember-resources v5 ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## v0.11.1 (2022-06-09)
 
 #### :rocket: Enhancement
