@@ -981,10 +981,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@babylonjs/inspector@5.13.1":
-  version "5.13.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.13.1.tgz#735a56e4ce5c62f3cf2da4541ea6eed6aa8dcbbc"
-  integrity sha512-hN+3yE+dF6RMrnlNvVfUzz3Q6qRC9NSU3NbyxwPJhOnGVax7n1XecfENj10VR1XBCWwGHf02rE6syeOPdPxsHA==
+"@babylonjs/inspector@5.13.3":
+  version "5.13.3"
+  resolved "https://registry.yarnpkg.com/@babylonjs/inspector/-/inspector-5.13.3.tgz#85c7ef837833734646005e6f3a50a544cebd37ec"
+  integrity sha512-Jj30+PEe+hMZOlwmkbiC/YOssehe9sCgIhOI/Dtn4zw3zgF4kcrqnYxYEywmAFsLXg9WDFbDPiErk8RRe1iFQg==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.1.0"
     "@fortawesome/free-regular-svg-icons" "^6.0.0"
