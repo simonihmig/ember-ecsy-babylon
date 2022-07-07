@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@babylonjs/core": "5.14.0",
-    "@babylonjs/gui": "5.13.1",
+    "@babylonjs/gui": "5.13.3",
     "@babylonjs/gui-editor": "5.13.3",
     "@babylonjs/inspector": "5.13.1",
     "@babylonjs/loaders": "5.13.3",
