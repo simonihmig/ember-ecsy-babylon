@@ -962,10 +962,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@5.14.0", "@babylonjs/core@^5.6.1":
-  version "5.14.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.14.0.tgz#ef4e2d1e7a9f183951451ddc4e6aab91b23b337a"
-  integrity sha512-oSJ2M4wFDzw2onFSh/WSR6OujvrqmhVg0JZpMZLnUA58dIg8NjrsZ5q1gCHghYGkACIn4IQ0ZboVwqc8MRVZ7w==
+"@babylonjs/core@5.14.1", "@babylonjs/core@^5.6.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.14.1.tgz#054cf2cf29c4aa3400490367856b20067b341ad7"
+  integrity sha512-J+17eZ0F8DOLeyBk1JVT9RjKxJLRV/chtvfcya9SyJPweHDZgJ4SDGYldfxAmRIYuooJxwpOr3H4c+FLU29/NQ==
   dependencies:
     tslib "^2.4.0"
 
