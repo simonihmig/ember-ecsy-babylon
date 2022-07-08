@@ -1004,10 +1004,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@babylonjs/serializers@5.13.3":
-  version "5.13.3"
-  resolved "https://registry.yarnpkg.com/@babylonjs/serializers/-/serializers-5.13.3.tgz#23379165a380692efd155bdba2e0651b4abdd05d"
-  integrity sha512-Xky7FoE+F+w7j1mepgJ6oU6JE2nC4UknGhqWKp2psz21c9aUP02BnFVkA6gQd2DfKalW/Rkb3KPcJgVTbZSDBg==
+"@babylonjs/serializers@5.14.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/serializers/-/serializers-5.14.1.tgz#35653faa8de049cdf0e58bd1f1a7b58934ee2a57"
+  integrity sha512-3OTgUu8+ezIzErjb9YEwRi9heEOLTeXrh5fDYHK+/oTg7Z8MrlpnRajKcjgPewZSNNQqeCWJ5QbMApzKH6YDzg==
   dependencies:
     tslib "^2.4.0"
 
