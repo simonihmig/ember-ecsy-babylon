@@ -969,10 +969,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@babylonjs/gui-editor@5.15.1":
-  version "5.15.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui-editor/-/gui-editor-5.15.1.tgz#6cc79100ffe5845251bddc23796782d10c8f0ac9"
-  integrity sha512-0yC8WDMVfBGIUehqMvjYrQkensp2/xl78BLCXzs742x+8rXk7v3zyBb/tChMnQAa1hTQdrdCvk80NulpoxDutQ==
+"@babylonjs/gui-editor@5.16.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/gui-editor/-/gui-editor-5.16.0.tgz#ca826e1b31f72c4ce5a3eeecb24ac38c4d5aabac"
+  integrity sha512-uxcY/rgDWcu4bnSFg8+UjoGkMp/ubyVuHY5zb2CHQA5nbZCVnUHfdGU9udmXE8LSmwWYTWt4EonCnCGTCOgF/g==
 
 "@babylonjs/gui@5.16.0":
   version "5.16.0"
