@@ -990,10 +990,10 @@
     "@fortawesome/free-regular-svg-icons" "^6.0.0"
     "@fortawesome/free-solid-svg-icons" "^6.0.0"
 
-"@babylonjs/loaders@5.17.1":
-  version "5.17.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-5.17.1.tgz#a75ebd3b38b80fc825b450e41ce31eb923398627"
-  integrity sha512-hdCu0rePwyCezCFoPBBeYga4wDw5XbbxPSh/5tBbLlRPGwZU2TpbZwVhBDmp1Ewo1nhtuLPpgXxfR6OFmGO87A==
+"@babylonjs/loaders@5.18.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-5.18.0.tgz#c372809bb8aa4930ae6a30c5ae712217b50b224e"
+  integrity sha512-YbfkPr2wvbsof4Ud9gibAjUSXkhF0vxvpo+fkes7swnWFB9SVNR2oD+J0xEKPtVzVSXt4sle0xSgUbwBvjXjOw==
   dependencies:
     tslib "^2.4.0"
 
