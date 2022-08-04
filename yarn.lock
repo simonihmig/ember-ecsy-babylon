@@ -974,10 +974,10 @@
   resolved "https://registry.yarnpkg.com/@babylonjs/gui-editor/-/gui-editor-5.17.1.tgz#d71a58e6764d160eaba0e0cf7907e7c0a65afccc"
   integrity sha512-seLgifxJSZAzBWCmtUlyS4rBx6rIZRa4PFcfK+72nZw7Cf/pCKWokq1UieIDNCNfDecfWRZL/FYAbki9D7a3SQ==
 
-"@babylonjs/gui@5.17.1":
-  version "5.17.1"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-5.17.1.tgz#b6426e41fd40a4c37b6d52fd79141ae81971a935"
-  integrity sha512-h+HiFYDibtDAaVx65z6n4EBMV4MdCS3Eyw8mva462YKFKDeUCpuuUtYA3AcMhuHy9nr7HaZF5YTMGr/2HqdSZQ==
+"@babylonjs/gui@5.18.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-5.18.0.tgz#f3cc3719d7cfaf7bcd579a256ab858aebf624bb4"
+  integrity sha512-ZtPk8fJjLVo0JPuLajezvORW7Dv7+6NwP+fb3f+u8KwTMzvxY0RUwPYjPdUCdntsx6U12y+2UN+MwALpPshpVA==
   dependencies:
     tslib "^2.4.0"
 
