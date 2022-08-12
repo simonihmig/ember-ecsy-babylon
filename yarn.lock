@@ -997,10 +997,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@babylonjs/materials@5.18.0", "@babylonjs/materials@^5.6.1":
-  version "5.18.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/materials/-/materials-5.18.0.tgz#3001c2c97342d1c25961355009efda4a59247b9f"
-  integrity sha512-bzV79XxzeqWQI9GW7HqlK7J/lqkV2Y0G7gyQ3Bo3XDny6CYTYxVWmw7rBI9wX4Evb0mOB4Mio6lGFv2EsoAMSQ==
+"@babylonjs/materials@5.19.0", "@babylonjs/materials@^5.6.1":
+  version "5.19.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/materials/-/materials-5.19.0.tgz#a1e256e25c6c8e21b7db312002056cb0a97e0455"
+  integrity sha512-D82D0LMTEMVKzAWf/XxzL6Wm+1BBGLZafQuhzFjr04Xv3O78Wxkut+ncGqtD9M8outy0Nt9qJcJSh1e6hfXwgA==
   dependencies:
     tslib "^2.4.0"
 
